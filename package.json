@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "develop": "NODE_ENV=development nodemon server/index.js",
+    "test": "NODE_ENV=test jest --watch --runInBand --detectOpenHandles",
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "prettier-eslint $PWD/'**/*.js' --write"
   },
   "repository": {
     "type": "git",
