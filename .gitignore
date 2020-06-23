@@ -1,4 +1,5 @@
 config
+docker
 # Logs
 logs
 *.log
