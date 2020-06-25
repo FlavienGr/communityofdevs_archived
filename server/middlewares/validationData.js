@@ -6,6 +6,7 @@ const validationData = async (req, _res, next) => {
   if (!errors.isEmpty()) {
     return next(new RequestValidationErrors(errors.array()));
   }
+  next();
 };
 
 module.exports = validationData;
