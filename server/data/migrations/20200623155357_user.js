@@ -1,22 +1,24 @@
 const Knex = require('knex');
 const tableUser = require('../../constants/tableUser')
 
+/**
+ * @param {Knex} knex
+ */
 
 function addDefaultColumns (table) {
   return table.timestamps(false,true)
 }
 function references (table, tableName) {
-    return table.uuid(`${tableName}_id`)
+    return table.integer(`${tableName}_id`)
+    .unsigned()
     .references('id')
     .inTable(tableName)
     .onDelete('cascade')
 }
-/**
- * @param {Knex} knex
- */
+
 exports.up = async function(knex) {
   await knex.schema.createTable(tableUser.user, table => {
-    table.uuid('id').primary(); //ids
+    table.increments() //ids
     table.string('name', 100).notNullable().unique();
     table.string('email', 100).notNullable().unique();
     table.string('password', 128).notNullable();
@@ -29,16 +31,26 @@ exports.up = async function(knex) {
   })
 
   await knex.schema.createTable(tableUser.user_country, table => {
-    table.uuid('id').primary();
-    table.string('name', 50).notNullable();
+    table.increments();
+    table.string('name', 100).notNullable();
+    table.string('code', 2).notNullable();
+  })
+  await knex.schema.createTable(tableUser.user_city, table => {
+    table.increments();
+    table.string('name', 100).notNullable();
+    table.string('code', 3).notNullable();
+    table.string('zipcode', 6).notNullable();
+    table.string('slug', 100).notNullable();
   })
   await knex.schema.createTable(tableUser.user_state, table => {
-    table.uuid('id').primary();
-    table.string('name', 50).notNullable();
+    table.increments('id').primary();
+    table.string('name', 100).notNullable();
+    table.string('slug', 100).notNullable();
+    table.string('code', 3).notNullable();
   })
 
   await knex.schema.createTable(tableUser.user_address, table => {
-      table.uuid('id').primary();
+      table.increments();
       references(table, 'user');
       table.string('street_address_1').notNullable();
       table.string('street_address_2');
@@ -55,6 +67,7 @@ exports.down = async function(knex) {
     tableUser.user_address,
     tableUser.user_state,
     tableUser.user_country,
+    tableUser.user_city,
     tableUser.user
   ].map(tableName => knex.schema.dropTableIfExists(tableName)));
 };

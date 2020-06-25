@@ -1,5 +1,6 @@
 config
 docker
+.DS_Store
 # Logs
 logs
 *.log

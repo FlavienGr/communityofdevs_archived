@@ -2,6 +2,7 @@ const RequestAuthErrors = require('../errors/request-auth-errors');
 const DatabaseConnectionError = require('../errors/databaseConnectionError');
 const Helper = require('../utils/helper');
 const User = require('../model/User');
+
 // @desc   Login a user
 // @route  Post api/v1/user/auth/login
 // @access Public

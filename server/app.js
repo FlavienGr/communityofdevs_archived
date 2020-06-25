@@ -20,7 +20,6 @@ const errorHandler = require('./middlewares/errorHandler');
 app.use(express.json());
 // / Logs
 app.use(morgan('combined'));
-// cookies
 
 // / user router
 const routeAuthUser = require('./routes/authUser');

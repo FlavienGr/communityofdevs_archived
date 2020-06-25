@@ -1,21 +1,37 @@
-const tableUser = require('../../constants/tableUser')
-exports.seed = async function(knex) {
-  // Deletes ALL existing entries
+const Knex = require('knex');
+const Helper = require('../../utils/helper')
+const tableUser = require('../../constants/tableUser');
+const countries = require('../../constants/countries');
+const departments = require('../../constants/departments');
 
-  await knex(tableUser.user_country).del()
-  await knex(tableUser.user_state).del()
+const allCities = Object.entries(require('../../constants/cities'))
+
+
+/**
+ * @param {Knex} knex
+ */
+
+exports.seed = async function(knex) {
+  const password = Helper.hashPassword('testPassword')
+  const userOne = {
+    name: "firstuser",
+    email: "firstuser@fake.com",
+    password
+  }
+  // Deletes ALL existing entries
+  await Promise.all(Object
+    .keys(tableUser)
+    .map((name) => knex(name).del()));
 
   // Inserts seed entries user
-  await knex(tableUser.user_state).insert([{
-     "name": "île-de-france"
-    }, {
-      "name": "charente maritime"
-     }], ['id']);
+  const user = await knex(tableUser.user).insert(userOne)
 
+  const insertedCountries = await knex(tableUser.user_country)
+    .insert(countries, '*');
+  const insertedDepartments = await knex(tableUser.user_state)
+  .insert(departments, '*');
 
-  await knex(tableUser.user_country).insert([{
-      name: "USA"
-    }, {
-      name: "france"
-    }], ['id']);
-};
+  for (const [key, value] of allCities) {
+    await knex(tableUser.user_city).insert(value)
+  }
+}
