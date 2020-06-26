@@ -5,7 +5,7 @@ const validator = require('../utils/validator/validateUser');
 const requestValidationData = require('../middlewares/requestValidationData');
 
 const {
-  // userSignup,
+  userSignup,
   userLogin
   //   userLogout
 } = require('../controllers/authUser');
@@ -16,6 +16,8 @@ router
   .route('/login')
   .post(validator.userLogin, requestValidationData, userLogin);
 // router.route('/logout').get(auth, userLogout);
-// router.route('/signup').post(userSignup);
+router
+  .route('/signup')
+  .post(validator.userSignup, requestValidationData, userSignup);
 
 module.exports = router;

@@ -2,17 +2,24 @@ const request = require('supertest');
 const app = require('../../app');
 
 const {
-  // deleteAllinUserTables,
-  // userOne,
+  deleteAllinUserTables,
+  userOne,
   userLogin
 } = require('../fixtures/user');
 
+beforeAll(async () => {
+  await deleteAllinUserTables();
+
+  // / create user
+  await request(app)
+    .post('/api/v1/user/auth/signup')
+    .send(userOne);
+});
 describe('login / logout operation', () => {
   it('should login a user', async done => {
     const response = await request(app)
       .post('/api/v1/user/auth/login')
       .send(userLogin);
-
     expect(response.statusCode).toBe(200);
     expect(response.body.data.email).toBe(userLogin.email);
     done();
