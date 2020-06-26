@@ -22,10 +22,10 @@ exports.up = async function(knex) {
     table.string('name', 100).notNullable().unique();
     table.string('email', 100).notNullable().unique();
     table.string('password', 128).notNullable();
-    table.boolean('blocked').defaultTo(false);
+    table.boolean('blocked').notNullable().defaultTo(false);
     table.string('resetToken', 128);
     table.string('resetTokenExpire', 128);
-    table.boolean('cgu').defaultTo(false);
+    table.boolean('cgu').notNullable().defaultTo(0);
     table.datetime('last_login');
     addDefaultColumns(table);
   })
