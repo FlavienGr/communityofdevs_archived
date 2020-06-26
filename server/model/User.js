@@ -1,19 +1,13 @@
 const db = require('../db/index');
 const tableUser = require('../constants/tableUser');
 
-const findByEmail = (email, password) => {
-  if (password) {
-    return db(tableUser.user)
-      .select('id', 'name', 'email', 'password')
-      .where({ email })
-      .first();
-  }
+const findByEmailLogin = email => {
   return db(tableUser.user)
-    .select('id', 'name', 'email')
+    .select('id', 'name', 'email', 'password')
     .where({ email })
     .first();
 };
 
 module.exports = {
-  findByEmail
+  findByEmailLogin
 };

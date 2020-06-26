@@ -2,7 +2,7 @@ const RequestAuthErrors = require('../errors/request-auth-errors');
 const DatabaseConnectionError = require('../errors/databaseConnectionError');
 const Helper = require('../utils/helper');
 const User = require('../model/User');
-
+const sendResponse = require('../utils/sendResponse');
 // @desc   Login a user
 // @route  Post api/v1/user/auth/login
 // @access Public
@@ -11,8 +11,7 @@ exports.userLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findByEmail(email, true);
-
+    const user = await User.findByEmailLogin(email);
     if (!user) {
       return next(new RequestAuthErrors());
     }
@@ -31,8 +30,8 @@ exports.userLogin = async (req, res, next) => {
       name: user.name,
       jwt: token
     };
-    res.status(200);
-    res.json(sanitizedUser);
+
+    sendResponse(sanitizedUser, 200, res);
   } catch (error) {
     next(new DatabaseConnectionError());
   }

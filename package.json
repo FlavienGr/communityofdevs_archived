@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "develop": "NODE_ENV=development nodemon server/index.js",
-    "test": "NODE_ENV=test jest --watch --runInBand --detectOpenHandles",
     "lint": "eslint '**/*.js'",
     "lint:fix": "prettier-eslint $PWD/'**/*.js' --write",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "test": "NODE_ENV=test jest --watch --runInBand --detectOpenHandles",
+    "migrate:test": "NODE_ENV=test knex migrate:latest",
+    "rollback:test": "NODE_ENV=test knex migrate:rollback",
+    "seed:test": "NODE_ENV=test knex seed:run"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,14 @@
     "morgan": "^1.10.0",
     "papaparse": "^5.2.0",
     "pg": "^8.2.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/docker/",
+      "<rootDir>/config/"
+    ]
   },
   "devDependencies": {
     "eslint": "^6.8.0",
