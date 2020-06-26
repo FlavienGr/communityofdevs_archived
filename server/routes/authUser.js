@@ -1,17 +1,20 @@
 const express = require('express');
 
 const router = express.Router();
-const validationData = require('../middlewares/validationData');
+const validator = require('../utils/validator/validateUser');
+const requestValidationData = require('../middlewares/requestValidationData');
 
 const {
-  //   userSignup,
+  // userSignup,
   userLogin
   //   userLogout
 } = require('../controllers/authUser');
 
-const auth = require('../middlewares/auth');
+// const auth = require('../middlewares/auth');
 
-router.route('/login').post(validationData, userLogin);
+router
+  .route('/login')
+  .post(validator.userLogin, requestValidationData, userLogin);
 // router.route('/logout').get(auth, userLogout);
 // router.route('/signup').post(userSignup);
 

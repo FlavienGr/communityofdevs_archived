@@ -2,8 +2,8 @@ const request = require('supertest');
 const app = require('../../app');
 
 const {
-  deleteAllinUserTables,
-  userOne,
+  // deleteAllinUserTables,
+  // userOne,
   userLogin
 } = require('../fixtures/user');
 
@@ -12,9 +12,31 @@ describe('login / logout operation', () => {
     const response = await request(app)
       .post('/api/v1/user/auth/login')
       .send(userLogin);
-    console.log(response.body, 'response');
+
     expect(response.statusCode).toBe(200);
     expect(response.body.data.email).toBe(userLogin.email);
     done();
+  });
+  describe('should send an error', () => {
+    it('password too short', async () => {
+      const response = await request(app)
+        .post('/api/v1/user/auth/login')
+        .send({ ...userLogin, password: '1234' });
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.success).toBeFalsy();
+      expect(response.body.errors[0].message).toBe(
+        'Password must be at least 8 chars long'
+      );
+    });
+    it('email too short', async () => {
+      const response = await request(app)
+        .post('/api/v1/user/auth/login')
+        .send({ ...userLogin, email: 'testfailed/fake.com' });
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.success).toBeFalsy();
+      expect(response.body.errors[0].message).toBe('Incorrect email format');
+    });
   });
 });
