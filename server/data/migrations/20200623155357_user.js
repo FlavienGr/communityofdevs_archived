@@ -20,8 +20,9 @@ exports.up = async function(knex) {
   await knex.schema.createTable(tableUser.user, table => {
     table.increments() //ids
     table.string('name', 100).notNullable().unique();
-    table.string('email', 100).notNullable().unique();
+    table.string('email', 50).notNullable().unique();
     table.string('password', 128).notNullable();
+    table.string('immatriculation', 15).notNullable();
     table.boolean('blocked').notNullable().defaultTo(false);
     table.string('resetToken', 128);
     table.string('resetTokenExpire', 128);
@@ -54,8 +55,7 @@ exports.up = async function(knex) {
       references(table, 'user');
       table.string('street_address_1').notNullable();
       table.string('street_address_2');
-      table.string('city').notNullable();
-      table.string('zipcode');
+      references(table, 'user_city');
       references(table, 'user_state');
       references(table, 'user_country');
   })
