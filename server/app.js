@@ -23,11 +23,11 @@ app.use(morgan('combined'));
 
 // / user router
 const routeAuthUser = require('./routes/authUser');
-// const routeUser = require('./routes/user');
+const routeUser = require('./routes/user');
 
 // / user routes
 app.use('/api/v1/user/auth', routeAuthUser);
-// app.use('/api/v1/user', routeUser);
+app.use('/api/v1/user', routeUser);
 
 // / error handler
 app.use(errorHandler);

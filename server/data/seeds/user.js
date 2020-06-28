@@ -16,6 +16,7 @@ exports.seed = async function(knex) {
   const userOne = {
     name: "firstuser",
     email: "firstuser@fake.com",
+    immatriculation: "5728JSJSSLJS",
     password
   }
   // Deletes ALL existing entries

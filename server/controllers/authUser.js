@@ -4,11 +4,29 @@ const Helper = require('../utils/helper');
 const User = require('../model/User');
 const sendResponse = require('../utils/sendResponse');
 const { sanitizedUser } = require('../utils/sanitizedUser');
+const validInsertData = require('../utils/validInsertData');
+const RequestInsertErrors = require('../errors/request-insert-errors');
 
-// @desc   Create a user profile
+// @desc   Create a user
 // @route  Post user api/v1/user/auth/signup
 // @access Public
 exports.userSignup = async (req, res, next) => {
+  const allowInsert = [
+    'name',
+    'email',
+    'password',
+    'immatriculation',
+    'street',
+    'city',
+    'state',
+    'zipcode',
+    'country',
+    'cgu'
+  ];
+  const isNotValid = validInsertData(req.body, allowInsert);
+  if (isNotValid) {
+    return next(new RequestInsertErrors());
+  }
   try {
     const userExists = await User.findByEmail(req.body.email);
     if (userExists) {
@@ -18,9 +36,9 @@ exports.userSignup = async (req, res, next) => {
 
     const user = await User.signup(req.body, hashPassword);
 
-    const token = await Helper.generateToken(user[0].id);
+    const token = await Helper.generateToken(user.id);
 
-    sendResponse(sanitizedUser(user[0], token), 201, res);
+    sendResponse(sanitizedUser(user, token), 201, res);
   } catch (error) {
     next(new DatabaseConnectionError());
   }

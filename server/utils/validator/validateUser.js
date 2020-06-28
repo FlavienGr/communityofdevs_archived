@@ -19,9 +19,14 @@ const configUser = [
     .withMessage('name must be at least 4 chars long')
     .bail()
 ];
+const configAddress = [check('street').trim()];
+
 const userLogin = [...configConnection];
 const userSignup = [...configConnection, ...configUser];
+const updatesUser = [...configUser, ...configAddress];
+
 module.exports = {
   userLogin,
-  userSignup
+  userSignup,
+  updatesUser
 };
