@@ -68,7 +68,7 @@ const createNewAddress = async data => {
   return updateAddress;
 };
 const signup = async (data, hashPassword) => {
-  const { email, name, immatriculation, street, city, state, country } = data;
+  const { email, name, immatriculation } = data;
 
   const user = await db(tableUser.user).insert(
     {
@@ -80,11 +80,7 @@ const signup = async (data, hashPassword) => {
     ['id', 'email', 'name']
   );
 
-  const address = {};
-  address.user_country_id = await getElementID(country, 'country');
-  address.user_state_id = await getElementID(state, 'state');
-  address.user_city_id = await getElementID(city, 'city');
-  address.street_address_1 = street;
+  const address = await createNewAddress(data);
   address.user_id = user[0].id;
 
   await db(tableUser.user_address).insert(address);
