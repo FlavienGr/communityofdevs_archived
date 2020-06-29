@@ -3,13 +3,19 @@ const db = require('../../db/index');
 const tableUser = require('../../constants/tableUser');
 
 const userOne = {
-  name: 'usertest',
-  email: 'usertest@fake.com',
-  password: '123456789'
+  email: 'user-test@fake.com',
+  password: 'testPassword',
+  name: 'user-test',
+  immatriculation: 'user-test-dou',
+  cgu: true,
+  street: 'boulevard de user-test',
+  city: 'Bordeaux',
+  state: 'Gironde',
+  country: 'France'
 };
 const userLogin = {
-  email: 'usertest@fake.com',
-  password: '123456789'
+  email: 'user-test@fake.com',
+  password: 'testPassword'
 };
 
 const deleteAllinUserTables = async () => {
