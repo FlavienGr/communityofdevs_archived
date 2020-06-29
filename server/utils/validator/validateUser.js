@@ -19,10 +19,30 @@ const configUser = [
     .withMessage('name must be at least 4 chars long')
     .bail()
 ];
+const configSignup = [
+  check('immatriculation')
+    .exists()
+    .trim(),
+  check('street')
+    .exists()
+    .trim(),
+  check('city')
+    .exists()
+    .trim(),
+  check('country')
+    .exists()
+    .trim(),
+  check('zipcode')
+    .exists()
+    .trim(),
+  check('state')
+    .exists()
+    .trim()
+];
 const configAddress = [check('street').trim()];
 
 const userLogin = [...configConnection];
-const userSignup = [...configConnection, ...configUser];
+const userSignup = [...configConnection, ...configUser, ...configSignup];
 const updatesUser = [...configUser, ...configAddress];
 
 module.exports = {

@@ -11,7 +11,16 @@ const userOne = {
   street: 'boulevard de user-test',
   city: 'Bordeaux',
   state: 'Gironde',
-  country: 'France'
+  country: 'France',
+  zipcode: '33000'
+};
+const userUpdate = {
+  immatriculation: 'user-test-dou',
+  name: 'user-test',
+  city: 'Paris',
+  state: 'Paris',
+  country: 'France',
+  zipcode: '75001'
 };
 const userLogin = {
   email: 'user-test@fake.com',
@@ -25,5 +34,6 @@ const deleteAllinUserTables = async () => {
 module.exports = {
   userOne,
   userLogin,
+  userUpdate,
   deleteAllinUserTables
 };
