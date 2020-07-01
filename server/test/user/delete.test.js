@@ -1,11 +1,7 @@
 const request = require('supertest');
 const app = require('../../app');
 
-const {
-  userOne,
-  userUpdate,
-  deleteAllinUserTables
-} = require('../fixtures/user');
+const { userOne, deleteAllinUserTables } = require('../fixtures/user');
 
 let token;
 beforeAll(async () => {
