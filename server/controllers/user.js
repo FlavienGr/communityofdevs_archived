@@ -44,7 +44,22 @@ exports.getUserProfile = async (req, res, next) => {
     }
     sendResponse(user, 200, res);
   } catch (error) {
-    console.log(error);
+    next(new DatabaseConnectionError());
+  }
+};
+// @desc   delete a user
+// @route  delete /api/v1/user
+// @access Private
+exports.deleteUser = async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return next(new RequestAuthErrors());
+    }
+    await User.deleteUserById(id);
+    sendResponse({}, 200, res);
+  } catch (error) {
     next(new DatabaseConnectionError());
   }
 };
