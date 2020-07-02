@@ -53,6 +53,14 @@ const getElementID = async (element, table) => {
 
   return id;
 };
+const getCityByID = async (city, zipcode, table) => {
+  const { id } = await db(`${`user_${table}`}`)
+    .select('id')
+    .where({ name: city, zipcode })
+    .first();
+
+  return id;
+};
 const createNewAddress = async data => {
   const address = removeField(data, userItems);
   const updateAddress = {};
@@ -66,7 +74,8 @@ const createNewAddress = async data => {
     updateAddress.user_state_id = await getElementID(address.state, 'state');
   }
   if (address.city) {
-    updateAddress.user_city_id = await getElementID(address.city, 'city');
+    const { city, zipcode } = address;
+    updateAddress.user_city_id = await getCityByID(city, zipcode, 'city');
   }
   if (address.street) {
     updateAddress.street_address_1 = address.street;

@@ -6,7 +6,7 @@ const userOne = {
   email: 'user-test@fake.com',
   password: 'testPassword',
   name: 'user-test',
-  immatriculation: 'user-test-dou',
+  immatriculation: 'user-test',
   cgu: true,
   street: 'boulevard de user-test',
   city: 'Bordeaux',

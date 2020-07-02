@@ -2,7 +2,7 @@ version: '3.1'
 services:
 
   db:
-    container_name: pg-test-assoc
+    container_name: pg-test-assoc-test
     image: postgres
     restart: always
     env_file:

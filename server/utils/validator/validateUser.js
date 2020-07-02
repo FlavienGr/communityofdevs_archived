@@ -17,12 +17,15 @@ const configUser = [
     .exists()
     .isLength({ min: 4 })
     .withMessage('name must be at least 4 chars long')
-    .bail()
 ];
 const configSignup = [
   check('immatriculation')
     .exists()
-    .trim(),
+    .trim()
+    .isLength({
+      max: 15
+    })
+    .withMessage('Your immatriculation number sould be max 15 caracters long'),
   check('street')
     .exists()
     .trim(),
