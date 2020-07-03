@@ -16,7 +16,6 @@ module.exports = (err, _req, res, _next) => {
       .status(err.statusCode)
       .send({ success: false, errors: err.serializeError() });
   }
-
   res
     .status(500)
     .send({ success: false, errors: [{ message: 'Error server' }] });
