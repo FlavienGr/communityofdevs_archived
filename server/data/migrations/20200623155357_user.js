@@ -18,7 +18,7 @@ function references (table, tableName) {
 
 exports.up = async function(knex) {
   await knex.schema.createTable(tableUser.user, table => {
-    table.increments() //ids
+    table.increments(); //ids
     table.string('name', 100).notNullable().unique();
     table.string('email', 50).notNullable().unique();
     table.string('password', 128).notNullable();
