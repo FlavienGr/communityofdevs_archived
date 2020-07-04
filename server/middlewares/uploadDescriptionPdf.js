@@ -3,6 +3,7 @@ const multer = require('multer');
 const MulterErrorFile = require('../errors/multerErrorFile');
 
 const upload = multer({
+  dest: 'temp/',
   limits: {
     fileSize: 200000
   },

@@ -7,6 +7,7 @@ const requestValidationData = require('../middlewares/requestValidationData');
 const { createProject } = require('../controllers/userProject');
 const auth = require('../middlewares/auth');
 const uploadDescriptionPdf = require('../middlewares/uploadDescriptionPdf');
+const { uploadPdfAws } = require('../middlewares/uploadPdfAws');
 
 router
   .route('/')
@@ -15,6 +16,7 @@ router
     uploadDescriptionPdf,
     validator.project,
     requestValidationData,
+    uploadPdfAws,
     createProject
   );
 
