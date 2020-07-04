@@ -1,6 +1,7 @@
 docker
 .DS_Store
 .vscode
+node.md
 # Logs
 logs
 *.log
