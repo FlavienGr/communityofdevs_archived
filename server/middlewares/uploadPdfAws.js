@@ -26,7 +26,7 @@ exports.uploadPdfAws = async (req, _res, next) => {
       return next(new RequestPdfErrors());
     }
     fs.unlinkSync(req.file.path);
-    req.user.imageUrl = pdf.Location;
+    req.user.imageUrl = pdf.key;
 
     return next();
   } catch (error) {

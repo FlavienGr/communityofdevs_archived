@@ -41,7 +41,7 @@ dev-down:
 
 ## Start project (test mode)
 test:
-	docker-compose -f docker-compose.test.yml up
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml up
 
 test-down:
 	docker-compose -f docker-compose.test.yml down
