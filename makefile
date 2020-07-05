@@ -33,7 +33,8 @@ help:
 
 ## Start project (development mode)
 dev:
-	docker-compose up
+	docker-compose up -d
+	npm run develop
 
 dev-down:
 	docker-compose down
