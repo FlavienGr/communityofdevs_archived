@@ -1,4 +1,6 @@
-class DatabaseConnectionError extends Error {
+const CustomErrors = require('./customErrors');
+
+class DatabaseConnectionError extends CustomErrors {
   constructor() {
     super();
     this.message = 'Database connection error';

@@ -1,4 +1,6 @@
-class AuthMiddlewareError extends Error {
+const CustomErrors = require('./customErrors');
+
+class AuthMiddlewareError extends CustomErrors {
   constructor() {
     super();
     this.message = 'Authentication failed, please go back to signug page';

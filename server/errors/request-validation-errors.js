@@ -1,4 +1,6 @@
-class RequestValidationErrors extends Error {
+const CustomErrors = require('./customErrors');
+
+class RequestValidationErrors extends CustomErrors {
   constructor(errors) {
     super();
     this.errors = errors;

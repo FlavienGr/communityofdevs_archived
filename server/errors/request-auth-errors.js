@@ -1,4 +1,6 @@
-class RequestAuthErrors extends Error {
+const CustomErrors = require('./customErrors');
+
+class RequestAuthErrors extends CustomErrors {
   constructor() {
     super();
     this.message = 'Authentification failed, try again';
