@@ -3,13 +3,16 @@ const RequestProjectErrors = require('../errors/request-project-errors');
 const DatabaseConnectionError = require('../errors/databaseConnectionError');
 
 module.exports = async (req, _res, next) => {
-  if (!req.body.name) return next();
+  let project;
   try {
-    const project = await Project.searchByName(req.body.name);
-    if (project) {
-      return next(new RequestProjectErrors());
+    project = await Project.getProjectByIds(req.user.id, req.params.id);
+    if (!project) {
+      return next(
+        new RequestProjectErrors("You don't have corresponding project")
+      );
     }
-    next();
+    req.user.project = project;
+    return next();
   } catch (error) {
     return next(new DatabaseConnectionError());
   }

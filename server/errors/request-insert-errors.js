@@ -4,7 +4,7 @@ class RequestInsertErrors extends CustomErrors {
   constructor() {
     super();
     this.message = 'Data not allowed';
-    this.statusCode = 400;
+    this.statusCode = 403;
   }
 
   serializeError() {

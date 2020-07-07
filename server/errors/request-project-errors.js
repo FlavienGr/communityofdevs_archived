@@ -1,11 +1,12 @@
 const CustomErrors = require('./customErrors');
 
 class RequestProjectErrors extends CustomErrors {
-  constructor() {
+  constructor(message, code) {
     super();
     this.message =
+      message ||
       'This project name is already taken, please choose another name';
-    this.statusCode = 403;
+    this.statusCode = code || 403;
   }
 
   serializeError() {

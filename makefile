@@ -44,6 +44,6 @@ test:
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml up
 
 test-down:
-	docker-compose -f docker-compose.test.yml down
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml down
 
 

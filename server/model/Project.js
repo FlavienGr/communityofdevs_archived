@@ -7,10 +7,10 @@ const searchByName = name => {
     .where({ name })
     .first();
 };
-const getProjectById = async id => {
+const getProjectByIds = async (userId, projectId) => {
   return await db(`${tableProject.project} AS p`)
     .select('p.id', 'p.name', 'p.summary', 'p.description', 's.name AS status')
-    .where({ 'p.id': id })
+    .where({ 'p.id': projectId, 'p.user_id': userId })
     .innerJoin(`${tableProject.project_status} AS s`, {
       's.id': 'p.project_status_id'
     })
@@ -33,9 +33,33 @@ const createProject = async (id, body, imageUrl) => {
   );
   return project[0].id;
 };
+const deleteProject = async (userId, projectId) => {
+  await db(`${tableProject.project} AS p`)
+    .del()
+    .where({ 'p.id': projectId, 'p.user_id': userId });
+
+  return {};
+};
+const getProjects = async id => {
+  return await db(`${tableProject.project} AS p`)
+    .select('p.id', 'p.name', 'p.summary', 'p.description', 's.name AS status')
+    .where({ 'p.user_id': id })
+    .innerJoin(`${tableProject.project_status} AS s`, {
+      's.id': 'p.project_status_id'
+    });
+};
+const udpateProjectByIds = async (userId, projectId, body) => {
+  await db(`${tableProject.project} AS p`)
+    .where({ 'p.id': projectId, 'p.user_id': userId })
+    .update(body, ['id']);
+  return getProjectByIds(userId, projectId);
+};
 
 module.exports = {
   searchByName,
   createProject,
-  getProjectById
+  getProjectByIds,
+  deleteProject,
+  getProjects,
+  udpateProjectByIds
 };
