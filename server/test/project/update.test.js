@@ -78,7 +78,6 @@ describe('update Project wihtout a pdf =======>', () => {
       .send({
         summary: 'I just wanted to change the summary'
       });
-    console.log(response.body.errors, 'errors');
     expect(response.statusCode).toEqual(200);
     expect(response.body.success).toEqual(true);
     expect(response.body.data.description.length).toBeGreaterThan(0);
