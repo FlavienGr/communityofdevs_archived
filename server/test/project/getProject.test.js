@@ -42,11 +42,18 @@ describe('get one project =======>', () => {
       'Authentication failed, please go back to signug page'
     );
   });
+  it("should failed if the project doesn't exists", async () => {
+    const response = await request(app)
+      .get(`/api/v1/user/project/${667889}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.body.success).toEqual(false);
+    expect(response.body.errors.length).toBeGreaterThan(0);
+  });
   it('retrieve successfully', async () => {
     const response = await request(app)
       .get(`/api/v1/user/project/${projectId}`)
       .set('Authorization', `Bearer ${token}`);
-
     expect(response.body.success).toEqual(true);
     expect(response.body.data.id).toEqual(projectId);
   });
