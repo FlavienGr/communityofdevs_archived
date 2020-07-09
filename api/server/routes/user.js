@@ -7,7 +7,8 @@ const requestValidationData = require('../middlewares/requestValidationData');
 const {
   updateUser,
   getUserProfile,
-  deleteUser
+  deleteUser,
+  getCurrentUser
 } = require('../controllers/user');
 const auth = require('../middlewares/auth');
 
@@ -16,5 +17,6 @@ router
   .put(auth, validator.updatesUser, requestValidationData, updateUser)
   .delete(auth, deleteUser);
 router.route('/profile').get(auth, getUserProfile);
+router.route('/currentUser').get(auth, getCurrentUser);
 
 module.exports = router;

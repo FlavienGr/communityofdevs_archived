@@ -129,6 +129,12 @@ const deleteUserById = id => {
     .where({ id })
     .del();
 };
+const getCurrentUser = id => {
+  return db(tableUser.user)
+    .select('id', 'name')
+    .where({ id })
+    .first();
+};
 module.exports = {
   findByEmailLogin,
   findByEmail,
@@ -136,5 +142,6 @@ module.exports = {
   updateById,
   getProfileUserById,
   deleteUserById,
-  findById
+  findById,
+  getCurrentUser
 };

@@ -1,0 +1,18 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    &__title {
+
+    }
+    &__nav {
+
+    }
+    
+    &__nav nav ul li{
+        display: inline-block;
+        margin-left: 5rem;
+    }
+    
+}

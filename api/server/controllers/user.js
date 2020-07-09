@@ -63,3 +63,19 @@ exports.deleteUser = async (req, res, next) => {
     next(new DatabaseConnectionError());
   }
 };
+
+// @desc   get current user
+// @route  delete /api/v1/user/currentuser
+// @access Private
+exports.getCurrentUser = async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const user = await User.getCurrentUser(id);
+    if (!user) {
+      return next(new RequestAuthErrors());
+    }
+    sendResponse(user, 200, res);
+  } catch (error) {
+    next(new DatabaseConnectionError());
+  }
+};

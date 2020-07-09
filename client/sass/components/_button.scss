@@ -1,0 +1,19 @@
+.button {
+    border: none;
+    background-color: $color-black;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 300;
+    height: 4rem;
+    line-height: 4rem;
+    padding: 0 1.6rem;
+    margin: auto 0;
+    text-align: center;
+    outline: none;
+    text-decoration: none;
+    overflow: visible;
+    cursor: pointer;
+    white-space: nowrap;
+  
+}
