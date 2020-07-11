@@ -28,7 +28,7 @@ export default function header({ currentUser }) {
 
   return (
     <header>
-      <div className="header">
+      <div className="container header">
         <div className="header__title">
           <Link href="/">
             <a>

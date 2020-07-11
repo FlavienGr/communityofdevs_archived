@@ -2,7 +2,7 @@ import Header from './Header';
 
 function Layout({ children, currentUser }) {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <Header currentUser={currentUser} />
       <main>{children}</main>
     </div>
