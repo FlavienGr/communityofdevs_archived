@@ -1,10 +1,8 @@
-import Header from './Header';
 import Footer from './Footer';
 
-function Layout({ children, currentUser }) {
+function Layout({ children }) {
   return (
     <div className="container-fluid">
-      <Header currentUser={currentUser} />
       <main>{children}</main>
       <Footer />
     </div>
