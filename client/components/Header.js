@@ -21,7 +21,7 @@ export default function header({ currentUser }) {
       Signout
     </button>
   ) : (
-    <Link href="/login">
+    <Link href="/signup">
       <a className="button">connexion</a>
     </Link>
   );

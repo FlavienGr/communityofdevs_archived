@@ -1,8 +1,14 @@
 import '../sass/main.scss';
 import requestClient from './api/request-client';
+import Header from '../components/Header';
 
 function MyApp({ Component, pageProps, currentUser }) {
-  return <Component {...pageProps} currentUser={currentUser} />;
+  return (
+    <>
+      <Header currentUser={currentUser} />
+      <Component {...pageProps} currentUser={currentUser} />
+    </>
+  );
 }
 MyApp.getInitialProps = async appContext => {
   const client = requestClient(appContext.ctx);
