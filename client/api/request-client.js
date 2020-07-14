@@ -7,6 +7,7 @@ export default ({ req }) => {
       headers: req.headers
     });
   }
+  axios.defaults.withCredentials = true;
   return axios.create({
     baseURL: 'http://localhost:5000'
   });

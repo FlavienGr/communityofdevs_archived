@@ -1,6 +1,8 @@
 const dotenv = require('dotenv');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 if (process.env.NODE_ENV === 'development') {
   dotenv.config({
@@ -22,6 +24,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // / Logs
 app.use(morgan('combined'));
+
+/// cookies
+
+app.use(cookieParser());
+
+/// cors
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS',
+  credentials: true, // required to pass
+  allowedHeaders: 'Content-Type, Authorization, X-Requested-With'
+};
+app.use(cors(corsOptions));
 
 // / user router
 const routeAuthUser = require('./routes/authUser');

@@ -13,7 +13,7 @@ export default function Signup() {
     setErrorsRequest(null);
     const url = 'http://localhost:5000/api/v1/user/auth/signup';
     try {
-      const response = await axios.post(url, data);
+      const response = await axios.post(url, data, { withCredentials: true });
       if (response.data.success) {
         Router.push('/');
       }
