@@ -1,5 +1,5 @@
 import '../sass/main.scss';
-import requestClient from './api/request-client';
+import requestClient from '../api/request-client';
 import Header from '../components/Header';
 
 function MyApp({ Component, pageProps, currentUser }) {
