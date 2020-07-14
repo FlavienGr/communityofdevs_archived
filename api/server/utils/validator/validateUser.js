@@ -25,22 +25,7 @@ const configSignup = [
     .isLength({
       max: 15
     })
-    .withMessage('Your immatriculation number sould be max 15 caracters long'),
-  check('street')
-    .exists()
-    .trim(),
-  check('city')
-    .exists()
-    .trim(),
-  check('country')
-    .exists()
-    .trim(),
-  check('zipcode')
-    .exists()
-    .trim(),
-  check('state')
-    .exists()
-    .trim()
+    .withMessage('Your immatriculation number sould be max 15 caracters long')
 ];
 const configAddress = [check('street').trim()];
 

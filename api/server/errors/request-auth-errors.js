@@ -1,10 +1,10 @@
 const CustomErrors = require('./customErrors');
 
 class RequestAuthErrors extends CustomErrors {
-  constructor() {
+  constructor(message, code) {
     super();
-    this.message = 'Authentification failed, try again';
-    this.statusCode = 400;
+    this.message = message || 'Authentification failed, try again';
+    this.statusCode = code || 400;
   }
 
   serializeError() {

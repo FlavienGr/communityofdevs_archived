@@ -11,26 +11,27 @@ const RequestInsertErrors = require('../errors/request-insert-errors');
 // @route  Post user api/v1/user/auth/signup
 // @access Public
 exports.userSignup = async (req, res, next) => {
-  const allowInsert = [
-    'name',
-    'email',
-    'password',
-    'immatriculation',
-    'street',
-    'city',
-    'state',
-    'zipcode',
-    'country',
-    'cgu'
-  ];
+  const allowInsert = ['name', 'email', 'password', 'immatriculation', 'cgu'];
   const isNotValid = validInsertData(req.body, allowInsert);
   if (isNotValid) {
     return next(new RequestInsertErrors());
   }
   try {
-    const userExists = await User.findByEmail(req.body.email);
-    if (userExists) {
-      return next(new RequestAuthErrors());
+    const userEmailExists = await User.findByEmail(req.body.email);
+    const userNameExists = await User.findByName(req.body.name);
+    if (userEmailExists) {
+      return next(
+        new RequestAuthErrors(
+          'Authentication failed, try with another email address'
+        )
+      );
+    }
+    if (userNameExists) {
+      return next(
+        new RequestAuthErrors(
+          'This name is already taken, please choose another one'
+        )
+      );
     }
     const hashPassword = Helper.hashPassword(req.body.password);
 
@@ -40,7 +41,7 @@ exports.userSignup = async (req, res, next) => {
 
     sendResponse(sanitizedUser(user, token), 201, res);
   } catch (error) {
-    next(new DatabaseConnectionError());
+    return next(new DatabaseConnectionError());
   }
 };
 // @desc   Login a user

@@ -15,6 +15,12 @@ const findByEmail = email => {
     .where({ email })
     .first();
 };
+const findByName = name => {
+  return db(tableUser.user)
+    .select('id')
+    .where({ name })
+    .first();
+};
 const findById = id => {
   return db(tableUser.user)
     .select('id')
@@ -94,12 +100,6 @@ const signup = async (data, hashPassword) => {
     },
     ['id', 'email', 'name']
   );
-
-  const address = await createNewAddress(data);
-  address.user_id = user[0].id;
-
-  await db(tableUser.user_address).insert(address);
-
   return getProfileUserById(user[0].id);
 };
 
@@ -138,6 +138,7 @@ const getCurrentUser = id => {
 module.exports = {
   findByEmailLogin,
   findByEmail,
+  findByName,
   signup,
   updateById,
   getProfileUserById,
