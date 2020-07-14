@@ -72,6 +72,8 @@
 }
 /// erros
 .form__errors {
+    display: inline-block;
+    width: 100%;
     color: red;
     font-size: 1.4rem;
 }
@@ -88,4 +90,19 @@
     width: 100%;
     border: 1px solid $color-shadow;
     margin: 2rem 0;
+}
+.alert-danger {
+  &__ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  &__li {
+    display: block;
+    border: 1px solid red;
+    width: 50%;
+    margin: 0.5rem 0;
+    text-align: center;
+  }
 }
