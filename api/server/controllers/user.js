@@ -74,7 +74,7 @@ exports.getCurrentUser = async (req, res, next) => {
     if (!user) {
       return next(new RequestAuthErrors());
     }
-    sendResponse(user, 200, res);
+    res.status(200).json({ success: true, data: user });
   } catch (error) {
     next(new DatabaseConnectionError());
   }

@@ -25,11 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // / Logs
 app.use(morgan('combined'));
 
-/// cookies
-
-app.use(cookieParser());
-
-/// cors
+// cors
 const corsOptions = {
   origin: 'http://localhost:3000',
   methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS',
@@ -37,7 +33,9 @@ const corsOptions = {
   allowedHeaders: 'Content-Type, Authorization, X-Requested-With'
 };
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
+/// cookies
 // / user router
 const routeAuthUser = require('./routes/authUser');
 const routeUser = require('./routes/user');

@@ -15,7 +15,15 @@ export default function Signup() {
     setDisabledButton(true);
     const url = 'http://localhost:5000/api/v1/user/auth/login';
     try {
-      const response = await axios.post(url, data, { withCredentials: true });
+      const response = await axios(url, {
+        method: 'post',
+        data,
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
       if (response.data.success) {
         setDisabledButton(null);
         Router.push('/');
