@@ -1,12 +1,6 @@
-@import "./parameters/variables";
-
-@import "./base";
-
-@import "./components/button";
-@import "./components/header";
-@import "./components/infos";
-@import "./components/cards";
-@import "./components/footer";
-
-// pages
-@import "./pages/signup"
+@import './parameters/variables';
+@import './base';
+@import './components/header';
+@import './components/infos';
+@import './components/cards';
+@import '~bootstrap/scss/bootstrap.scss';

@@ -1,4 +1,5 @@
 import '../sass/main.scss';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import requestClient from '../api/request-client';
 import Header from '../components/Header';
 

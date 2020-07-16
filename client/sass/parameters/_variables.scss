@@ -1,8 +1,15 @@
 $color-primary: #608b74;
-$color-primary-two: #70A086;
-$color-secondary: #FFFDFD;
+$color-primary-two: #70a086;
+$color-secondary: #fffdfd;
 
 $color-black: #000000;
 $color-black-two: #2a2b2e;
 $color-shadow: rgba(0, 0, 0, 0.125);
 $color-grey: #e4e4e4;
+
+$theme-colors: (
+  'primary': #0074d9,
+  'danger': #ff4136,
+  'color-primary': $color-primary,
+  'color-black': $color-black
+);

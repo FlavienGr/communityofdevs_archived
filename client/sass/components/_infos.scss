@@ -1,26 +1,17 @@
 .infos {
-    width: 100vw;
     background-color: $color-primary-two;
-    &__container {
-    background-color: inherit;
-    max-width: 120rem;
-    margin: 0 auto;
-    padding: 8rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    width: 100%;
+    height: 22rem;
+    padding: 0 1rem;
 
-    }
-    &__main {
-        margin-bottom: 5rem;
-        width: 50%;
-    }
     &__title {
-        font-size: 4rem;
-    }   
-
-    &__secondary {
-        width: 50%;
+        margin-bottom: 2rem;
         font-size: 2.5rem;
     }
+    &__presentation {
+        font-size: 1.3rem;
+    }
+}
+.block {
+    height: 100%;
 }

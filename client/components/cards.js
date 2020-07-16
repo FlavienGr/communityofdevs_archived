@@ -1,3 +1,4 @@
+import Container from 'react-bootstrap/Container';
 import Card from './Card';
 
 const data = [
@@ -32,8 +33,10 @@ export default function Cards() {
     />
   ));
   return (
-    <div className="cards">
-      <div className="cards__container">{returnDescription}</div>
-    </div>
+    <Container>
+      <div className="cards d-flex justify-content-between align-items-center">
+        {returnDescription}
+      </div>
+    </Container>
   );
 }

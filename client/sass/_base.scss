@@ -1,36 +1,12 @@
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-  overflow-x: hidden;
-}
-
-html {
-  box-sizing: border-box;
-  font-size: 62.5%;
-}
-
 body {
-  font-size: 1.8rem;
   background-color: $color-primary !important;
-  color: $color-secondary;
-}
-.container-fluid {
-  width: 100vw;
-  margin: 0 auto;
+  color: $color-secondary !important;
   padding: 0;
+  margin: 0;
 }
-.container {
-  max-width: 120rem;
-  margin: 0 auto;
-  padding: 0;
-}
-a {
-  text-decoration: none;
+.light {
   color: $color-secondary !important;
 }
-li {
-  list-style: none;
+main {
+  width: 100%;
 }
