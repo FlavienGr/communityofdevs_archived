@@ -8,3 +8,8 @@ footer a {
     text-decoration: none;
     color: inherit;
 }
+@media only screen and (min-height: 1080px) {
+    footer {
+        height: 25rem;
+    }
+}

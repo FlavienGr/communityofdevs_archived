@@ -1,5 +1,5 @@
 import Container from 'react-bootstrap/Container';
-import Card from './Card';
+import Card from './card';
 
 const data = [
   {
@@ -33,10 +33,10 @@ export default function Cards() {
     />
   ));
   return (
-    <Container>
-      <div className="cards d-flex justify-content-between align-items-center">
+    <section className="cards">
+      <Container className="my-5 d-flex flex-column flex-md-row flex-lg-row justify-content-between align-items-center ">
         {returnDescription}
-      </div>
-    </Container>
+      </Container>
+    </section>
   );
 }

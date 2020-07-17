@@ -1,8 +1,23 @@
 .cards {
     color: $color-black;
-    height: 22rem;
+    height: auto;
+    display: flex;
+    justify-content: center;
     &__image {
-        width: 7rem !important;
+        max-width: 7rem !important;
         height: 8rem !important;
+    }
+}
+
+
+@media only screen and (min-height: 1080px) {
+    .cards {
+        height: 33rem;
+    }
+}
+@media only screen and (min-width: 1000px) {
+    .card {
+        width: 18rem !important;
+        height: 18rem !important;
     }
 }

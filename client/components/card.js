@@ -4,10 +4,10 @@ import Col from 'react-bootstrap/Col';
 
 export default function CardItems({ desc, number, image, alt }) {
   return (
-    <Row>
-      <Col md="4" className="mr-9">
+    <Row className="d-flex">
+      <Col md={4} lg={4} sm={12} className="mx-2 my-1">
         <Card
-          style={{ width: '18rem', height: '18rem' }}
+          style={{ width: '13rem', height: '18rem' }}
           className="d-flex justify-content-between align-items-center">
           <Card.Img
             variant="top"

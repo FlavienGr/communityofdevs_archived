@@ -1,12 +1,16 @@
+html, body {
+  height: 100%;
+}
 body {
   background-color: $color-primary !important;
   color: $color-secondary !important;
   padding: 0;
   margin: 0;
 }
+main {
+  height: 100%;
+}
 .light {
   color: $color-secondary !important;
 }
-main {
-  width: 100%;
-}
+

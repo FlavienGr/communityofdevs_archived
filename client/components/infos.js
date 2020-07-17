@@ -5,9 +5,9 @@ import Col from 'react-bootstrap/Col';
 export default function Infos() {
   return (
     <section className="infos">
-      <Container fluid className="block d-flex align-items-center">
+      <Container fluid className="d-flex align-items-center flex-lg-row">
         <Row className="d-flex align-items-center">
-          <Col md="7" className="p-0 m-0">
+          <Col sm={9} md={7} lg={9} className="p-0 m-0">
             <h2 className="infos__title">
               Nous pouvons vous aider à créer votre site internet gratuitement
             </h2>

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
-import Infos from '../components/Infos';
-import Cards from '../components/Cards';
+import Infos from '../components/infos';
+import Cards from '../components/cards';
 
 export default function Home({ currentUser }) {
   return (

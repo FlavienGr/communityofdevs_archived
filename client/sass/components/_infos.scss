@@ -1,9 +1,10 @@
 .infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: $color-primary-two;
-    width: 100%;
-    height: 22rem;
-    padding: 0 1rem;
-
+    width: 100vw;
+    padding: 1rem 1rem;
     &__title {
         margin-bottom: 2rem;
         font-size: 2.5rem;
@@ -12,6 +13,25 @@
         font-size: 1.3rem;
     }
 }
-.block {
-    height: 100%;
+
+@media only screen and (max-width: 600px) {
+    .infos {
+        &__title {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        &__presentation {
+            font-size: 1rem;
+        }
+    }
+  }
+@media only screen and (min-width: 600px) {
+    .infos {
+        height: 20rem;
+    }
+}
+@media only screen and (min-height: 1080px) {
+    .infos {
+        height: 25rem;
+    }
 }
