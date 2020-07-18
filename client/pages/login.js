@@ -8,7 +8,7 @@ import Layout from '../components/Layout';
 export default function Signup() {
   const { register, handleSubmit, errors } = useForm();
   const [errorRequest, setErrorsRequest] = useState(null);
-  const [disabledButton, setDisabledButton] = useState(null);
+  const [disabledButton, setDisabledButton] = useState(false);
 
   const onSubmit = async data => {
     setErrorsRequest(null);
@@ -25,11 +25,11 @@ export default function Signup() {
         }
       });
       if (response.data.success) {
-        setDisabledButton(null);
+        setDisabledButton(false);
         Router.push('/');
       }
     } catch (error) {
-      setDisabledButton(null);
+      setDisabledButton(false);
       setErrorsRequest(
         <div className="alert-danger">
           <ul className="alert-danger__ul">
@@ -43,13 +43,13 @@ export default function Signup() {
   };
 
   return (
-    <div className="container-fluid">
-      <Layout>
-        <div className="form-container">
+    <Layout>
+      <div className="form-container">
+        <div className="login-form">
+          {errorRequest && errorRequest}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="login-form">
-              {errorRequest && errorRequest}
-              <div className="login-form__group">
+            <div className="form-row justify-content-center">
+              <div className="form-group col-md-12">
                 <label
                   className={`login-form__label ${errors.email &&
                     'disactivate'}`}
@@ -69,10 +69,10 @@ export default function Signup() {
                       message: "L'email doit être spécifié"
                     }
                   })}
-                  className="login-form__input"
+                  className="form-control"
                 />
               </div>
-              <div className="login-form__group">
+              <div className="form-group col-md-12">
                 <label
                   className={`login-form__label ${errors.password &&
                     'disactivate'}`}
@@ -99,31 +99,28 @@ export default function Signup() {
                         'Le mot de passe doit contenir 8 caractères minimum'
                     }
                   })}
-                  className="login-form__input"
+                  className="form-control"
                 />
               </div>
-              <div className="container-button">
-                <input
-                  className={`button form__button ${
-                    disabledButton ? 'disabled' : ''
-                  }`}
-                  disabled={disabledButton}
-                  type="submit"
-                  value="Se connecter"
-                />
-              </div>
-              <span className="form__line">{''}</span>
-              <div className="container-button">
-                <Link href="/login">
-                  <a className="button form__button login">
-                    Je n&apos;ai pas de compte? En créer un
-                  </a>
-                </Link>
-              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-dark"
+              disabled={!!disabledButton}>
+              Se connecter
+            </button>
+            <span className="form__line">{''}</span>
+            <div className="container-button">
+              <Link href="/signup">
+                <a className="btn btn-outline-dark">
+                  Je n&apos;ai pas de compte? En créer un
+                </a>
+              </Link>
             </div>
           </form>
         </div>
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 }
