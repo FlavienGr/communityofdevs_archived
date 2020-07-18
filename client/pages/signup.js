@@ -8,16 +8,23 @@ import Layout from '../components/Layout';
 export default function Signup() {
   const { register, handleSubmit, errors } = useForm();
   const [errorRequest, setErrorsRequest] = useState(null);
+  const [disabledButton, setDisabledButton] = useState(false);
 
   const onSubmit = async data => {
     setErrorsRequest(null);
+    setDisabledButton(true);
+
     const url = 'http://localhost:5000/api/v1/user/auth/signup';
     try {
       const response = await axios.post(url, data, { withCredentials: true });
       if (response.data.success) {
+        setDisabledButton(false);
+
         Router.push('/');
       }
     } catch (error) {
+      setDisabledButton(false);
+
       setErrorsRequest(
         <div className="alert-danger">
           <ul className="alert-danger__ul">
@@ -31,13 +38,13 @@ export default function Signup() {
   };
 
   return (
-    <div className="container-fluid">
-      <Layout>
-        <div className="form-container">
+    <Layout>
+      <div className="form-container">
+        <div className="login-form">
+          {errorRequest && errorRequest}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="login-form">
-              {errorRequest && errorRequest}
-              <div className="login-form__group">
+            <div className="form-row justify-content-center">
+              <div className="form-group col-md-12">
                 <label
                   className={`login-form__label ${errors.name &&
                     'disactivate'}`}
@@ -62,10 +69,10 @@ export default function Signup() {
                       message: 'Le nom doit contenir 4 lettres minimum'
                     }
                   })}
-                  className="login-form__input"
+                  className="form-control"
                 />
               </div>
-              <div className="login-form__group">
+              <div className="form-group col-md-12">
                 <label
                   className={`login-form__label ${errors.immatriculation &&
                     'disactivate'}`}
@@ -93,10 +100,10 @@ export default function Signup() {
                         "L'immatriculation doit contenir 15 caractères maximun"
                     }
                   })}
-                  className="login-form__input"
+                  className="form-control"
                 />
               </div>
-              <div className="login-form__group">
+              <div className="form-group col-md-12">
                 <label
                   className={`login-form__label ${errors.email &&
                     'disactivate'}`}
@@ -116,10 +123,10 @@ export default function Signup() {
                       message: "L'email doit être spécifié"
                     }
                   })}
-                  className="login-form__input"
+                  className="form-control"
                 />
               </div>
-              <div className="login-form__group">
+              <div className="form-group col-md-12">
                 <label
                   className={`login-form__label ${errors.password &&
                     'disactivate'}`}
@@ -146,56 +153,61 @@ export default function Signup() {
                         'Le mot de passe doit contenir 8 caractères minimum'
                     }
                   })}
-                  className="login-form__input"
+                  className="form-control"
                 />
               </div>
-              <div className="login-form__group">
-                {errors.cgu && (
-                  <span className="form__errors">{errors.cgu.message}</span>
-                )}
-                <div className="login-form__cgu">
+              <div className="form-group col-md-12">
+                <div className="form-check p-1">
+                  {errors.cgu && (
+                    <span className="form__errors">{errors.cgu.message}</span>
+                  )}
+
                   <label
                     className={`login-form__label ${errors.cgu &&
                       'disactivate'}`}
                     htmlFor="cgu"
                     aria-label="cochez la case pour accepter les conditions générales d'utilisation"></label>
 
-                  <input
-                    name="cgu"
-                    type="checkbox"
-                    ref={register({
-                      required: {
-                        value: true,
-                        message:
-                          'Vous devez accepter les CGU pour pouvoir continer'
-                      }
-                    })}
-                  />
-                  <div className="login-form__cgu--infos">
+                  <div className="col">
+                    <input
+                      name="cgu"
+                      type="checkbox"
+                      ref={register({
+                        required: {
+                          value: true,
+                          message:
+                            'Vous devez accepter les CGU pour pouvoir continer'
+                        }
+                      })}
+                      className="form-check-input"
+                    />
+                  </div>
+
+                  <div className="col-md-9">
                     En cochant cette case, vous certifiez avoir lu et accepté
                     sans réserve les conditions générales d’utilisation
                   </div>
                 </div>
               </div>
-              <div className="container-button">
-                <input
-                  className="button form__button"
-                  type="submit"
-                  value="Créer mon compte"
-                />
-              </div>
-              <span className="form__line">{''}</span>
-              <div className="container-button">
-                <Link href="/login">
-                  <a className="button form__button login">
-                    J’ai déjà un compte? Se connecter
-                  </a>
-                </Link>
-              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-dark"
+              disabled={disabledButton}>
+              Créer mon compte
+            </button>
+            <span className="form__line">{''}</span>
+            <div className="container-button">
+              <Link href="/login">
+                <a className="btn btn-outline-dark">
+                  J’ai déjà un compte? Se connecter
+                </a>
+              </Link>
             </div>
           </form>
         </div>
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 }

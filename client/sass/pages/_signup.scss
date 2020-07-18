@@ -1,95 +1,42 @@
 .form-container {
+    width: 60%;
+    padding: 5rem 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
     background-color: inherit;
-    margin: 6rem;
+    margin: auto;
     color: $color-black-two;
   }
 .login-form {
-    max-width: 55rem;
-    height: auto;
+    // max-width: 15rem;
     padding: 5rem;
+    height: auto;
     background-color: $color-secondary;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
-    border: 1px solid $color-shadow;
-    border-radius: 0.125rem;
-    box-shadow: 0 1rem 1rem -0.75rem $color-shadow;
-    &__group {
-      display: flex;
-      flex-direction: column;
-      width: 40rem;
-      margin: 1.3rem 0;
-    }
-    &__input {
-      background-color: $color-grey;
-      border-color: $color-shadow;
-      border-radius: 3px;
-      width: 100%;
-      height: 4rem;
-      padding: 1rem;
-      
-    }
-    &__label {
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
-    }
-    &__cgu {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        margin: 1.5rem 0;
+}
 
-        &--infos {
-            margin-left: 2rem;
-            font-size: 1.5rem !important;
-        }
-    }
-    
-
+@media only screen and (max-width: 400px) {
+  .form-container {
+    width: 90%;
+    padding: 0 0;
+    margin: 1rem auto;
   }
-/// Button
-.container-button {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-self: flex-start;
+.login-form {
+    padding: 1rem;
+
 }
-.form__button {
-    display: inline-block;
-    color: $color-secondary;
-    text-align: center;
-    width: 100%;
 }
-.button.form__button.login {
-    color: $color-black-two !important;
-    background-color: $color-secondary;
-    border: 2px solid $color-black-two;
-}
-/// erros
-.form__errors {
-    display: inline-block;
-    width: 100%;
-    color: red;
-    font-size: 1.4rem;
-}
-      
 .disactivate {
-    display: none;
+  display: none;
 }
-.form-container input:focus {
-    border:1px solid $color-primary-two;
-    outline: none !important;
+.form__errors {
+  color: red;
 }
 .form__line {
-    display: inline-block;
-    width: 100%;
-    border: 1px solid $color-shadow;
-    margin: 2rem 0;
+  display: inline-block;
+  width: 100%;
+  border: 1px solid $color-shadow;
+  margin: 2rem 0;
 }
 .alert-danger {
   &__ul {
@@ -106,6 +53,29 @@
     text-align: center;
   }
 }
-.disabled {
-  background-color: $color-grey;
+@media only screen and (min-width: 400px) and (max-width: 900px) {
+  .form-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 2rem 0;
+
+  }
+  .login-form {
+    // max-width: 15rem;
+    padding: 2.5rem;
+}
+}
+
+@media only screen and (min-height: 900px) {
+  .form-container {
+    margin-top: 7rem;
+    margin-bottom: 9rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+@media only screen and (min-height: 1200px) {
+  .form-container {
+    margin: 13rem auto
+  }
 }
