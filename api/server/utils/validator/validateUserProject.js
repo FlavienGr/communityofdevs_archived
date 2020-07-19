@@ -10,7 +10,7 @@ const configProject = [
     .exists()
     .withMessage('you should add a summary for your project')
     .isLength({ max: 1500, min: 30 })
-    .withMessage('name must be at least 30 chars and max 1500 chars long')
+    .withMessage('summary must be at least 30 chars and max 1500 chars long')
 ];
 const configProjectUpdate = [
   check('name')
