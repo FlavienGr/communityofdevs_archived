@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 export default function ButtonProfile() {
   return (
     <>
-      <Link href="/">
+      <Link href="/newproject">
         <a className="mr-5 light">Créer un project</a>
       </Link>
       <DropdownButton

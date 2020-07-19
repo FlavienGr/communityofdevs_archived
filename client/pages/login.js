@@ -107,7 +107,7 @@ export default function Signup() {
             <button
               type="submit"
               className="btn btn-dark"
-              disabled={!!disabledButton}>
+              disabled={disabledButton}>
               Se connecter
             </button>
             <span className="form__line">{''}</span>

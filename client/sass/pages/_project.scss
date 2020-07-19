@@ -1,0 +1,13 @@
+.project {
+    background-color: $color-secondary;
+    color: $color-black-two;
+}
+.maj-label {
+    font-weight: bold !important;
+}
+.line-project {
+    width: 50%;
+}
+.custom-file-label::after {
+    content: "Fichier" !important;
+}

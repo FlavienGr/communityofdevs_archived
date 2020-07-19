@@ -4,5 +4,10 @@
 @import './components/infos';
 @import './components/cards';
 @import './components/footer';
+
+/// pages
 @import './pages/signup';
+@import './pages/project';
+
+/// bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
