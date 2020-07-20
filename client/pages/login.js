@@ -4,6 +4,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import Router from 'next/router';
 import Layout from '../components/Layout';
+import ErrorMessage from '../components/errorMessage';
 
 export default function Signup() {
   const { register, handleSubmit, errors } = useForm();
@@ -14,6 +15,7 @@ export default function Signup() {
     setErrorsRequest(null);
     setDisabledButton(true);
     const url = 'http://localhost:5000/api/v1/user/auth/login';
+
     try {
       const response = await axios(url, {
         method: 'post',
@@ -30,13 +32,14 @@ export default function Signup() {
       }
     } catch (error) {
       setDisabledButton(false);
+      if (error.response.status === 400 || error.response.status === 401) {
+        return setErrorsRequest(
+          <ErrorMessage errors={error.response.data.errors} />
+        );
+      }
       setErrorsRequest(
-        <div className="alert-danger">
-          <ul className="alert-danger__ul">
-            <li className="alert-danger__li">
-              Une erreur est survenue, merci de reéssayer ultérieurement
-            </li>
-          </ul>
+        <div className="alert alert-danger text-center" role="alert">
+          Une erreur est survenue, merci de reéssayer ultérieurement
         </div>
       );
     }
@@ -48,7 +51,7 @@ export default function Signup() {
         <div className="login-form">
           {errorRequest && errorRequest}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-row justify-content-center">
+            <div className="form-column justify-content-center">
               <div className="form-group col-md-12">
                 <label
                   className={`login-form__label ${errors.email &&
@@ -103,20 +106,21 @@ export default function Signup() {
                 />
               </div>
             </div>
-
-            <button
-              type="submit"
-              className="btn btn-dark"
-              disabled={disabledButton}>
-              Se connecter
-            </button>
-            <span className="form__line">{''}</span>
-            <div className="container-button">
-              <Link href="/signup">
-                <a className="btn btn-outline-dark">
-                  Je n&apos;ai pas de compte? En créer un
-                </a>
-              </Link>
+            <div className="form-row ml-3">
+              <button
+                type="submit"
+                className="btn btn-dark"
+                disabled={disabledButton}>
+                Se connecter
+              </button>
+              <span className="form__line">{''}</span>
+              <div className="container-button">
+                <Link href="/signup">
+                  <a className="btn btn-outline-dark">
+                    Je n&apos;ai pas de compte? En créer un
+                  </a>
+                </Link>
+              </div>
             </div>
           </form>
         </div>

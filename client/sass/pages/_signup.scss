@@ -5,31 +5,21 @@
     flex-direction: row;
     justify-content: center;
     background-color: inherit;
-    margin: auto;
+    margin: auto auto 5rem auto;
     color: $color-black-two;
   }
 .login-form {
-    // max-width: 15rem;
-    padding: 5rem;
+    width: 38rem;
+    padding: 3rem;
     height: auto;
     background-color: $color-secondary;
-}
-
-@media only screen and (max-width: 400px) {
-  .form-container {
-    width: 90%;
-    padding: 0 0;
-    margin: 1rem auto;
-  }
-.login-form {
-    padding: 1rem;
-
-}
 }
 .disactivate {
   display: none;
 }
 .form__errors {
+  display: inline-block;
+  width: auto;
   color: red;
 }
 .form__line {
@@ -53,6 +43,17 @@
     text-align: center;
   }
 }
+@media only screen and (max-width: 400px) {
+  .form-container {
+    width: 90%;
+    padding: 0 0;
+    margin: 1rem auto 8rem auto;
+  }
+.login-form {
+    padding: 1rem;
+
+}
+}
 @media only screen and (min-width: 400px) and (max-width: 900px) {
   .form-container {
     width: 80%;
@@ -61,7 +62,6 @@
 
   }
   .login-form {
-    // max-width: 15rem;
     padding: 2.5rem;
 }
 }

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import Router from 'next/router';
 import Layout from '../components/Layout';
+import ErrorMessage from '../components/errorMessage';
 
 export default function Signup() {
   const { register, handleSubmit, errors } = useForm();
@@ -16,7 +17,9 @@ export default function Signup() {
 
     const url = 'http://localhost:5000/api/v1/user/auth/signup';
     try {
-      const response = await axios.post(url, data, { withCredentials: true });
+      const response = await axios.post(url, data, {
+        withCredentials: true
+      });
       if (response.data.success) {
         setDisabledButton(false);
 
@@ -24,14 +27,14 @@ export default function Signup() {
       }
     } catch (error) {
       setDisabledButton(false);
-
+      if (error.response.status === 400 || error.response.status === 401) {
+        return setErrorsRequest(
+          <ErrorMessage errors={error.response.data.errors} />
+        );
+      }
       setErrorsRequest(
-        <div className="alert-danger">
-          <ul className="alert-danger__ul">
-            <li className="alert-danger__li">
-              Une erreur est survenue, merci de reéssayer ultérieurement
-            </li>
-          </ul>
+        <div className="alert alert-danger text-center" role="alert">
+          Une erreur est survenue, merci de reéssayer ultérieurement
         </div>
       );
     }
@@ -46,8 +49,9 @@ export default function Signup() {
             <div className="form-row justify-content-center">
               <div className="form-group col-md-12">
                 <label
-                  className={`login-form__label ${errors.name &&
-                    'disactivate'}`}
+                  className={`login-form__label ${
+                    errors.name ? 'disactivate' : ''
+                  }`}
                   htmlFor="name">
                   {` Nom de l'association`}
                 </label>
@@ -74,8 +78,9 @@ export default function Signup() {
               </div>
               <div className="form-group col-md-12">
                 <label
-                  className={`login-form__label ${errors.immatriculation &&
-                    'disactivate'}`}
+                  className={`login-form__label ${
+                    errors.immatriculation ? 'disactivate' : ''
+                  }`}
                   htmlFor="immatriculation">
                   {`Immatriculation de l'association`}
                 </label>
@@ -105,8 +110,9 @@ export default function Signup() {
               </div>
               <div className="form-group col-md-12">
                 <label
-                  className={`login-form__label ${errors.email &&
-                    'disactivate'}`}
+                  className={`login-form__label ${
+                    errors.email ? 'disactivate' : ''
+                  }`}
                   htmlFor="email">
                   Email
                 </label>
@@ -128,8 +134,9 @@ export default function Signup() {
               </div>
               <div className="form-group col-md-12">
                 <label
-                  className={`login-form__label ${errors.password &&
-                    'disactivate'}`}
+                  className={`login-form__label ${
+                    errors.password ? 'disactivate' : ''
+                  }`}
                   htmlFor="password">
                   Mot de passe
                 </label>
@@ -163,8 +170,9 @@ export default function Signup() {
                   )}
 
                   <label
-                    className={`login-form__label ${errors.cgu &&
-                      'disactivate'}`}
+                    className={`login-form__label ${
+                      errors.cgu ? 'disactivate' : ''
+                    }`}
                     htmlFor="cgu"
                     aria-label="cochez la case pour accepter les conditions générales d'utilisation"></label>
 
@@ -183,7 +191,7 @@ export default function Signup() {
                     />
                   </div>
 
-                  <div className="col-md-9">
+                  <div className="col-md-9 ml-3">
                     En cochant cette case, vous certifiez avoir lu et accepté
                     sans réserve les conditions générales d’utilisation
                   </div>
