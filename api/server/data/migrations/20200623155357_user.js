@@ -31,33 +31,14 @@ exports.up = async function(knex) {
     addDefaultColumns(table);
   })
 
-  await knex.schema.createTable(tableUser.user_country, table => {
-    table.increments();
-    table.string('name', 100).notNullable();
-    table.string('code', 2).notNullable();
-  })
-  await knex.schema.createTable(tableUser.user_city, table => {
-    table.increments();
-    table.string('name', 100).notNullable();
-    table.string('code', 3).notNullable();
-    table.string('zipcode', 6).notNullable();
-    table.string('slug', 100).notNullable();
-  })
-  await knex.schema.createTable(tableUser.user_state, table => {
-    table.increments('id').primary();
-    table.string('name', 100).notNullable();
-    table.string('slug', 100).notNullable();
-    table.string('code', 3).notNullable();
-  })
-
   await knex.schema.createTable(tableUser.user_address, table => {
       table.increments();
       references(table, 'user');
-      table.string('street_address_1').notNullable();
-      table.string('street_address_2');
-      references(table, 'user_city');
-      references(table, 'user_state');
-      references(table, 'user_country');
+      table.string('street');
+      table.string('zipcode', 6);
+      table.string('state', 100);
+      table.string('city', 100);
+      table.string('country', 100);
   })
 
 };
@@ -65,9 +46,6 @@ exports.up = async function(knex) {
 exports.down = async function(knex) {
   await Promise.all([
     tableUser.user_address,
-    tableUser.user_state,
-    tableUser.user_country,
-    tableUser.user_city,
     tableUser.user
   ].map(tableName => knex.schema.dropTableIfExists(tableName)));
 };

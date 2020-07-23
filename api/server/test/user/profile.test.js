@@ -22,7 +22,6 @@ describe('user profile', () => {
 
     expect(response.statusCode).toEqual(200);
     expect(response.body.data.email).toEqual(userOne.email);
-    expect(response.body.data.city).toEqual(userOne.city);
   });
   it('Cannot GET the user profile without token', async () => {
     const response = await request(app).get('/api/v1/user/profile');

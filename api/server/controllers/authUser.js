@@ -41,6 +41,7 @@ exports.userSignup = async (req, res, next) => {
 
     sendResponse(sanitizedUser(user, token), 201, res);
   } catch (error) {
+    console.log(error);
     return next(new DatabaseConnectionError());
   }
 };

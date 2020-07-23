@@ -67,7 +67,7 @@ describe('should failed to create user', () => {
       .send(userOne);
     expect(response.statusCode).toEqual(400);
     expect(response.body.errors[0].message).toEqual(
-      'Authentification failed, try again'
+      'Authentication failed, try with another email address'
     );
   });
 });

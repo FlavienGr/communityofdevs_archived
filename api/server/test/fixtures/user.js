@@ -8,12 +8,7 @@ const userOne = {
   password: 'testPassword',
   name: 'user-test',
   immatriculation: 'user-test',
-  cgu: true,
-  street: 'boulevard de user-test',
-  city: 'Bordeaux',
-  state: 'Gironde',
-  country: 'France',
-  zipcode: '33000'
+  cgu: true
 };
 const userUpdate = {
   immatriculation: 'user-test-dou',

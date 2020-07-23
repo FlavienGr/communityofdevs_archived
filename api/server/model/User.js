@@ -34,60 +34,19 @@ const getProfileUserById = async id => {
       'u.email',
       'u.name',
       'u.immatriculation',
-      'a.street_address_1 as street',
-      'ci.name as city',
-      'ci.zipcode',
-      's.name as state',
-      'co.name as country'
+      'a.street',
+      'a.city',
+      'a.zipcode',
+      'a.state',
+      'a.country'
     )
     .leftJoin(`${tableUser.user_address} AS a`, { 'a.user_id': 'u.id' })
-    .leftJoin(`${tableUser.user_state} AS s`, { 's.id': 'a.user_state_id' })
-    .leftJoin(`${tableUser.user_city} AS ci`, { 'ci.id': 'a.user_city_id' })
-    .leftJoin(`${tableUser.user_country} AS co`, {
-      'co.id': 'a.user_country_id'
-    })
     .where({ 'u.id': id })
     .first();
 
   return user;
 };
-const getElementID = async (element, table) => {
-  const { id } = await db(`${`user_${table}`}`)
-    .select('id')
-    .where({ name: element })
-    .first();
 
-  return id;
-};
-const getCityByID = async (city, zipcode, table) => {
-  const { id } = await db(`${`user_${table}`}`)
-    .select('id')
-    .where({ name: city, zipcode })
-    .first();
-
-  return id;
-};
-const createNewAddress = async data => {
-  const address = removeField(data, userItems);
-  const updateAddress = {};
-  if (address.country) {
-    updateAddress.user_country_id = await getElementID(
-      address.country,
-      'country'
-    );
-  }
-  if (address.state) {
-    updateAddress.user_state_id = await getElementID(address.state, 'state');
-  }
-  if (address.city) {
-    const { city, zipcode } = address;
-    updateAddress.user_city_id = await getCityByID(city, zipcode, 'city');
-  }
-  if (address.street) {
-    updateAddress.street_address_1 = address.street;
-  }
-  return updateAddress;
-};
 const signup = async (data, hashPassword) => {
   const { email, name, immatriculation } = data;
 
@@ -100,9 +59,18 @@ const signup = async (data, hashPassword) => {
     },
     ['id', 'email', 'name']
   );
+  await db(tableUser.user_address).insert({ user_id: user[0].id }, ['id']);
+
   return getProfileUserById(user[0].id);
 };
-
+const createAddressById = async (id, data) => {
+  return (
+    await db(tableUser.user_address)
+      .where({ user_id: id })
+      .update(data),
+    ['id']
+  );
+};
 const updateById = async (data, id) => {
   const isAddressChanged = Object.keys(data).some(item =>
     addressItems.includes(item)
@@ -110,11 +78,8 @@ const updateById = async (data, id) => {
   let updateUser = { ...data };
 
   if (isAddressChanged) {
-    const updatesAddress = await createNewAddress(data);
-    await db(tableUser.user_address)
-      .where({ user_id: id })
-      .update(updatesAddress);
-
+    const newAddress = removeField(data, userItems);
+    await createAddressById(id, newAddress);
     updateUser = removeField(updateUser, addressItems);
   }
 

@@ -13,6 +13,7 @@ const {
 
 let token;
 let projectId;
+jest.setTimeout(30000);
 
 beforeAll(async () => {
   await deleteAllinUserTables();

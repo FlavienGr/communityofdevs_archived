@@ -5,6 +5,7 @@ const app = require('../../app');
 const pdf = path.join(__dirname, '..', 'fixtures', 'app.pdf');
 const updatedPdf = path.join(__dirname, '..', 'fixtures', 'programming.pdf');
 
+jest.setTimeout(30000);
 const {
   userOne,
   project,

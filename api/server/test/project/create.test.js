@@ -12,6 +12,8 @@ const {
 } = require('../fixtures/user');
 
 let token;
+jest.setTimeout(30000);
+
 beforeAll(async () => {
   await deleteAllinUserTables();
   await deleteAllinProjectTables();
