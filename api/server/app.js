@@ -28,7 +28,7 @@ app.use(morgan('combined'));
 // cors
 const corsOptions = {
   origin: 'http://localhost:3000',
-  methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS',
+  methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS,PUT',
   credentials: true, // required to pass
   allowedHeaders: 'Content-Type, Authorization, X-Requested-With'
 };

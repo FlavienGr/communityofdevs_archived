@@ -23,10 +23,34 @@ exports.updateUser = async (req, res, next) => {
   if (isNotValid) {
     return next(new RequestInsertErrors());
   }
-
+  const removeDuplicateField = (data, user) => {
+    const response = Object.keys(data).reduce((obj, key) => {
+      if (data[key] !== user[key]) {
+        // eslint-disable-next-line no-param-reassign
+        obj[key] = data[key];
+      }
+      return obj;
+    }, {});
+    return response;
+  };
   try {
-    const user = await User.updateById(req.body, req.user.id);
-    sendResponse(user, 200, res);
+    const user = await User.getProfileUserById(req.user.id);
+    const updateData = removeDuplicateField(req.body, user);
+    if (Object.keys(updateData).length === 0) {
+      return res.status(200).json({ success: true, data: user });
+    }
+    if (updateData.name !== undefined) {
+      const userNameExists = await User.findByName(updateData.name);
+      if (userNameExists) {
+        return next(
+          new RequestAuthErrors(
+            'This name is already taken, please choose another one'
+          )
+        );
+      }
+    }
+    const userUpdated = await User.updateById(updateData, req.user.id);
+    return res.status(200).json({ success: true, data: userUpdated });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
