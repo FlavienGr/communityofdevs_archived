@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import { useForm } from 'react-hook-form';
 import Layout from '../components/Layout';
 import ErrorMessage from '../components/errorMessage';
+import RenderSuccessMessage from '../components/RenderSuccessMessage';
 
 export default function NewProject() {
   const { register, handleSubmit, errors } = useForm();
@@ -14,6 +15,7 @@ export default function NewProject() {
 
   const onSubmit = async data => {
     setErrorsRequest(null);
+    setSuccessMessage(null);
     setDisabledButton(true);
     const url = 'http://localhost:5000/api/v1/user/project';
     const formData = new FormData();
@@ -33,9 +35,10 @@ export default function NewProject() {
       if (response.data.success) {
         setErrorsRequest(null);
         setSuccessMessage(
-          <div className="alert alert-success" role="alert">
-            Votre project a été enregistré avec success
-          </div>
+          <RenderSuccessMessage
+            message="Votre project a été enregistré avec success"
+            setMessage={setSuccessMessage}
+          />
         );
         setDisabledButton(false);
       }
