@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import Router from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,17 +8,20 @@ import requestServer from '../api/request-client';
 import ErrorMessage from '../components/errorMessage';
 import Menu from '../components/menu';
 import Layout from '../components/Layout';
+import checkMaj from '../utils/checkMaj';
+import RenderSuccessMessage from '../components/RenderSuccessMessage';
 
-export default function Profile({ user: { data } }) {
-  const { register, handleSubmit, errors, control } = useForm();
+export default function Edit({ user: { data } }) {
+  const { register, handleSubmit, errors } = useForm();
   const [errorRequest, setErrorsRequest] = useState(null);
   const [disabledButton, setDisabledButton] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [name, setName] = useState(data.name);
   const [immatriculation, setImmatriculation] = useState(data.immatriculation);
-  const [street, setStreet] = useState(data.street);
-  const [city, setCity] = useState(data.city);
-  const [zipcode, setZipcode] = useState(data.zipcode);
-  const [state, setState] = useState(data.state);
+  const [street, setStreet] = useState(data.street || '');
+  const [city, setCity] = useState(data.city || '');
+  const [zipcode, setZipcode] = useState(data.zipcode || '');
+  const [state, setState] = useState(data.state || '');
 
   const handleChange = e => {
     const { value } = e.target;
@@ -50,31 +52,35 @@ export default function Profile({ user: { data } }) {
   const onSubmit = async dataFromInput => {
     setErrorsRequest(null);
     // setDisabledButton(true);
-    console.log(dataFromInput, 'dataFromInput');
+    const verifData = checkMaj(dataFromInput);
     const url = 'http://localhost:5000/api/v1/user';
 
-    // try {
-    //   const response = await axios.put(url, dataFromInput, {
-    //     withCredentials: true
-    //   });
-    //   if (response.data.success) {
-    //     setDisabledButton(false);
-
-    //     Router.push('/');
-    //   }
-    // } catch (error) {
-    //   setDisabledButton(false);
-    //   if (error.response.status === 400 || error.response.status === 401) {
-    //     return setErrorsRequest(
-    //       <ErrorMessage errors={error.response.data.errors} />
-    //     );
-    //   }
-    //   setErrorsRequest(
-    //     <div className="alert alert-danger text-center" role="alert">
-    //       Une erreur est survenue, merci de reéssayer ultérieurement
-    //     </div>
-    //   );
-    // }
+    try {
+      const response = await axios.put(url, verifData, {
+        withCredentials: true
+      });
+      if (response.data.success) {
+        setDisabledButton(false);
+        setSuccessMessage(
+          <RenderSuccessMessage
+            message="Les informations ont été éditées"
+            setMessage={setSuccessMessage}
+          />
+        );
+      }
+    } catch (error) {
+      setDisabledButton(false);
+      if (error.response.status === 400 || error.response.status === 401) {
+        return setErrorsRequest(
+          <ErrorMessage errors={error.response.data.errors} />
+        );
+      }
+      setErrorsRequest(
+        <div className="alert alert-danger text-center" role="alert">
+          Une erreur est survenue, merci de reéssayer ultérieurement
+        </div>
+      );
+    }
   };
 
   return (
@@ -87,6 +93,7 @@ export default function Profile({ user: { data } }) {
               <span className="line">{''}</span>
             </div>
             <Col md={7} sm={12} lg={8}>
+              {successMessage && successMessage}
               <div className="form-container-edit">
                 <div className="login-form-edit">
                   {errorRequest && errorRequest}
@@ -179,6 +186,9 @@ export default function Profile({ user: { data } }) {
                           id="street"
                           name="street"
                           value={street}
+                          ref={register({
+                            required: false
+                          })}
                           onChange={handleChange}
                           className="form-control"
                         />
