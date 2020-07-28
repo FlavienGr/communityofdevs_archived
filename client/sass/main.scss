@@ -5,12 +5,14 @@
 @import './components/cards';
 @import './components/footer';
 @import './components/menu';
+@import './components/project-item';
 
 /// pages
 @import './pages/signup';
 @import './pages/project';
 @import './pages/profile';
 @import './pages/edit';
+@import './pages/project-list';
 
 /// bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
