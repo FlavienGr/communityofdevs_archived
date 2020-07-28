@@ -18,7 +18,7 @@ exports.createProject = async (req, res, next) => {
   }
   try {
     const getProject = await Project.getProjectByIds(req.user.id, projectId);
-    return sendResponse(getProject, 201, res);
+    return res.status(200).json({ success: true, data: getProject });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
@@ -49,7 +49,7 @@ exports.getProjects = async (req, res, next) => {
     if (!getProjects) {
       return sendResponse({}, 200, res);
     }
-    return sendResponse(getProjects, 200, res);
+    return res.status(200).json({ success: true, data: getProjects });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
@@ -63,8 +63,7 @@ exports.getOneProject = async (req, res, next) => {
         new RequestProjectErrors("You don't have corresponding project")
       );
     }
-
-    return sendResponse(project, 200, res);
+    return res.status(200).json({ success: true, data: project });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
@@ -77,7 +76,7 @@ exports.udpateProject = async (req, res, next) => {
       req.params.id,
       req.body
     );
-    return sendResponse(updatedProject, 200, res);
+    return res.status(200).json({ success: true, data: updatedProject });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
@@ -93,7 +92,7 @@ exports.udpatePdfProject = async (req, res, next) => {
     );
     await deletePdfAws(req.user.project.description);
 
-    return sendResponse(updatedProject, 200, res);
+    return res.status(200).json({ success: true, data: updatedProject });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
