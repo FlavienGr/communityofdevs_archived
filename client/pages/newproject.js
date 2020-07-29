@@ -36,7 +36,7 @@ export default function NewProject() {
         setErrorsRequest(null);
         setSuccessMessage(
           <RenderSuccessMessage
-            message="Votre project a été enregistré avec success"
+            message="Votre project a été enregistré avec succès"
             setMessage={setSuccessMessage}
           />
         );
