@@ -37,7 +37,7 @@ exports.deleteProject = async (req, res, next) => {
       req.params.id
     );
     await deletePdfAws(getProject.description);
-    return sendResponse(deletedProject, 200, res);
+    return res.status(200).json({ success: true, data: deletedProject });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
@@ -57,7 +57,7 @@ exports.getProjects = async (req, res, next) => {
 exports.getOneProject = async (req, res, next) => {
   let project;
   try {
-    project = await Project.getProjectByIds(req.user.id, req.params.id);
+    project = await Project.getProjectByUuid(req.user.id, req.params.id);
     if (!project) {
       return next(
         new RequestProjectErrors("You don't have corresponding project")
