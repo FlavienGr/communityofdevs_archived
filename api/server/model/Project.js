@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const db = require('../db/index');
 const tableProject = require('../constants/tableProject');
 
@@ -9,7 +10,14 @@ const searchByName = name => {
 };
 const getProjectByIds = async (userId, projectId) => {
   return await db(`${tableProject.project} AS p`)
-    .select('p.id', 'p.name', 'p.summary', 'p.description', 's.name AS status')
+    .select(
+      'p.id',
+      'p.name',
+      'p.summary',
+      'p.description',
+      'p.uuid',
+      's.name AS status'
+    )
     .where({ 'p.id': projectId, 'p.user_id': userId })
     .innerJoin(`${tableProject.project_status} AS s`, {
       's.id': 'p.project_status_id'
@@ -26,6 +34,7 @@ const createProject = async (id, body, imageUrl) => {
       user_id: id,
       project_status_id: projectStatus.id,
       name: body.name,
+      uuid: uuidv4(),
       summary: body.summary,
       description: imageUrl
     },
@@ -42,7 +51,14 @@ const deleteProject = async (userId, projectId) => {
 };
 const getProjects = async id => {
   return await db(`${tableProject.project} AS p`)
-    .select('p.id', 'p.name', 'p.summary', 'p.description', 's.name AS status')
+    .select(
+      'p.id',
+      'p.name',
+      'p.uuid',
+      'p.summary',
+      'p.description',
+      's.name AS status'
+    )
     .where({ 'p.user_id': id })
     .innerJoin(`${tableProject.project_status} AS s`, {
       's.id': 'p.project_status_id'

@@ -27,6 +27,7 @@ exports.up = async function(knex) {
     references(table, tableProject.project_status)
     table.string('summary', 1500).notNullable();
     table.string('description').notNullable();
+    table.string('uuid', 50).notNullable().unique();
     addDefaultColumns(table);
   })
 };
