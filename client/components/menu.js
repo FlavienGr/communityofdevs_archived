@@ -13,7 +13,7 @@ export default function Menu() {
         <a href="/project">Project</a>
       </Col>
       <Col md={12} className="mb-3">
-        <a href="/compte">Compte</a>
+        <a href="/account">Compte</a>
       </Col>
     </Col>
   );
