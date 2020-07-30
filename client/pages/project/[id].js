@@ -133,7 +133,9 @@ export default function ProjectId({ project }) {
                     </button>
                   </Col>
                   <Col md={2} className="">
-                    <a className="btn btn-dark" href="/editProject">
+                    <a
+                      className="btn btn-dark"
+                      href={`edit/${project.data.uuid}`}>
                       Editer
                     </a>
                   </Col>
