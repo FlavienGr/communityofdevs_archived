@@ -9,18 +9,7 @@ import requestServer from '../../api/request-client';
 import Menu from '../../components/menu';
 import Layout from '../../components/Layout';
 import RenderSuccessMessage from '../../components/RenderSuccessMessage';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    color: 'black'
-  }
-};
+import customStyles from '../../constants/customStyles';
 
 export default function ProjectId({ project }) {
   const url = 'https://communityofdevs.s3.eu-west-3.amazonaws.com/';
@@ -34,9 +23,8 @@ export default function ProjectId({ project }) {
 
   const openModal = () => setIsOpen(true);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const closeModal = () => setIsOpen(false);
+
   const requestAxios = async () => {
     const urlDelete = `http://localhost:5000/api/v1/user/project/${project.data.id}`;
     try {
@@ -99,6 +87,11 @@ export default function ProjectId({ project }) {
               <span className="form__line">{''}</span>
               <Col md={12} className="mb-5">
                 <Modal
+                  appElement={
+                    typeof window !== 'undefined'
+                      ? document.getElementById('__next')
+                      : undefined
+                  }
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
                   style={customStyles}
@@ -116,7 +109,7 @@ export default function ProjectId({ project }) {
                     <button
                       className="btn btn-danger"
                       onClick={handleDeleteAccount}
-                      disabledButton={disabledButton}>
+                      disabled={disabledButton}>
                       Supprimer
                     </button>
                     <button
