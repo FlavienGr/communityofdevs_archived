@@ -28,13 +28,21 @@ const configSignup = [
     .withMessage('Your immatriculation number sould be max 15 caracters long')
 ];
 const configAddress = [check('street').trim()];
+const configEmail = [
+  check(
+    'emailConfirmation',
+    'emailConfirmation field must have the same value as the email field'
+  ).custom((value, { req }) => value === req.body.email)
+];
 
 const userLogin = [...configConnection];
 const userSignup = [...configConnection, ...configUser, ...configSignup];
 const updatesUser = [...configUser, ...configAddress];
+const changeEmail = [...configConnection, ...configEmail];
 
 module.exports = {
   userLogin,
   userSignup,
-  updatesUser
+  updatesUser,
+  changeEmail
 };

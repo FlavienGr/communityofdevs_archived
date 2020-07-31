@@ -6,11 +6,12 @@ const requestValidationData = require('../middlewares/requestValidationData');
 
 const {
   userSignup,
-  userLogin
+  userLogin,
+  changeEmail
   //   userLogout
 } = require('../controllers/authUser');
 
-// const auth = require('../middlewares/auth');
+const auth = require('../middlewares/auth');
 
 router
   .route('/login')
@@ -20,4 +21,7 @@ router
   .route('/signup')
   .post(validator.userSignup, requestValidationData, userSignup);
 
+router
+  .route('/change-email')
+  .post(auth, validator.changeEmail, requestValidationData, changeEmail);
 module.exports = router;

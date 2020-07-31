@@ -27,6 +27,12 @@ const findById = id => {
     .where({ id })
     .first();
 };
+const findByIdPassword = id => {
+  return db(tableUser.user)
+    .select('id', 'password')
+    .where({ id })
+    .first();
+};
 const getProfileUserById = async id => {
   const user = await db(`${tableUser.user} AS u`)
     .select(
@@ -100,6 +106,12 @@ const getCurrentUser = id => {
     .where({ id })
     .first();
 };
+const updateEmail = (email, id) => {
+  return db(tableUser.user)
+    .where({ id })
+    .update({ email })
+    .returning(['id', 'name', 'email']);
+};
 module.exports = {
   findByEmailLogin,
   findByEmail,
@@ -109,5 +121,7 @@ module.exports = {
   getProfileUserById,
   deleteUserById,
   findById,
-  getCurrentUser
+  getCurrentUser,
+  findByIdPassword,
+  updateEmail
 };

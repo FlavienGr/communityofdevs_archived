@@ -71,3 +71,39 @@ exports.userLogin = async (req, res, next) => {
     next(new DatabaseConnectionError());
   }
 };
+// @desc   Change email user
+// @route  Post api/v1/user/auth/change-email
+// @access Private
+
+exports.changeEmail = async (req, res, next) => {
+  const allowInsert = ['email', 'emailConfirmation', 'password'];
+  const isNotValid = validInsertData(req.body, allowInsert);
+  if (isNotValid) {
+    return next(new RequestInsertErrors());
+  }
+  const { id } = req.user;
+  try {
+    const userEmailExists = await User.findByEmail(req.body.email);
+    if (userEmailExists) {
+      return next(
+        new RequestAuthErrors(
+          'Operation failed, try with another email address'
+        )
+      );
+    }
+    const user = await User.findByIdPassword(id);
+    if (!user) {
+      return next(new RequestAuthErrors());
+    }
+
+    const isMatch = Helper.comparePassword(user.password, req.body.password);
+
+    if (!isMatch) {
+      return next(new RequestAuthErrors());
+    }
+    const userEmailChanged = await User.updateEmail(req.body.email, id);
+    res.status(200).json({ success: true, data: userEmailChanged[0] });
+  } catch (error) {
+    return next(new DatabaseConnectionError());
+  }
+};
