@@ -14,3 +14,18 @@
 .custom-file-label::after {
     content: "Fichier" !important;
 }
+@media only screen and (min-height: 800px) {
+    .project {
+        height: 40rem;
+    }
+}
+@media only screen and (min-height: 1024px) {
+    .project {
+        height: 47rem;
+    }
+}
+@media only screen and (min-height: 1230px) {
+    .project {
+        height: 58rem;
+    }
+}

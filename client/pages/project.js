@@ -16,7 +16,7 @@ export default function Project({ project: { data } }) {
           <Row>
             <Menu />
             <LineMenu />
-            <Col md={7} sm={12} lg={8}>
+            <Col sm={12} md={10} lg={8} className="mx-auto">
               <ProjectList data={data} />
             </Col>
           </Row>

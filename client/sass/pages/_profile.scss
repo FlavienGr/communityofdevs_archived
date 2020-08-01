@@ -1,7 +1,6 @@
 .profile {
     background-color: $color-secondary;
     color: $color-black;
-    margin: 2rem auto;
     &__title {
         font-size: 1.5rem;
     }
@@ -46,16 +45,22 @@ border: 1px solid $color-shadow;
     }
 }
 @media only screen and (min-height: 900px) and (max-height: 1024px) and (max-width: 1024px){
-    .profile {
-        margin: 4rem auto;
-    }
     .profile-container {
-    margin: 5rem auto;
-
+    margin: 0rem auto;
     }
 }
-@media only screen and (min-height: 1024px) and (min-width: 1024px){
+@media only screen and (min-height: 800px) {
     .profile-container {
-        margin: 8rem auto;
+        height: 40rem;
+    }
+}
+@media only screen and (min-height: 1024px) {
+    .profile-container {
+        height: 47rem;
+    }
+}
+@media only screen and (min-height: 1230px) {
+    .profile-container {
+        height: 58rem;
     }
 }

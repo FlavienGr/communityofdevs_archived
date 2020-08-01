@@ -8,5 +8,7 @@ export default function ProjectList({ data }) {
   const renderProject = data.map(item => (
     <ProjectItems key={item.id} name={item.name} uuid={item.uuid} />
   ));
-  return <Col>{data.length === 0 ? renderEmptyProject : renderProject}</Col>;
+  return (
+    <Col sm={12}>{data.length === 0 ? renderEmptyProject : renderProject}</Col>
+  );
 }
