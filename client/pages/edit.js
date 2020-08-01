@@ -10,6 +10,7 @@ import Menu from '../components/menu';
 import Layout from '../components/Layout';
 import checkMaj from '../utils/checkMaj';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
+import CommonErrorMessage from '../components/commonErrorMessage';
 
 export default function Edit({ user: { data } }) {
   const { register, handleSubmit, errors } = useForm();
@@ -51,7 +52,7 @@ export default function Edit({ user: { data } }) {
 
   const onSubmit = async dataFromInput => {
     setErrorsRequest(null);
-    // setDisabledButton(true);
+    setDisabledButton(true);
     const verifData = checkMaj(dataFromInput);
     const url = 'http://localhost:5000/api/v1/user';
 
@@ -75,11 +76,7 @@ export default function Edit({ user: { data } }) {
           <ErrorMessage errors={error.response.data.errors} />
         );
       }
-      setErrorsRequest(
-        <div className="alert alert-danger text-center" role="alert">
-          Une erreur est survenue, merci de reéssayer ultérieurement
-        </div>
-      );
+      setErrorsRequest(<CommonErrorMessage />);
     }
   };
 

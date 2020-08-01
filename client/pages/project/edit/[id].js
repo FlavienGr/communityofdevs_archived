@@ -11,6 +11,7 @@ import Layout from '../../../components/Layout';
 import removeField from '../../../utils/removeField';
 import removeCopyField from '../../../utils/removeCopyField';
 import RenderSuccessMessage from '../../../components/RenderSuccessMessage';
+import CommonErrorMessage from '../../../components/commonErrorMessage';
 
 export default function EditProject({ project }) {
   const { register, handleSubmit, errors } = useForm();
@@ -85,11 +86,7 @@ export default function EditProject({ project }) {
     } catch (error) {
       setDisabledButton(false);
       setSuccessMessage(null);
-      setErrorsRequest(
-        <div className="alert alert-danger text-center" role="alert">
-          Une erreur est survenue, merci de reéssayer ultérieurement
-        </div>
-      );
+      setErrorsRequest(<CommonErrorMessage />);
     }
   };
   const onSubmit = async updatedData => {

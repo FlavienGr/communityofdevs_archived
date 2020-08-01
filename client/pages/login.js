@@ -5,6 +5,7 @@ import axios from 'axios';
 import Router from 'next/router';
 import Layout from '../components/Layout';
 import ErrorMessage from '../components/errorMessage';
+import CommonErrorMessage from '../components/commonErrorMessage';
 
 export default function Signup() {
   const { register, handleSubmit, errors } = useForm();
@@ -37,11 +38,7 @@ export default function Signup() {
           <ErrorMessage errors={error.response.data.errors} />
         );
       }
-      setErrorsRequest(
-        <div className="alert alert-danger text-center" role="alert">
-          Une erreur est survenue, merci de reéssayer ultérieurement
-        </div>
-      );
+      setErrorsRequest(<CommonErrorMessage />);
     }
   };
 

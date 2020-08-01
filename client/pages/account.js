@@ -11,6 +11,7 @@ import Layout from '../components/Layout';
 import customStyles from '../constants/customStyles';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import ErrorMessage from '../components/errorMessage';
+import CommonErrorMessage from '../components/commonErrorMessage';
 
 export default function Account() {
   const { register, handleSubmit, errors } = useForm();
@@ -42,11 +43,7 @@ export default function Account() {
       }
     } catch (error) {
       setDisabledButton(false);
-      setErrorsRequest(
-        <div className="alert alert-danger text-center" role="alert">
-          Une erreur est survenue, merci de reéssayer ultérieurement
-        </div>
-      );
+      setErrorsRequest(<CommonErrorMessage />);
     }
   };
   const onSubmitMail = async updatedData => {

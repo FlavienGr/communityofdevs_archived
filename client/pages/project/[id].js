@@ -10,6 +10,7 @@ import Menu from '../../components/menu';
 import Layout from '../../components/Layout';
 import RenderSuccessMessage from '../../components/RenderSuccessMessage';
 import customStyles from '../../constants/customStyles';
+import CommonErrorMessage from '../../components/commonErrorMessage';
 
 export default function ProjectId({ project }) {
   const url = 'https://communityofdevs.s3.eu-west-3.amazonaws.com/';
@@ -44,11 +45,7 @@ export default function ProjectId({ project }) {
     } catch (error) {
       setDisabledButton(false);
       setSuccessMessage(null);
-      setErrorsRequest(
-        <div className="alert alert-danger text-center" role="alert">
-          Une erreur est survenue, merci de reéssayer ultérieurement
-        </div>
-      );
+      setErrorsRequest(<CommonErrorMessage />);
     }
   };
   const handleDeleteAccount = () => {

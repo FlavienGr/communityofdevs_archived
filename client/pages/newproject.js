@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import Layout from '../components/Layout';
 import ErrorMessage from '../components/errorMessage';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
+import CommonErrorMessage from '../components/commonErrorMessage';
 
 export default function NewProject() {
   const { register, handleSubmit, errors } = useForm();
@@ -50,11 +51,7 @@ export default function NewProject() {
           <ErrorMessage errors={error.response.data.errors} />
         );
       }
-      setErrorsRequest(
-        <div className="alert alert-danger text-center" role="alert">
-          Une erreur est survenue, merci de reéssayer ultérieurement
-        </div>
-      );
+      setErrorsRequest(<CommonErrorMessage />);
     }
   };
   const handleInputFileChange = e => {
