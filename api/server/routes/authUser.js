@@ -7,7 +7,8 @@ const requestValidationData = require('../middlewares/requestValidationData');
 const {
   userSignup,
   userLogin,
-  changeEmail
+  changeEmail,
+  changePassword
   //   userLogout
 } = require('../controllers/authUser');
 
@@ -24,4 +25,8 @@ router
 router
   .route('/change-email')
   .post(auth, validator.changeEmail, requestValidationData, changeEmail);
+
+router
+  .route('/change-password')
+  .post(auth, validator.changePassword, requestValidationData, changePassword);
 module.exports = router;

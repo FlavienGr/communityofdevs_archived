@@ -110,7 +110,13 @@ const updateEmail = (email, id) => {
   return db(tableUser.user)
     .where({ id })
     .update({ email })
-    .returning(['id', 'name', 'email']);
+    .returning(['id']);
+};
+const updatePassword = (password, id) => {
+  return db(tableUser.user)
+    .where({ id })
+    .update({ password })
+    .returning(['id']);
 };
 module.exports = {
   findByEmailLogin,
@@ -123,5 +129,6 @@ module.exports = {
   findById,
   getCurrentUser,
   findByIdPassword,
-  updateEmail
+  updateEmail,
+  updatePassword
 };

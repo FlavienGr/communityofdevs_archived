@@ -34,15 +34,34 @@ const configEmail = [
     'emailConfirmation field must have the same value as the email field'
   ).custom((value, { req }) => value === req.body.email)
 ];
-
+const configPassword = [
+  check('oldPassword')
+    .exists()
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 chars long')
+    .bail(),
+  check('password')
+    .exists()
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 chars long')
+    .bail(),
+  check(
+    'passwordConfirmation',
+    'password confirmation field must have the same value as the password field'
+  )
+    .exists()
+    .custom((value, { req }) => value === req.body.password)
+];
 const userLogin = [...configConnection];
 const userSignup = [...configConnection, ...configUser, ...configSignup];
 const updatesUser = [...configUser, ...configAddress];
 const changeEmail = [...configConnection, ...configEmail];
+const changePassword = [...configPassword];
 
 module.exports = {
   userLogin,
   userSignup,
   updatesUser,
-  changeEmail
+  changeEmail,
+  changePassword
 };

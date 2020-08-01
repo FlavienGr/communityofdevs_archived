@@ -101,8 +101,39 @@ exports.changeEmail = async (req, res, next) => {
     if (!isMatch) {
       return next(new RequestAuthErrors());
     }
-    const userEmailChanged = await User.updateEmail(req.body.email, id);
-    res.status(200).json({ success: true, data: userEmailChanged[0] });
+    await User.updateEmail(req.body.email, id);
+    res.status(200).json({ success: true, data: [] });
+  } catch (error) {
+    return next(new DatabaseConnectionError());
+  }
+};
+
+// @desc   Change password
+// @route  Post api/v1/user/auth/change-password
+// @access Private
+
+exports.changePassword = async (req, res, next) => {
+  const allowInsert = ['oldPassword', 'password', 'passwordConfirmation'];
+  const isNotValid = validInsertData(req.body, allowInsert);
+  if (isNotValid) {
+    return next(new RequestInsertErrors());
+  }
+  const { id } = req.user;
+  const { oldPassword } = req.body;
+  try {
+    const user = await User.findByIdPassword(id);
+    if (!user) {
+      return next(new RequestAuthErrors());
+    }
+
+    const isMatch = Helper.comparePassword(user.password, oldPassword);
+
+    if (!isMatch) {
+      return next(new RequestAuthErrors());
+    }
+    const hashPassword = Helper.hashPassword(req.body.password);
+    await User.updatePassword(hashPassword, id);
+    res.status(200).json({ success: true, data: {} });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
