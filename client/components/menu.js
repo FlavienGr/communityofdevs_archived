@@ -15,6 +15,9 @@ export default function Menu() {
       <Col md={12} className="mb-3">
         <a href="/account">Compte</a>
       </Col>
+      <Col md={12} className="mb-3">
+        <a href="/settings">Paramètres</a>
+      </Col>
     </Col>
   );
 }
