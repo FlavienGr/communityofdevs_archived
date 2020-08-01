@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import requestServer from '../api/request-client';
 import Menu from '../components/menu';
 import Layout from '../components/Layout';
+import LineMenu from '../components/lineMenu';
 
 export default function Profile({ user: { data } }) {
   return (
@@ -12,9 +13,7 @@ export default function Profile({ user: { data } }) {
         <div className="profile-container">
           <Row>
             <Menu />
-            <div className="flex-row flex-sm-row flex-md-column flex-lg-column mx-auto">
-              <span className="line">{''}</span>
-            </div>
+            <LineMenu />
             <Col md={7} sm={12}>
               <Col md={12} className="mb-5">
                 <div className="profile__title mb-2">Name</div>

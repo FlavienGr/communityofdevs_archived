@@ -11,6 +11,7 @@ import Layout from '../components/Layout';
 import checkMaj from '../utils/checkMaj';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import CommonErrorMessage from '../components/commonErrorMessage';
+import LineMenu from '../components/lineMenu';
 
 export default function Edit({ user: { data } }) {
   const { register, handleSubmit, errors } = useForm();
@@ -86,9 +87,7 @@ export default function Edit({ user: { data } }) {
         <div className="profile-container">
           <Row>
             <Menu />
-            <div className="flex-row flex-sm-row flex-md-column flex-lg-column mx-auto">
-              <span className="line">{''}</span>
-            </div>
+            <LineMenu />
             <Col md={7} sm={12} lg={8}>
               {successMessage && successMessage}
               <div className="form-container-edit">

@@ -6,6 +6,7 @@ import requestServer from '../api/request-client';
 import Menu from '../components/menu';
 import Layout from '../components/Layout';
 import ProjectList from '../components/ProjectList';
+import LineMenu from '../components/lineMenu';
 
 export default function Project({ project: { data } }) {
   return (
@@ -14,9 +15,7 @@ export default function Project({ project: { data } }) {
         <div className="project-list-container">
           <Row>
             <Menu />
-            <div className="flex-row flex-sm-row flex-md-column flex-lg-column mx-auto">
-              <span className="line">{''}</span>
-            </div>
+            <LineMenu />
             <Col md={7} sm={12} lg={8}>
               <ProjectList data={data} />
             </Col>

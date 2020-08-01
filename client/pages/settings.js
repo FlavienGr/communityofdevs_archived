@@ -10,6 +10,7 @@ import Layout from '../components/Layout';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import ErrorMessage from '../components/errorMessage';
 import CommonErrorMessage from '../components/commonErrorMessage';
+import LineMenu from '../components/lineMenu';
 
 export default function Settings() {
   const { register, handleSubmit, errors } = useForm();
@@ -54,9 +55,7 @@ export default function Settings() {
         <div className="project-list-container">
           <Row>
             <Menu />
-            <div className="flex-row flex-sm-row flex-md-column flex-lg-column mx-auto">
-              <span className="line">{''}</span>
-            </div>
+            <LineMenu />
             <Col md={7} sm={12} lg={8}>
               {successMessage && successMessage}
               {errorRequest && errorRequest}
