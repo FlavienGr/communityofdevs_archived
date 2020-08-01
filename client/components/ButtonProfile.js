@@ -1,14 +1,17 @@
 import Link from 'next/link';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function ButtonProfile() {
   return (
     <>
       <Link href="/newproject">
-        <a className="mr-5 light">Créer un projet</a>
+        <a className="light">Créer un projet</a>
       </Link>
       <DropdownButton
+        className="d-none d-lg-block ml-5"
         alignRight
         title="Profile"
         variant="color-black"
@@ -21,6 +24,35 @@ export default function ButtonProfile() {
         <Dropdown.Divider />
         <Dropdown.Item href="#">Déconnexion</Dropdown.Item>
       </DropdownButton>
+      <div className="d-lg-none">
+        <Row>
+          <Col sm={12}>
+            <a className="light" href="/profile">
+              Informations
+            </a>
+          </Col>
+          <Col sm={12}>
+            <a className="light" href="/project">
+              Projet
+            </a>
+          </Col>
+          <Col sm={12}>
+            <a className="light" href="/edit">
+              Edit
+            </a>
+          </Col>
+          <Col sm={12}>
+            <a className="light" href="/account">
+              Compte
+            </a>
+          </Col>
+          <Col sm={12}>
+            <a className="light" href="/settings">
+              Paramètres
+            </a>
+          </Col>
+        </Row>
+      </div>
     </>
   );
 }
