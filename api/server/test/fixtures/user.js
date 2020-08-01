@@ -22,6 +22,16 @@ const userLogin = {
   email: 'user-test@fake.com',
   password: 'testPassword'
 };
+const changeEmail = {
+  email: 'user-test-changed@fake.com',
+  emailConfirmation: 'user-test-changed@fake.com',
+  password: 'testPassword'
+};
+const changePassword = {
+  oldPassword: 'testPassword',
+  password: 'changedPassword',
+  passwordConfirmation: 'changedPassword'
+};
 const project = {
   name: 'the best project',
   summary:
@@ -33,12 +43,17 @@ const deleteAllinUserTables = async () => {
 const deleteAllinProjectTables = async () => {
   await db(tableProject.project).del();
 };
-
+const createUser = async () => {
+  await db(tableUser.user).insert(userOne);
+};
 module.exports = {
   userOne,
   userLogin,
   userUpdate,
   project,
   deleteAllinUserTables,
-  deleteAllinProjectTables
+  deleteAllinProjectTables,
+  createUser,
+  changeEmail,
+  changePassword
 };

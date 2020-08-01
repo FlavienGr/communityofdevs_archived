@@ -30,7 +30,7 @@ beforeAll(async () => {
     .field('name', project.name)
     .field('summary', project.summary)
     .attach('description', pdf);
-  projectId = createdProject.body.data.id;
+  projectId = createdProject.body.data.uuid;
 });
 describe('get one project =======>', () => {
   it('failed to retrieve without token', async () => {
@@ -56,7 +56,7 @@ describe('get one project =======>', () => {
       .get(`/api/v1/user/project/${projectId}`)
       .set('Authorization', `Bearer ${token}`);
     expect(response.body.success).toEqual(true);
-    expect(response.body.data.id).toEqual(projectId);
+    expect(response.body.data.uuid).not.toBeFalsy();
   });
 });
 describe('get all projects =======>', () => {

@@ -18,7 +18,7 @@ exports.createProject = async (req, res, next) => {
   }
   try {
     const getProject = await Project.getProjectByIds(req.user.id, projectId);
-    return res.status(200).json({ success: true, data: getProject });
+    return res.status(201).json({ success: true, data: getProject });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }

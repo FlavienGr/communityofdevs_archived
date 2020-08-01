@@ -133,7 +133,7 @@ exports.changePassword = async (req, res, next) => {
     }
     const hashPassword = Helper.hashPassword(req.body.password);
     await User.updatePassword(hashPassword, id);
-    res.status(200).json({ success: true, data: {} });
+    res.status(200).json({ success: true, data: [] });
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
