@@ -114,7 +114,7 @@ export default function Signup() {
               <div className="container-button">
                 <Link href="/signup">
                   <a className="btn btn-outline-dark">
-                    Je n&apos;ai pas de compte? En créer un
+                    Vous n&apos;êtes pas inscrit ? Inscrivez-vous
                   </a>
                 </Link>
               </div>

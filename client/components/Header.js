@@ -31,7 +31,7 @@ export default function header({ currentUser }) {
         </Link>
       </li>
       <li>
-        <Link href="/signup">
+        <Link href="/login">
           <a className="btn btn-dark ml-5">connexion</a>
         </Link>
       </li>
