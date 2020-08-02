@@ -3,9 +3,9 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import { useForm } from 'react-hook-form';
 import Layout from '../components/Layout';
-import ErrorMessage from '../components/errorMessage';
+import ErrorMessage from '../components/ErrorMessage';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
-import CommonErrorMessage from '../components/commonErrorMessage';
+import CommonErrorMessage from '../components/CommonErrorMessage';
 
 export default function NewProject() {
   const { register, handleSubmit, errors } = useForm();

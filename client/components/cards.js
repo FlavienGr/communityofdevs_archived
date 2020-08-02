@@ -1,5 +1,5 @@
 import Container from 'react-bootstrap/Container';
-import Card from './card';
+import Card from './Card';
 
 const data = [
   {

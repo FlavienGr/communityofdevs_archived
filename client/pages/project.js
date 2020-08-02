@@ -3,10 +3,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import requestServer from '../api/request-client';
-import Menu from '../components/menu';
+import Menu from '../components/Menu';
 import Layout from '../components/Layout';
 import ProjectList from '../components/ProjectList';
-import LineMenu from '../components/lineMenu';
+import LineMenu from '../components/LineMenu';
 
 export default function Project({ project: { data } }) {
   return (

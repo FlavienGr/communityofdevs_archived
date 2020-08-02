@@ -1,4 +1,4 @@
-import ErrorItems from './errorItems';
+import ErrorItems from './ErrorItems';
 
 export default function ErrorMessage({ errors }) {
   const renderError = errors.map((item, i) => (

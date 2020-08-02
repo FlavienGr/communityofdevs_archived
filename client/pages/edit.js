@@ -5,13 +5,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import requestServer from '../api/request-client';
-import ErrorMessage from '../components/errorMessage';
-import Menu from '../components/menu';
+import ErrorMessage from '../components/ErrorMessage';
+import Menu from '../components/Menu';
 import Layout from '../components/Layout';
 import checkMaj from '../utils/checkMaj';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
-import CommonErrorMessage from '../components/commonErrorMessage';
-import LineMenu from '../components/lineMenu';
+import CommonErrorMessage from '../components/CommonErrorMessage';
+import LineMenu from '../components/LineMenu';
 
 export default function Edit({ user: { data } }) {
   const { register, handleSubmit, errors } = useForm();

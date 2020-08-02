@@ -6,12 +6,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import requestServer from '../../../api/request-client';
-import Menu from '../../../components/menu';
+import Menu from '../../../components/Menu';
 import Layout from '../../../components/Layout';
 import removeField from '../../../utils/removeField';
 import removeCopyField from '../../../utils/removeCopyField';
 import RenderSuccessMessage from '../../../components/RenderSuccessMessage';
-import CommonErrorMessage from '../../../components/commonErrorMessage';
+import CommonErrorMessage from '../../../components/CommonErrorMessage';
 
 export default function EditProject({ project }) {
   const { register, handleSubmit, errors } = useForm();

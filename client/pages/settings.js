@@ -8,9 +8,9 @@ import Col from 'react-bootstrap/Col';
 import Menu from '../components/menu';
 import Layout from '../components/Layout';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
-import ErrorMessage from '../components/errorMessage';
-import CommonErrorMessage from '../components/commonErrorMessage';
-import LineMenu from '../components/lineMenu';
+import ErrorMessage from '../components/ErrorMessage';
+import CommonErrorMessage from '../components/CommonErrorMessage';
+import LineMenu from '../components/LineMenu';
 
 export default function Settings() {
   const { register, handleSubmit, errors } = useForm();

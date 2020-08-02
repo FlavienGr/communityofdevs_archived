@@ -4,8 +4,8 @@ import Link from 'next/link';
 import axios from 'axios';
 import Router from 'next/router';
 import Layout from '../components/Layout';
-import ErrorMessage from '../components/errorMessage';
-import CommonErrorMessage from '../components/commonErrorMessage';
+import ErrorMessage from '../components/ErrorMessage';
+import CommonErrorMessage from '../components/CommonErrorMessage';
 
 export default function Signup() {
   const { register, handleSubmit, errors } = useForm();

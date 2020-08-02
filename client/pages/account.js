@@ -6,13 +6,13 @@ import Modal from 'react-modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Menu from '../components/menu';
+import Menu from '../components/Menu';
 import Layout from '../components/Layout';
 import customStyles from '../constants/customStyles';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
-import ErrorMessage from '../components/errorMessage';
-import CommonErrorMessage from '../components/commonErrorMessage';
-import LineMenu from '../components/lineMenu';
+import ErrorMessage from '../components/ErrorMessage';
+import CommonErrorMessage from '../components/CommonErrorMessage';
+import LineMenu from '../components/LineMenu';
 
 export default function Account() {
   const { register, handleSubmit, errors } = useForm();
