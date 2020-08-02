@@ -8,8 +8,8 @@ const {
   userSignup,
   userLogin,
   changeEmail,
-  changePassword
-  //   userLogout
+  changePassword,
+  userLogout
 } = require('../controllers/authUser');
 
 const auth = require('../middlewares/auth');
@@ -17,7 +17,8 @@ const auth = require('../middlewares/auth');
 router
   .route('/login')
   .post(validator.userLogin, requestValidationData, userLogin);
-// router.route('/logout').get(auth, userLogout);
+
+router.route('/logout').get(auth, userLogout);
 router
   .route('/signup')
   .post(validator.userSignup, requestValidationData, userSignup);

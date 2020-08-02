@@ -138,3 +138,19 @@ exports.changePassword = async (req, res, next) => {
     return next(new DatabaseConnectionError());
   }
 };
+
+// @desc   Logout a user
+// @route  Post api/v1/user/auth/logout
+// @access Private
+
+exports.userLogout = async (_req, res, _next) => {
+  res.clearCookie('token', 'none', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+
+  res.status(200).json({
+    success: true,
+    data: {}
+  });
+};

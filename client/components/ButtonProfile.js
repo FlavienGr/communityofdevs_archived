@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function ButtonProfile() {
+export default function ButtonProfile({ logout }) {
   return (
     <>
       <Link href="/newproject">
@@ -22,7 +22,9 @@ export default function ButtonProfile() {
         <Dropdown.Item href="/account">Compte</Dropdown.Item>
         <Dropdown.Item href="/settings">Paramètres</Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item href="#">Déconnexion</Dropdown.Item>
+        <Dropdown.Item href="#" onClick={logout}>
+          Déconnexion
+        </Dropdown.Item>
       </DropdownButton>
       <div className="d-lg-none">
         <Row>

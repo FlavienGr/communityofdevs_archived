@@ -21,7 +21,7 @@ export default function header({ currentUser }) {
   };
   const renderButton = currentUser.success ? (
     <>
-      <ButtonProfile />
+      <ButtonProfile logout={logout} />
     </>
   ) : (
     <>
@@ -46,7 +46,9 @@ export default function header({ currentUser }) {
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto align-items-start p-3">{renderButton}</Nav>
+          <Nav className="ml-auto align-items-start align-items-lg-center p-3">
+            {renderButton}
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     </header>
