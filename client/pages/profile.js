@@ -16,7 +16,7 @@ export default function Profile({ user: { data } }) {
             <LineMenu />
             <Col md={7} sm={12}>
               <Col md={12} className="mb-5">
-                <div className="profile__title mb-2">Name</div>
+                <div className="profile__title mb-2">Nom</div>
                 <div>{data.name}</div>
               </Col>
               <Col md={12} className="mb-5">
@@ -25,7 +25,9 @@ export default function Profile({ user: { data } }) {
               </Col>
               <Col md={12} className="mb-5">
                 <div className="profile__title mb-2">Adresse</div>
-                <div>{`${data.street}, à ${data.city} ${data.zipcode}`}</div>
+                <div className="mb-2">{data.street || undefined}</div>
+                <div className="mb-2">{data.city || undefined}</div>
+                <div className="mb-2">{data.zipcode || undefined}</div>
               </Col>
               <Col md={12} className="mb-5">
                 <div className="profile__title mb-2">Email</div>
