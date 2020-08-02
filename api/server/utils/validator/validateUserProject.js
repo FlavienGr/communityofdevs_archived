@@ -1,4 +1,4 @@
-const { check, body } = require('express-validator');
+const { check } = require('express-validator');
 
 const configProject = [
   check('name')
@@ -14,11 +14,11 @@ const configProject = [
 ];
 const configProjectUpdate = [
   check('name')
-    .if(body('name').exists())
+    .if(check('name').exists())
     .isLength({ min: 3 })
     .withMessage('name must be at least 3 chars long'),
   check('summary')
-    .if(body('summary').exists())
+    .if(check('summary').exists())
     .isLength({ max: 1500, min: 30 })
     .withMessage('name must be at least 30 chars and max 1500 chars long')
 ];

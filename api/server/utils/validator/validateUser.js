@@ -52,9 +52,15 @@ const configPassword = [
     .exists()
     .custom((value, { req }) => value === req.body.password)
 ];
+const configUserUpdate = [
+  check('name')
+    .if(check('name').exists())
+    .isLength({ min: 3 })
+    .withMessage('name must be at least 3 chars long')
+];
 const userLogin = [...configConnection];
 const userSignup = [...configConnection, ...configUser, ...configSignup];
-const updatesUser = [...configUser, ...configAddress];
+const updatesUser = [...configUserUpdate, ...configAddress];
 const changeEmail = [...configConnection, ...configEmail];
 const changePassword = [...configPassword];
 

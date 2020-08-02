@@ -70,12 +70,10 @@ const signup = async (data, hashPassword) => {
   return getProfileUserById(user[0].id);
 };
 const createAddressById = async (id, data) => {
-  return (
-    await db(tableUser.user_address)
-      .where({ user_id: id })
-      .update(data),
-    ['id']
-  );
+  const update = await db(tableUser.user_address)
+    .where({ user_id: id })
+    .update(data, ['id']);
+  return update;
 };
 const updateById = async (data, id) => {
   const isAddressChanged = Object.keys(data).some(item =>
@@ -88,11 +86,11 @@ const updateById = async (data, id) => {
     await createAddressById(id, newAddress);
     updateUser = removeField(updateUser, addressItems);
   }
-
-  await db(tableUser.user)
-    .where({ id })
-    .update(updateUser);
-
+  if (Object.keys(updateUser).length > 0) {
+    await db(tableUser.user)
+      .where({ id })
+      .update(updateUser);
+  }
   return getProfileUserById(id);
 };
 const deleteUserById = id => {
