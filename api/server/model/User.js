@@ -23,7 +23,7 @@ const findByName = name => {
 };
 const findById = id => {
   return db(tableUser.user)
-    .select('id')
+    .select('id', 'email')
     .where({ id })
     .first();
 };
@@ -116,6 +116,23 @@ const updatePassword = (password, id) => {
     .update({ password })
     .returning(['id']);
 };
+const sendTokenDB = (resetToken, resetTokenExpire, id) => {
+  return db(tableUser.user)
+    .where({ id })
+    .update({ resetToken, resetTokenExpire })
+    .returning(['id', 'name', 'email']);
+};
+const verifyResetPassword = resetToken => {
+  return db(tableUser.user)
+    .select('id', 'resetTokenExpire', 'email')
+    .where({ resetToken })
+    .first();
+};
+const updatePasswordAfterReset = (password, id) => {
+  return db(tableUser.user)
+    .where({ id })
+    .update({ password, resetToken: null, resetTokenExpire: null });
+};
 module.exports = {
   findByEmailLogin,
   findByEmail,
@@ -128,5 +145,8 @@ module.exports = {
   getCurrentUser,
   findByIdPassword,
   updateEmail,
-  updatePassword
+  updatePassword,
+  sendTokenDB,
+  verifyResetPassword,
+  updatePasswordAfterReset
 };

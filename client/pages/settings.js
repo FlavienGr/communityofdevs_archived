@@ -5,7 +5,7 @@ import Router from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Menu from '../components/menu';
+import Menu from '../components/Menu';
 import Layout from '../components/Layout';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import ErrorMessage from '../components/ErrorMessage';

@@ -4,6 +4,7 @@ const RequestAuthErrors = require('../errors/request-auth-errors');
 const User = require('../model/User');
 const sendResponse = require('../utils/sendResponse');
 const validInsertData = require('../utils/validInsertData');
+const { sendQuitEmail } = require('../email/email');
 
 // @desc   update a user
 // @route  put /api/v1/user
@@ -82,6 +83,7 @@ exports.deleteUser = async (req, res, next) => {
       return next(new RequestAuthErrors());
     }
     await User.deleteUserById(id);
+    sendQuitEmail(user.email);
     sendResponse({}, 200, res);
   } catch (error) {
     next(new DatabaseConnectionError());

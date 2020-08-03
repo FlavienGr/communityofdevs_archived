@@ -31,7 +31,7 @@ const configAddress = [check('street').trim()];
 const configEmail = [
   check(
     'emailConfirmation',
-    'emailConfirmation field must have the same value as the email field'
+    'email confirmation field must have the same value as the email field'
   ).custom((value, { req }) => value === req.body.email)
 ];
 const configPassword = [
@@ -63,11 +63,32 @@ const userSignup = [...configConnection, ...configUser, ...configSignup];
 const updatesUser = [...configUserUpdate, ...configAddress];
 const changeEmail = [...configConnection, ...configEmail];
 const changePassword = [...configPassword];
-
+const forgotpassword = [
+  check('email')
+    .isEmail()
+    .withMessage('Incorrect email format')
+    .normalizeEmail()
+    .trim()
+];
+const resetPassword = [
+  check('password')
+    .exists()
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 chars long')
+    .bail(),
+  check(
+    'passwordConfirmation',
+    'password confirmation field must have the same value as the password field'
+  )
+    .exists()
+    .custom((value, { req }) => value === req.body.password)
+];
 module.exports = {
   userLogin,
   userSignup,
   updatesUser,
   changeEmail,
-  changePassword
+  changePassword,
+  forgotpassword,
+  resetPassword
 };

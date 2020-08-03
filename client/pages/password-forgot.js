@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Link from 'next/link';
 import axios from 'axios';
 import Router from 'next/router';
 import Layout from '../components/Layout';
 import ErrorMessage from '../components/ErrorMessage';
 import CommonErrorMessage from '../components/CommonErrorMessage';
 
-export default function Login() {
+export default function ForgotPassword() {
   const { register, handleSubmit, errors } = useForm();
   const [errorRequest, setErrorsRequest] = useState(null);
   const [disabledButton, setDisabledButton] = useState(false);
@@ -15,7 +14,7 @@ export default function Login() {
   const onSubmit = async data => {
     setErrorsRequest(null);
     setDisabledButton(true);
-    const url = 'http://localhost:5000/api/v1/user/auth/login';
+    const url = 'http://localhost:5000/api/v1/user/auth/forgot-password';
 
     try {
       const response = await axios(url, {
@@ -72,61 +71,14 @@ export default function Login() {
                   className="form-control"
                 />
               </div>
-              <div className="form-group col-md-12">
-                <label
-                  className={`login-form__label ${errors.password &&
-                    'disactivate'}`}
-                  htmlFor="password">
-                  Mot de passe
-                </label>
-                {errors.password && (
-                  <span className="form__errors">
-                    {errors.password.message}
-                  </span>
-                )}
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  ref={register({
-                    required: {
-                      value: true,
-                      message: 'Le mot de passe doit être spécifié'
-                    },
-                    minLength: {
-                      value: 8,
-                      message:
-                        'Le mot de passe doit contenir 8 caractères minimum'
-                    }
-                  })}
-                  className="form-control"
-                />
-              </div>
             </div>
             <div className="form-row ml-3">
               <button
                 type="submit"
                 className="btn btn-dark"
                 disabled={disabledButton}>
-                Se connecter
+                Envoyer
               </button>
-              <span className="form__line">{''}</span>
-              <div className="container-button">
-                <Link href="/signup">
-                  <a className="btn btn-outline-dark">
-                    Vous n&apos;êtes pas inscrit ? Inscrivez-vous
-                  </a>
-                </Link>
-                <div className="mt-3">
-                  <Link href="/password-forgot">
-                    <a
-                      className="text-decoration-none"
-                      style={{ color: 'inherit' }}>
-                      Mot de passe oublier ?
-                    </a>
-                  </Link>
-                </div>
-              </div>
             </div>
           </form>
         </div>

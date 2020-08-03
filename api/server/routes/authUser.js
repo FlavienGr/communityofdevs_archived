@@ -9,7 +9,9 @@ const {
   userLogin,
   changeEmail,
   changePassword,
-  userLogout
+  userLogout,
+  forgotpassword,
+  resetPassword
 } = require('../controllers/authUser');
 
 const auth = require('../middlewares/auth');
@@ -30,4 +32,10 @@ router
 router
   .route('/change-password')
   .post(auth, validator.changePassword, requestValidationData, changePassword);
+router
+  .route('/forgot-password')
+  .post(validator.forgotpassword, requestValidationData, forgotpassword);
+router
+  .route('/reset-password/:token')
+  .put(validator.resetPassword, requestValidationData, resetPassword);
 module.exports = router;

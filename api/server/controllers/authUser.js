@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const RequestAuthErrors = require('../errors/request-auth-errors');
 const DatabaseConnectionError = require('../errors/databaseConnectionError');
 const Helper = require('../utils/helper');
@@ -6,6 +7,11 @@ const sendResponse = require('../utils/sendResponse');
 const { sanitizedUser } = require('../utils/sanitizedUser');
 const validInsertData = require('../utils/validInsertData');
 const RequestInsertErrors = require('../errors/request-insert-errors');
+const {
+  sendWelcomeEmail,
+  sendAfterChangeEmail,
+  sendResetPassword
+} = require('../email/email');
 
 // @desc   Create a user
 // @route  Post user api/v1/user/auth/signup
@@ -38,10 +44,9 @@ exports.userSignup = async (req, res, next) => {
     const user = await User.signup(req.body, hashPassword);
 
     const token = await Helper.generateToken(user.id);
-
+    sendWelcomeEmail(user.email);
     sendResponse(sanitizedUser(user, token), 201, res);
   } catch (error) {
-    console.log(error);
     return next(new DatabaseConnectionError());
   }
 };
@@ -102,6 +107,7 @@ exports.changeEmail = async (req, res, next) => {
       return next(new RequestAuthErrors());
     }
     await User.updateEmail(req.body.email, id);
+    sendAfterChangeEmail(req.body.email);
     res.status(200).json({ success: true, data: [] });
   } catch (error) {
     return next(new DatabaseConnectionError());
@@ -153,4 +159,65 @@ exports.userLogout = async (_req, res, _next) => {
     success: true,
     data: {}
   });
+};
+
+// @desc   change a forgot user password
+// @route  Post api/v1/user/auth/forgot-password
+// @access public
+
+exports.forgotpassword = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findByEmail(email);
+    if (!user) {
+      return next(new RequestAuthErrors());
+    }
+    const buffer = await crypto.randomBytes(20);
+    const token = buffer.toString('hex');
+    const resetToken = token;
+    const resetTokenExpire = Date.now() + 3600000; // expires in an hour
+    await User.sendTokenDB(resetToken, resetTokenExpire, user.id);
+
+    // create reset url
+    const resetUrl = `${req.protocol}://${req.get(
+      'host'
+    )}/reset-password/${resetToken}`;
+    // // sendEmail
+    sendResetPassword(email, resetUrl);
+    res.status(200).json({
+      success: true,
+      data: {}
+    });
+  } catch (error) {
+    return next(new DatabaseConnectionError());
+  }
+};
+
+// @desc   reset a forgot user password
+// @route  Patch api/v1/user/auth/reset-password/:token
+// @access public
+
+exports.resetPassword = async (req, res, next) => {
+  const resetToken = req.params.token;
+  const { password } = req.body;
+
+  try {
+    const user = await User.verifyResetPassword(resetToken);
+    if (!user) {
+      return next(new RequestAuthErrors());
+    }
+    if (user.resetTokenExpire <= Date.now()) {
+      return next(
+        new RequestAuthErrors('Time to change your password has expired')
+      );
+    }
+    const hashPassword = Helper.hashPassword(password);
+    await User.updatePasswordAfterReset(hashPassword, user.id);
+    res.status(200).json({
+      success: true,
+      data: {}
+    });
+  } catch (error) {
+    return next(new DatabaseConnectionError());
+  }
 };
