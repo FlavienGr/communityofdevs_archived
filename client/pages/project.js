@@ -7,8 +7,9 @@ import Menu from '../components/Menu';
 import Layout from '../components/Layout';
 import ProjectList from '../components/ProjectList';
 import LineMenu from '../components/LineMenu';
+import ProtectedPages from '../components/ProtectedPages';
 
-export default function Project({ project: { data } }) {
+function Project({ project: { data } }) {
   return (
     <Layout>
       <Container fluid className="project-list">
@@ -25,6 +26,8 @@ export default function Project({ project: { data } }) {
     </Layout>
   );
 }
+export default ProtectedPages(Project);
+
 export async function getServerSideProps(context) {
   const server = requestServer(context);
   let data = {};

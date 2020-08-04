@@ -44,6 +44,7 @@
     "prefer-arrow-callback": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "no-empty": ["error", { "allowEmptyCatch": true }]
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    "react/display-name": "off"
   }
 }

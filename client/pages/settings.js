@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,12 +11,14 @@ import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import ErrorMessage from '../components/ErrorMessage';
 import CommonErrorMessage from '../components/CommonErrorMessage';
 import LineMenu from '../components/LineMenu';
+import ProtectedPages from '../components/ProtectedPages';
 
-export default function Settings() {
+function Settings() {
   const { register, handleSubmit, errors } = useForm();
   const [disabledButton, setDisabledButton] = useState(false);
   const [errorRequest, setErrorsRequest] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const router = useRouter();
 
   const onSubmitPassword = async updatedData => {
     setDisabledButton(true);
@@ -36,7 +38,7 @@ export default function Settings() {
             setMessage={setSuccessMessage}
           />
         );
-        setTimeout(() => Router.push('/login'), 1000);
+        setTimeout(() => router.push('/login'), 1000);
       }
     } catch (error) {
       setDisabledButton(false);
@@ -174,3 +176,5 @@ export default function Settings() {
     </Layout>
   );
 }
+
+export default ProtectedPages(Settings);

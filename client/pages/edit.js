@@ -12,8 +12,9 @@ import checkMaj from '../utils/checkMaj';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import CommonErrorMessage from '../components/CommonErrorMessage';
 import LineMenu from '../components/LineMenu';
+import ProtectedPages from '../components/ProtectedPages';
 
-export default function Edit({ user: { data } }) {
+function Edit({ user: { data } }) {
   const { register, handleSubmit, errors } = useForm();
   const [errorRequest, setErrorsRequest] = useState(null);
   const [disabledButton, setDisabledButton] = useState(false);
@@ -286,6 +287,8 @@ export default function Edit({ user: { data } }) {
     </Layout>
   );
 }
+export default ProtectedPages(Edit);
+
 export async function getServerSideProps(context) {
   const server = requestServer(context);
   let data = {};

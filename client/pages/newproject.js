@@ -6,8 +6,9 @@ import Layout from '../components/Layout';
 import ErrorMessage from '../components/ErrorMessage';
 import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import CommonErrorMessage from '../components/CommonErrorMessage';
+import ProtectedPages from '../components/ProtectedPages';
 
-export default function NewProject() {
+function NewProject() {
   const { register, handleSubmit, errors } = useForm();
   const [errorRequest, setErrorsRequest] = useState(null);
   const [disabledButton, setDisabledButton] = useState(false);
@@ -182,3 +183,4 @@ export default function NewProject() {
     </Layout>
   );
 }
+export default ProtectedPages(NewProject);

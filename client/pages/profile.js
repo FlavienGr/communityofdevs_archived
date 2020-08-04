@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -5,8 +6,26 @@ import requestServer from '../api/request-client';
 import Menu from '../components/Menu';
 import Layout from '../components/Layout';
 import LineMenu from '../components/LineMenu';
+import ProtectedPages from '../components/ProtectedPages';
 
-export default function Profile({ user: { data } }) {
+function Profile({ user: { data } }) {
+  const [email, setEmail] = useState(null);
+  const [name, setName] = useState(null);
+  const [immatriculation, setImmatriculation] = useState(null);
+  const [city, setCity] = useState(null);
+  const [street, setStreet] = useState(null);
+  const [zipcode, setZipcode] = useState(null);
+
+  useEffect(() => {
+    if (data !== undefined) {
+      setEmail(data.email);
+      setName(data.name);
+      setImmatriculation(data.immatriculation);
+      setCity(data.city);
+      setStreet(data.street);
+      setZipcode(data.zipcode);
+    }
+  }, []);
   return (
     <Layout>
       <Container fluid className="profile">
@@ -17,21 +36,21 @@ export default function Profile({ user: { data } }) {
             <Col md={7} sm={12}>
               <Col md={12} className="mb-5">
                 <div className="profile__title mb-2">Nom</div>
-                <div>{data.name}</div>
+                <div>{name}</div>
               </Col>
               <Col md={12} className="mb-5">
                 <div className="profile__title mb-2">{`Numéro de l'association`}</div>
-                <div>{data.immatriculation}</div>
+                <div>{immatriculation}</div>
               </Col>
               <Col md={12} className="mb-5">
                 <div className="profile__title mb-2">Adresse</div>
-                <div className="mb-2">{data.street || undefined}</div>
-                <div className="mb-2">{data.city || undefined}</div>
-                <div className="mb-2">{data.zipcode || undefined}</div>
+                <div className="mb-2">{street || undefined}</div>
+                <div className="mb-2">{city || undefined}</div>
+                <div className="mb-2">{zipcode || undefined}</div>
               </Col>
               <Col md={12} className="mb-5">
                 <div className="profile__title mb-2">Email</div>
-                <div>{data.email}</div>
+                <div>{email}</div>
               </Col>
             </Col>
           </Row>
@@ -40,6 +59,8 @@ export default function Profile({ user: { data } }) {
     </Layout>
   );
 }
+export default ProtectedPages(Profile);
+
 export async function getServerSideProps(context) {
   const server = requestServer(context);
   let data = {};

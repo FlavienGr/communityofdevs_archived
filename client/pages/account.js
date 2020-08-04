@@ -13,8 +13,9 @@ import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import ErrorMessage from '../components/ErrorMessage';
 import CommonErrorMessage from '../components/CommonErrorMessage';
 import LineMenu from '../components/LineMenu';
+import ProtectedPages from '../components/ProtectedPages';
 
-export default function Account() {
+function Account() {
   const { register, handleSubmit, errors } = useForm();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
@@ -252,3 +253,4 @@ export default function Account() {
     </Layout>
   );
 }
+export default ProtectedPages(Account);
