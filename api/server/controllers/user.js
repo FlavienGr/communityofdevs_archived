@@ -1,10 +1,11 @@
 const DatabaseConnectionError = require('../errors/databaseConnectionError');
 const RequestInsertErrors = require('../errors/request-insert-errors');
 const RequestAuthErrors = require('../errors/request-auth-errors');
+const RequestEmailErrors = require('../errors/request-email-error');
 const User = require('../model/User');
 const sendResponse = require('../utils/sendResponse');
 const validInsertData = require('../utils/validInsertData');
-const { sendQuitEmail } = require('../email/email');
+const { sendQuitEmail, sendEmailFromUser } = require('../email/email');
 
 // @desc   update a user
 // @route  put /api/v1/user
@@ -83,7 +84,11 @@ exports.deleteUser = async (req, res, next) => {
       return next(new RequestAuthErrors());
     }
     await User.deleteUserById(id);
-    sendQuitEmail(user.email);
+    try {
+      sendQuitEmail(user.email);
+    } catch (error) {
+      return next(new RequestEmailErrors());
+    }
     sendResponse({}, 200, res);
   } catch (error) {
     next(new DatabaseConnectionError());
@@ -103,5 +108,18 @@ exports.getCurrentUser = async (req, res, next) => {
     res.status(200).json({ success: true, data: user });
   } catch (error) {
     next(new DatabaseConnectionError());
+  }
+};
+// @desc   send email to contact
+// @route  post /api/v1/user/contact
+// @access public
+
+exports.sendContactEmail = async (req, res, next) => {
+  const { object, email, msg } = req.body;
+  try {
+    sendEmailFromUser(email, object, msg);
+    res.status(200).json({ success: true, data: [] });
+  } catch (error) {
+    next(new RequestEmailErrors());
   }
 };

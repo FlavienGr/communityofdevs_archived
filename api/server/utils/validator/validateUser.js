@@ -83,6 +83,19 @@ const resetPassword = [
     .exists()
     .custom((value, { req }) => value === req.body.password)
 ];
+const sendEmail = [
+  check('email')
+    .isEmail()
+    .withMessage('Incorrect email format')
+    .normalizeEmail()
+    .trim(),
+  check('object')
+    .exists()
+    .withMessage('A subject should be added to your message'),
+  check('msg')
+    .exists()
+    .withMessage('A message text should be added')
+];
 module.exports = {
   userLogin,
   userSignup,
@@ -90,5 +103,6 @@ module.exports = {
   changeEmail,
   changePassword,
   forgotpassword,
-  resetPassword
+  resetPassword,
+  sendEmail
 };

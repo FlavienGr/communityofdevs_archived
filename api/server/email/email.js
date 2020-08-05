@@ -55,9 +55,19 @@ const sendResetPassword = (email, resetUrl) => {
   };
   sgMail.send(msg);
 };
+const sendEmailFromUser = (userEmail, object, message) => {
+  const msg = {
+    to: `${process.env.email}`,
+    from: `${userEmail}`,
+    subject: object,
+    text: message
+  };
+  sgMail.send(msg);
+};
 module.exports = {
   sendWelcomeEmail,
   sendQuitEmail,
   sendResetPassword,
-  sendAfterChangeEmail
+  sendAfterChangeEmail,
+  sendEmailFromUser
 };

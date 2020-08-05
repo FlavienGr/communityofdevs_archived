@@ -8,7 +8,8 @@ const {
   updateUser,
   getUserProfile,
   deleteUser,
-  getCurrentUser
+  getCurrentUser,
+  sendContactEmail
 } = require('../controllers/user');
 const auth = require('../middlewares/auth');
 
@@ -18,5 +19,8 @@ router
   .delete(auth, deleteUser);
 router.route('/profile').get(auth, getUserProfile);
 router.route('/currentUser').get(auth, getCurrentUser);
+router
+  .route('/contact')
+  .post(validator.sendEmail, requestValidationData, sendContactEmail);
 
 module.exports = router;
