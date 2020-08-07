@@ -12,6 +12,15 @@ export default function Articles({ data }) {
     />
   ));
   return (
-    <Col md={6}>{data.length === 0 ? renderEmptyArticles : renderArticles}</Col>
+    <Col md={7}>
+      {data.length === 0 ? (
+        renderEmptyArticles
+      ) : (
+        <article>
+          <h2 className="ml-2 mb-4">Conditions Générales d'Utilisation</h2>
+          {renderArticles}
+        </article>
+      )}
+    </Col>
   );
 }

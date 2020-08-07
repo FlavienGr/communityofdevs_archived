@@ -1,9 +1,22 @@
 import Col from 'react-bootstrap/Col';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function MenuArticlesItems({ article }) {
   return (
-    <Col sm={10} md={12} lg={12} xl={12} className="">
-      <a href={`#${article}`}>{article}</a>
-    </Col>
+    <a
+      className="articles-items-menu text-decoration-none mr-5"
+      href={`#${article}`}>
+      <Col
+        sm={12}
+        className="mb-4 d-flex flex-row justify-content-center align-items-center">
+        <Col sm={7} className="">
+          {article}
+        </Col>
+        <Col sm={2} className="d-flex flex-row justify-content-start">
+          <FontAwesomeIcon icon={faArrowRight} />
+        </Col>
+      </Col>
+    </a>
   );
 }

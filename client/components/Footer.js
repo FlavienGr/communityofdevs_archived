@@ -15,9 +15,14 @@ export default function Footer() {
               <a>{"Conditions générales d'utilisation"}</a>
             </Link>
           </Col>
+          <Col md={12} lg={12} className="mt-1">
+            <Link href="/privacy-policy">
+              <a>{'Politique de Protection des Données Personnelles'}</a>
+            </Link>
+          </Col>
           <Col md={12} lg={12} className="mt-2">
             <Link href="/contact">
-              <a>Contact</a>
+              <a>Nous contacter</a>
             </Link>
           </Col>
         </Row>

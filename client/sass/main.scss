@@ -1,5 +1,8 @@
 @import './parameters/variables';
 @import './base';
+@import './general';
+
+/// componenents
 @import './components/header';
 @import './components/infos';
 @import './components/cards';
@@ -7,6 +10,8 @@
 @import './components/menu';
 @import './components/project-item';
 @import './components/loadingPage';
+@import './components/articles';
+@import './components/menuArticles';
 
 /// pages
 @import './pages/signup';

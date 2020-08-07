@@ -6,5 +6,9 @@ export default function MenuArticles({ data }) {
   const renderMenu = data.map(item => (
     <MenuArticlesItems key={item.id} article={item.article} />
   ));
-  return <Col md={6}>{data.length === 0 ? renderEmptyMenu : renderMenu}</Col>;
+  return (
+    <Col md={5} className="justify-content-center">
+      {data.length === 0 ? renderEmptyMenu : renderMenu}
+    </Col>
+  );
 }
