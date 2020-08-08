@@ -8,7 +8,7 @@ export default function Articles({ data }) {
       key={item.id}
       article={item.article}
       content={item.content}
-      title={item.secondTitle}
+      number={item.number}
     />
   ));
   return (

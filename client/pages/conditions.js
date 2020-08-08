@@ -12,7 +12,6 @@ export default function Conditions({ articles }) {
       <Container fluid className="block-container">
         <Row>
           <MenuArticles data={articles} />
-
           <Articles data={articles} />
         </Row>
       </Container>
