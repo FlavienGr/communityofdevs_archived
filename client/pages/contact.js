@@ -106,7 +106,7 @@ export default function Contact() {
                     errors.object ? 'disactivate' : ''
                   }`}
                   htmlFor="object">
-                  Object du message
+                  Sujet du message
                 </label>
 
                 {errors.object && (
@@ -119,7 +119,7 @@ export default function Contact() {
                   ref={register({
                     required: {
                       value: true,
-                      message: 'Un object doit être spécifié'
+                      message: 'Un sujet doit être spécifié'
                     }
                   })}
                   className="form-control"
