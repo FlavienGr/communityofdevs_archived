@@ -14,6 +14,8 @@ function NewProject() {
   const [disabledButton, setDisabledButton] = useState(false);
   const [fileName, setFileName] = useState(undefined);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [name, setName] = useState('');
+  const [summary, setSummary] = useState('');
 
   const onSubmit = async data => {
     setErrorsRequest(null);
@@ -42,6 +44,9 @@ function NewProject() {
             setMessage={setSuccessMessage}
           />
         );
+        setName('');
+        setSummary('');
+        setFileName(undefined);
         setDisabledButton(false);
       }
     } catch (error) {
@@ -57,6 +62,16 @@ function NewProject() {
   };
   const handleInputFileChange = e => {
     setFileName(e.target.files[0].name);
+  };
+  const handleChange = e => {
+    const { value } = e.target;
+    const setChange = {
+      name: setName,
+      summary: setSummary
+    };
+    if (setChange[e.target.name]) {
+      setChange[e.target.name](value);
+    }
   };
   return (
     <Layout>
@@ -81,6 +96,8 @@ function NewProject() {
                 <input
                   type="text"
                   name="name"
+                  value={name}
+                  onChange={handleChange}
                   placeholder="Nom du project"
                   ref={register({
                     required: {
@@ -111,6 +128,8 @@ function NewProject() {
                   name="summary"
                   placeholder="Résumé en quelques lignes..."
                   rows="6"
+                  value={summary}
+                  onChange={handleChange}
                   ref={register({
                     required: {
                       value: true,
