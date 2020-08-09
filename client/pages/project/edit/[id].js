@@ -27,7 +27,7 @@ export default function EditProject({ project }) {
   const applySuccessfulChange = () => {
     setSuccessMessage(
       <RenderSuccessMessage
-        message="Votre project a été édité avec succès"
+        message="Votre projet a été édité avec succès"
         setMessage={setSuccessMessage}
       />
     );
@@ -49,7 +49,7 @@ export default function EditProject({ project }) {
         setDisabledButton(false);
         setSuccessMessage(
           <RenderSuccessMessage
-            message="Votre project a été édité avec succès"
+            message="Votre projet a été édité avec succès"
             setMessage={setSuccessMessage}
           />
         );
@@ -91,7 +91,7 @@ export default function EditProject({ project }) {
   };
   const onSubmit = async updatedData => {
     setErrorsRequest(null);
-    // setDisabledButton(true);
+    setDisabledButton(true);
     if (updatedData.description.length > 0) {
       sendUpdatedDataWithPdf(updatedData);
       return applySuccessfulChange();
@@ -127,7 +127,7 @@ export default function EditProject({ project }) {
                             errors.name ? 'disactivate' : ''
                           }`}
                           htmlFor="name">
-                          Nom du project
+                          Nom du projet
                         </label>
 
                         {errors.name && (
@@ -142,12 +142,12 @@ export default function EditProject({ project }) {
                           ref={register({
                             required: {
                               value: true,
-                              message: 'Un nom doit être ajouté au project'
+                              message: 'Un nom doit être ajouté au projet'
                             },
                             minLength: {
                               value: 3,
                               message:
-                                'Le npm doit contenir 3 caractères minimum'
+                                'Le nom doit contenir 3 caractères minimum'
                             }
                           })}
                           className="form-control"
@@ -175,7 +175,7 @@ export default function EditProject({ project }) {
                           ref={register({
                             required: {
                               value: true,
-                              message: 'Un résumé du project doit être spécifié'
+                              message: 'Un résumé du projet doit être spécifié'
                             },
                             minLength: {
                               value: 30,
@@ -185,7 +185,7 @@ export default function EditProject({ project }) {
                             maxLength: {
                               value: 1500,
                               message:
-                                'Le résumé ne doit pas contenir plus de 1500 caractères maximun'
+                                'Le résumé ne doit pas contenir plus de 1500 caractères'
                             }
                           })}
                           className="form-control"

@@ -36,7 +36,7 @@ export default function ProjectId({ project }) {
         setDisabledButton(false);
         setSuccessMessage(
           <RenderSuccessMessage
-            message="Votre project a été supprimer avec succès"
+            message="Votre projet a été supprimer avec succès"
             setMessage={setSuccessMessage}
           />
         );
@@ -92,10 +92,10 @@ export default function ProjectId({ project }) {
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
                   style={customStyles}
-                  contentLabel="Supprimer son project">
+                  contentLabel="Supprimer son projet">
                   <div style={{ width: '280px', marginBottom: '35px' }}>
                     Vous êtes sur le point de supprimer définitivement votre
-                    project
+                    projet
                   </div>
                   <div
                     style={{
