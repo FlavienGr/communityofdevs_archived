@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import { useForm } from 'react-hook-form';
 import Layout from '../components/Layout';
@@ -40,7 +41,7 @@ function NewProject() {
         setErrorsRequest(null);
         setSuccessMessage(
           <RenderSuccessMessage
-            message="Votre project a été enregistré avec succès"
+            message="Votre projet a été enregistré avec succès"
             setMessage={setSuccessMessage}
           />
         );
@@ -87,7 +88,7 @@ function NewProject() {
                     errors.name ? 'disactivate' : ''
                   }`}
                   htmlFor="name">
-                  Nom du project
+                  Nom du projet
                 </label>
 
                 {errors.name && (
@@ -98,11 +99,11 @@ function NewProject() {
                   name="name"
                   value={name}
                   onChange={handleChange}
-                  placeholder="Nom du project"
+                  placeholder="Nom du projet"
                   ref={register({
                     required: {
                       value: true,
-                      message: 'Un nom doit être ajouté au project'
+                      message: 'Un nom doit être ajouté au projet'
                     },
                     minLength: {
                       value: 3,
@@ -133,7 +134,7 @@ function NewProject() {
                   ref={register({
                     required: {
                       value: true,
-                      message: 'Un résumé du project doit être spécifié'
+                      message: 'Un résumé du projet doit être spécifié'
                     },
                     minLength: {
                       value: 30,
@@ -154,7 +155,7 @@ function NewProject() {
                   className={`maj-label ${
                     errors.description ? 'disactivate' : ''
                   }`}>
-                  Ajouter une description
+                  Ajouter le document descriptif du projet
                 </div>
 
                 {errors.description && (
@@ -162,6 +163,16 @@ function NewProject() {
                     {errors.description.message}
                   </span>
                 )}
+                <Link href="/help">
+                  <a
+                    style={{
+                      color: 'inherit',
+                      display: 'block',
+                      marginTop: '1rem'
+                    }}>
+                    **Cliquer sur ce lien pour consulter notre guide &gt;
+                  </a>
+                </Link>
               </div>
               <div className="custom-file col-md-7 mb-5">
                 <label className={`custom-file-label`} htmlFor="description">
