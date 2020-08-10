@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cgus",
+  "info": {
+    "name": "cgu"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "article": {
+      "type": "string"
+    },
+    "content": {
+      "type": "text"
+    },
+    "number": {
+      "type": "string"
+    }
+  }
+}
