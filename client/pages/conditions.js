@@ -22,7 +22,7 @@ export default function Conditions({ articles }) {
 export async function getServerSideProps(context) {
   let data = {};
   try {
-    const request = await axios('http://localhost:1337/cgus?_sort=id:ASC');
+    const request = await axios('http://localhost:1337/cgus?_sort=number:ASC');
     data = request.data;
   } catch (error) {
     console.log(error, 'ctx');
