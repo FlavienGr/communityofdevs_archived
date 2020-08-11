@@ -27,6 +27,7 @@ export default function Signup() {
         Router.push('/');
       }
     } catch (error) {
+      console.log(error.response);
       setDisabledButton(false);
       if (error.response.status === 400 || error.response.status === 401) {
         return setErrorsRequest(
@@ -49,11 +50,14 @@ export default function Signup() {
                   className={`login-form__label ${
                     errors.name ? 'disactivate' : ''
                   }`}
+                  data-cy="label-name"
                   htmlFor="name">
                   {` Nom de l'association`}
                 </label>
                 {errors.name && (
-                  <span className="form__errors">{errors.name.message}</span>
+                  <span data-cy="span-name" className="form__errors">
+                    {errors.name.message}
+                  </span>
                 )}
                 <input
                   type="text"

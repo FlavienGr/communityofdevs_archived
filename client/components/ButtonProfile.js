@@ -15,6 +15,7 @@ export default function ButtonProfile({ logout }) {
         alignRight
         title="Profile"
         variant="color-black"
+        data-cy="button-profile"
         id="dropdown-menu-align-right">
         <Dropdown.Item href="/profile">Informations</Dropdown.Item>
         <Dropdown.Item href="/project">Projet</Dropdown.Item>

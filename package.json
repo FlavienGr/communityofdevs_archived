@@ -1,0 +1,25 @@
+{
+  "name": "communityofdevs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^4.12.1"
+  },
+  "scripts": {
+    "db:delete": "NODE_ENV=test node utils/deleteDB.js",
+    "db:seed": "NODE_ENV=test node utils/seedDB.js",
+    "cy:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlavienGr/communityofdevs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlavienGr/communityofdevs/issues"
+  },
+  "homepage": "https://github.com/FlavienGr/communityofdevs#readme"
+}

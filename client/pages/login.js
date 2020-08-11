@@ -57,7 +57,9 @@ export default function Login() {
                   Email
                 </label>
                 {errors.email && (
-                  <span className="form__errors">{errors.email.message}</span>
+                  <span data-cy="span-email" className="form__errors">
+                    {errors.email.message}
+                  </span>
                 )}
                 <input
                   type="email"

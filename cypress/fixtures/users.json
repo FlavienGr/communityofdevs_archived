@@ -1,0 +1,9 @@
+{
+  "userOne": {
+    "email": "user-test@fake.com",
+    "password": "testPassword",
+    "name": "user-test",
+    "immatriculation": "user-test",
+    "cgu": true
+  }
+}

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "develop": "NODE_ENV=development nodemon server/index.js",
+    "develop:test": "NODE_ENV=test nodemon server/index.js",
     "lint": "eslint '**/*.js'",
     "lint:fix": "prettier-eslint $PWD/'**/*.js' --write",
     "migrate": "knex migrate:latest",
