@@ -92,7 +92,9 @@ function NewProject() {
                 </label>
 
                 {errors.name && (
-                  <span className="form__errors">{errors.name.message}</span>
+                  <span data-cy="span-name" className="form__errors">
+                    {errors.name.message}
+                  </span>
                 )}
                 <input
                   type="text"
@@ -123,7 +125,9 @@ function NewProject() {
                 </label>
 
                 {errors.summary && (
-                  <span className="form__errors">{errors.summary.message}</span>
+                  <span data-cy="span-summary" className="form__errors">
+                    {errors.summary.message}
+                  </span>
                 )}
                 <textarea
                   name="summary"
@@ -159,7 +163,7 @@ function NewProject() {
                 </div>
 
                 {errors.description && (
-                  <span className="form__errors">
+                  <span data-cy="span-description" className="form__errors">
                     {errors.description.message}
                   </span>
                 )}
