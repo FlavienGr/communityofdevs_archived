@@ -68,7 +68,7 @@ export async function getServerSideProps(context) {
     const request = await server('/api/v1/user/profile');
     data = request.data;
   } catch (error) {
-    console.log(error, 'ctx');
+    console.log(error.response.data.errors, 'ctx');
   }
   return {
     props: { user: data } // will be passed to the page component as props

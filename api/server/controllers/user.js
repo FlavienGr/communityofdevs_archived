@@ -3,7 +3,6 @@ const RequestInsertErrors = require('../errors/request-insert-errors');
 const RequestAuthErrors = require('../errors/request-auth-errors');
 const RequestEmailErrors = require('../errors/request-email-error');
 const User = require('../model/User');
-const sendResponse = require('../utils/sendResponse');
 const validInsertData = require('../utils/validInsertData');
 const { sendQuitEmail, sendEmailFromUser } = require('../email/email');
 
@@ -68,8 +67,9 @@ exports.getUserProfile = async (req, res, next) => {
     if (!user) {
       return next(new RequestAuthErrors());
     }
-    sendResponse(user, 200, res);
+    return res.status(200).json({ success: true, data: user });
   } catch (error) {
+    console.log(error);
     next(new DatabaseConnectionError());
   }
 };
@@ -89,7 +89,7 @@ exports.deleteUser = async (req, res, next) => {
     } catch (error) {
       return next(new RequestEmailErrors());
     }
-    sendResponse({}, 200, res);
+    return res.status(200).json({ success: true, data: {} });
   } catch (error) {
     next(new DatabaseConnectionError());
   }
