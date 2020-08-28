@@ -25,10 +25,11 @@ const helper = {
    * @param {string} id
    * @returns {string} token
    */
-  generateToken(id) {
+  generateToken(id, status) {
     const token = jwt.sign(
       {
-        id
+        id,
+        status
       },
       process.env.SECRET_JWT,
       {

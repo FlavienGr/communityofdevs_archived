@@ -1,21 +1,35 @@
 import '../sass/main.scss';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+
 import requestClient from '../api/request-client';
 import Header from '../components/Header';
+import HeaderDevs from '../components/HeaderDevs';
 
-function MyApp({ Component, pageProps, currentUser }) {
+function MyApp({ Component, pageProps, currentUser, developerSection }) {
+  const renderHeader = developerSection ? (
+    <HeaderDevs currentUser={currentUser} />
+  ) : (
+    <Header currentUser={currentUser} />
+  );
   return (
     <>
-      <Header currentUser={currentUser} />
+      {renderHeader}
       <Component {...pageProps} currentUser={currentUser} />
     </>
   );
 }
 MyApp.getInitialProps = async appContext => {
   const client = requestClient(appContext.ctx);
+  let urlUser = '/api/v1/user/currentuser';
+  const regex = /^\/devs/;
+  const isPathDevs = regex.test(appContext.ctx.pathname);
+
+  if (isPathDevs) {
+    urlUser = '/api/v1/devs/currentuser';
+  }
+  const developerSection = isPathDevs;
   let data;
   try {
-    const response = await client.get('/api/v1/user/currentuser');
+    const response = await client.get(urlUser);
     data = response.data;
   } catch (error) {
     data = {
@@ -30,7 +44,8 @@ MyApp.getInitialProps = async appContext => {
   const pageProps = {};
   return {
     pageProps,
-    currentUser: data
+    currentUser: data,
+    developerSection
   };
 };
 

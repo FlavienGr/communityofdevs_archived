@@ -35,16 +35,23 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
-/// cookies
 // / user router
 const routeAuthUser = require('./routes/authUser');
 const routeUser = require('./routes/user');
 const routeUserProject = require('./routes/routeUserProject');
 
+// / devs router
+const routeDevs = require('./routes/devs/routeDevs');
+const routeAuthDevelopers = require('./routes/devs/routeAuthDevelopers.js');
+
 // / user routes
 app.use('/api/v1/user/auth', routeAuthUser);
 app.use('/api/v1/user', routeUser);
 app.use('/api/v1/user/project', routeUserProject);
+
+/// devs routes
+app.use('/api/v1/devs', routeDevs);
+app.use('/api/v1/devs/auth', routeAuthDevelopers);
 
 // / error handler
 app.use(errorHandler);
