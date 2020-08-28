@@ -3,6 +3,8 @@ import axios from 'axios';
 import Router from 'next/router';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import ButtonProfileDevs from './ButtonProfileDevs';
 
 export default function header({ currentUser }) {
@@ -27,14 +29,19 @@ export default function header({ currentUser }) {
     <>
       <li>
         <Link href="/">
-          <a className="btn btn-dark">Associations</a>
+          <a className="btn btn-dark d-flex justify-content-stretch">
+            Associations
+          </a>
         </Link>
       </li>
       <li>
         <a
           href="http://localhost:5000/api/v1/devs/auth/login"
-          className="btn btn-dark ml-5">
-          Login
+          className="btn btn-dark ml-sm-0 mt-2 mt-lg-0 ml-lg-5 d-flex justify-content-stretch">
+          <div className="mr-3">
+            <FontAwesomeIcon icon={faGithub} size="lg" />
+          </div>
+          <div>Login</div>
         </a>
       </li>
     </>
@@ -48,7 +55,7 @@ export default function header({ currentUser }) {
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto align-items-start align-items-lg-center p-3">
+          <Nav className="ml-auto p-3 align-items-sm-left align-items-lg-center">
             {renderButton}
           </Nav>
         </Navbar.Collapse>
