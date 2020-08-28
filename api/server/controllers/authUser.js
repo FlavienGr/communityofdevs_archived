@@ -43,9 +43,9 @@ exports.userSignup = async (req, res, next) => {
 
     const user = await User.signup(req.body, hashPassword);
 
-    const token = await Helper.generateToken(user.id);
+    const token = await Helper.generateToken(user.id, 'user');
     sendWelcomeEmail(user.email);
-    sendResponse(sanitizedUser(user, token), 201, res);
+    sendResponse(sanitizedUser(user), token, 201, res);
   } catch (error) {
     return next(new DatabaseConnectionError());
   }
@@ -68,10 +68,10 @@ exports.userLogin = async (req, res, next) => {
     if (!isMatch) {
       return next(new RequestAuthErrors());
     }
-    const token = await Helper.generateToken(user.id);
+    const token = await Helper.generateToken(user.id, 'user');
 
     // Delete password before sending the object
-    sendResponse(sanitizedUser(user, token), 200, res);
+    sendResponse(sanitizedUser(user), token, 200, res);
   } catch (error) {
     next(new DatabaseConnectionError());
   }

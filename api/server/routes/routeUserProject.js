@@ -20,11 +20,13 @@ const uploadDescriptionPdf = require('../middlewares/uploadDescriptionPdf');
 const { uploadPdfAws } = require('../middlewares/uploadPdfAws');
 const requestProjectName = require('../middlewares/requestProjectName');
 const verifyExistingProject = require('../middlewares/verifyExistingProject');
+const authorizeUser = require('../middlewares/authorizeUser');
 
 router
   .route('/')
   .post(
     auth,
+    authorizeUser('user'),
     uploadDescriptionPdf,
     validator.project,
     requestValidationData,
@@ -32,13 +34,14 @@ router
     uploadPdfAws,
     createProject
   )
-  .get(auth, getProjects);
+  .get(auth, authorizeUser('user'), getProjects);
 router
   .route('/:id')
-  .delete(auth, deleteProject)
-  .get(auth, getOneProject)
+  .delete(auth, authorizeUser('user'), deleteProject)
+  .get(auth, authorizeUser('user'), getOneProject)
   .put(
     auth,
+    authorizeUser('user'),
     validator.udpate,
     requestValidationData,
     validInsertUpdateBody,
@@ -50,6 +53,7 @@ router
   .route('/upload/:id')
   .put(
     auth,
+    authorizeUser('user'),
     uploadDescriptionPdf,
     verifyExistingProject,
     uploadPdfAws,

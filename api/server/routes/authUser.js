@@ -15,23 +15,36 @@ const {
 } = require('../controllers/authUser');
 
 const auth = require('../middlewares/auth');
+const authorizeUser = require('../middlewares/authorizeUser');
 
 router
   .route('/login')
   .post(validator.userLogin, requestValidationData, userLogin);
 
-router.route('/logout').get(auth, userLogout);
+router.route('/logout').get(auth, authorizeUser('user'), userLogout);
 router
   .route('/signup')
   .post(validator.userSignup, requestValidationData, userSignup);
 
 router
   .route('/change-email')
-  .post(auth, validator.changeEmail, requestValidationData, changeEmail);
+  .post(
+    auth,
+    authorizeUser('user'),
+    validator.changeEmail,
+    requestValidationData,
+    changeEmail
+  );
 
 router
   .route('/change-password')
-  .post(auth, validator.changePassword, requestValidationData, changePassword);
+  .post(
+    auth,
+    authorizeUser('user'),
+    validator.changePassword,
+    requestValidationData,
+    changePassword
+  );
 router
   .route('/forgot-password')
   .post(validator.forgotpassword, requestValidationData, forgotpassword);

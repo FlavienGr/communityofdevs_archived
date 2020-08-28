@@ -12,13 +12,20 @@ const {
   sendContactEmail
 } = require('../controllers/user');
 const auth = require('../middlewares/auth');
+const authorizeUser = require('../middlewares/authorizeUser');
 
 router
   .route('/')
-  .put(auth, validator.updatesUser, requestValidationData, updateUser)
-  .delete(auth, deleteUser);
-router.route('/profile').get(auth, getUserProfile);
-router.route('/currentUser').get(auth, getCurrentUser);
+  .put(
+    auth,
+    authorizeUser('user'),
+    validator.updatesUser,
+    requestValidationData,
+    updateUser
+  )
+  .delete(auth, authorizeUser('user'), deleteUser);
+router.route('/profile').get(auth, authorizeUser('user'), getUserProfile);
+router.route('/currentUser').get(auth, authorizeUser('user'), getCurrentUser);
 router
   .route('/contact')
   .post(validator.sendEmail, requestValidationData, sendContactEmail);

@@ -1,10 +1,7 @@
-exports.sanitizedUser = (data, token) => {
+exports.sanitizedUser = data => {
   const user = { ...data };
   if (user.password) {
     delete user.password;
   }
-  return {
-    ...user,
-    jwt: token
-  };
+  return user;
 };
