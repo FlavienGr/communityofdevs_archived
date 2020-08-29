@@ -52,3 +52,19 @@ exports.getAccessToken = async (req, res, next) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+// @desc   Logout a developeur
+// @route  Post api/v1/devs/auth/logout
+// @access Private
+
+exports.devLogout = async (_req, res, _next) => {
+  res.clearCookie('token', 'none', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+
+  res.status(200).json({
+    success: true,
+    data: {}
+  });
+};
