@@ -10,7 +10,7 @@ export default function Home({ currentUser }) {
         <title>Index page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout currentUser={currentUser}>
+      <Layout>
         <Infos />
         <Cards />
       </Layout>

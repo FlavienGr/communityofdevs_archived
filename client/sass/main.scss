@@ -13,13 +13,16 @@
 @import './components/articles';
 @import './components/menuArticles';
 
-/// pages
+/// pages user
 @import './pages/signup';
 @import './pages/project';
 @import './pages/profile';
 @import './pages/edit';
 @import './pages/project-list';
 @import './pages/notfound-page';
+
+/// page devs
+@import './pages/dev-home';
 
 /// bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
