@@ -18,3 +18,20 @@ exports.getCurrentUser = async (req, res, next) => {
     next(new DatabaseConnectionError());
   }
 };
+
+// @desc   get a dev profile
+// @route  get /api/v1/devs/profile
+// @access Private
+exports.getProfile = async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const user = await Devs.getProfileDevById(id);
+    if (!user) {
+      return next(new RequestAuthErrors());
+    }
+    return res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    console.log(error);
+    next(new DatabaseConnectionError());
+  }
+};

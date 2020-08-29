@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import LoadingPage from './LoadingPage';
 
-export default function(WrappedComponent) {
+export default function(WrappedComponent, url) {
   return class extends Component {
     constructor(props) {
       super(props);
@@ -15,7 +15,7 @@ export default function(WrappedComponent) {
     componentDidMount() {
       this.setState(() => ({ user: this.props.currentUser.success }));
       if (!this.props.currentUser.success && this.state.loading) {
-        Router.push('/login');
+        Router.push(url || '/login');
       }
       this.setState(() => ({
         loading: false

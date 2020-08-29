@@ -7,8 +7,8 @@ import Col from 'react-bootstrap/Col';
 export default function ButtonProfileDevs({ logout }) {
   return (
     <>
-      <Link href="/newproject">
-        <a className="light">Créer un projet</a>
+      <Link href="/devs/search">
+        <a className="light">Rechercher un projet</a>
       </Link>
       <DropdownButton
         className="d-none d-lg-block ml-5"
@@ -17,11 +17,10 @@ export default function ButtonProfileDevs({ logout }) {
         variant="color-black"
         data-cy="button-profile"
         id="dropdown-menu-align-right">
-        <Dropdown.Item href="/profile">Informations</Dropdown.Item>
-        <Dropdown.Item href="/project">Projet</Dropdown.Item>
-        <Dropdown.Item href="/edit">Edit</Dropdown.Item>
-        <Dropdown.Item href="/account">Compte</Dropdown.Item>
-        <Dropdown.Item href="/settings">Paramètres</Dropdown.Item>
+        <Dropdown.Item href="/devs/profile">Informations</Dropdown.Item>
+        <Dropdown.Item href="/devs/edit">Edit</Dropdown.Item>
+        <Dropdown.Item href="/devs/project">Projet</Dropdown.Item>
+        <Dropdown.Item href="/devs/account">Compte</Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item href="#" onClick={logout}>
           Déconnexion
@@ -30,28 +29,23 @@ export default function ButtonProfileDevs({ logout }) {
       <div className="d-lg-none">
         <Row>
           <Col sm={12}>
-            <a className="light" href="/profile">
+            <a className="light" href="/devs/profile">
               Informations
             </a>
           </Col>
           <Col sm={12}>
-            <a className="light" href="/project">
+            <a className="light" href="/devs/project">
               Projet
             </a>
           </Col>
           <Col sm={12}>
-            <a className="light" href="/edit">
+            <a className="light" href="/devs/edit">
               Edit
             </a>
           </Col>
           <Col sm={12}>
-            <a className="light" href="/account">
+            <a className="light" href="/devs/account">
               Compte
-            </a>
-          </Col>
-          <Col sm={12}>
-            <a className="light" href="/settings">
-              Paramètres
             </a>
           </Col>
         </Row>

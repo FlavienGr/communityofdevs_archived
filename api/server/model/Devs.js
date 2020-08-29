@@ -26,8 +26,17 @@ const signup = async data => {
 
   return user;
 };
+const getProfileDevById = async id => {
+  const dev = await db(`${tableDevs.devs} AS d`)
+    .select('d.id', 'd.email', 'd.name', 'd.blog', 'd.location', 'd.html_url')
+    .where({ 'd.id': id })
+    .first();
+
+  return dev;
+};
 module.exports = {
   getCurrentUser,
   findById,
-  signup
+  signup,
+  getProfileDevById
 };
