@@ -1,6 +1,6 @@
 export default function LineMenu() {
   return (
-    <div className="d-none d-lg-flex flex-row flex-sm-row flex-md-column flex-lg-column mx-auto">
+    <div className="d-none col-md-2 col-lg-2 col-xl-2 d-lg-block">
       <span className="line">{''}</span>
     </div>
   );
