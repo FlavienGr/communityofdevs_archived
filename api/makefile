@@ -38,8 +38,7 @@ dev:
 
 ## Start test (test mode)
 test:
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d
-	npm run develop:test
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml up
 
 down:
 	docker-compose down

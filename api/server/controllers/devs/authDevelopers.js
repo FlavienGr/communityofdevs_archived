@@ -2,6 +2,7 @@ const axios = require('axios');
 const Devs = require('../../model/Devs');
 const Helper = require('../../utils/helper');
 const sendResponse = require('../../utils/sendResponse');
+const NotAllowedToAccess = require('../../errors/notAllowedToAccess');
 
 let token = null;
 exports.login = (_req, res, _next) => {
@@ -12,8 +13,8 @@ exports.login = (_req, res, _next) => {
   );
 };
 
-// @desc   Login a user
-// @route  Post api/v1/user/auth/login
+// @desc   get access token
+// @route  Post api/v1/devs/auth/login
 // @access Public
 
 exports.getAccessToken = async (req, res, next) => {
@@ -44,9 +45,6 @@ exports.getAccessToken = async (req, res, next) => {
       }
       const newtoken = await Helper.generateToken(user.id, 'developer');
       sendResponse(user, newtoken, 201, res, 'http://localhost:3000/devs');
-      // console.log(user, 'user');
-      // console.log(newtoken, 'newtoken');
-      // res.send('ok');
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -67,4 +65,22 @@ exports.devLogout = async (_req, res, _next) => {
     success: true,
     data: {}
   });
+};
+// @desc   register a developeur / tests purposes
+// @route  Post api/v1/devs/auth/signup
+// @access public
+
+exports.devSignup = async (req, res, _next) => {
+  const test = process.env.NODE_ENV === 'test';
+  if (!test) {
+    return next(new NotAllowedToAccess());
+  }
+  try {
+    const random = Math.floor(Math.random() * 150);
+    const newtoken = await Helper.generateToken(random, 'developer');
+    const user = await Devs.signupForTest({ id: random, ...req.body });
+    sendResponse(user, newtoken, 201, res);
+  } catch (error) {
+    console.log(error);
+  }
 };

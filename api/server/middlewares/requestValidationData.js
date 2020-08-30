@@ -4,6 +4,7 @@ const deleteTempFile = require('../utils/deleteTempFile');
 
 const requestValidationData = async (req, _res, next) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     if (req.file) {
       deleteTempFile(req.file.path);

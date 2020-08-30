@@ -8,6 +8,7 @@ const sendResponse = (user, token, statusCode, res, address) => {
     httpOnly: isCookieSecure,
     secure: isCookieSecure
   };
+  user.jwt = token;
   if (address) {
     return res.cookie('token', token, options).redirect(301, address);
   }

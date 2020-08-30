@@ -8,13 +8,10 @@ import Layout from '../../components/Layout';
 import LineMenu from '../../components/LineMenu';
 import ProtectedPages from '../../components/ProtectedPages';
 import { menuItemsDevs } from '../../constants/menuItems';
+import { dataDevs } from '../../constants/data';
 
 function Profile({ user: { data } }) {
-  const [email, setEmail] = useState(data.email);
-  const [name, setName] = useState(data.name);
-  const [location, setLocation] = useState(data.location);
-  const [blog, setBlog] = useState(data.blog);
-  const [github, setGithub] = useState(data.html_url);
+  const { email, name, login, location, blog, github } = data;
 
   return (
     <Layout>
@@ -26,6 +23,10 @@ function Profile({ user: { data } }) {
             <Col md={12} className="mb-5">
               <div className="profile__title mb-2">Name</div>
               <div>{name}</div>
+            </Col>
+            <Col md={12} className="mb-5">
+              <div className="profile__title mb-2">Username</div>
+              <div>{login}</div>
             </Col>
             <Col md={12} className="mb-5">
               <div className="profile__title mb-2">Email</div>
@@ -53,9 +54,7 @@ export default ProtectedPages(Profile, '/devs');
 
 export async function getServerSideProps(context) {
   const server = requestServer(context);
-  let data = {
-    data: { email: '', blog: '', location: '', html_url: '', name: '' }
-  };
+  let data = dataDevs;
   try {
     const request = await server('/api/v1/devs/profile');
     data = request.data;

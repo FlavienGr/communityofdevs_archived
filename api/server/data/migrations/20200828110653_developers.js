@@ -20,6 +20,7 @@ exports.up = async function(knex) {
   await knex.schema.createTable(tableDevs.devs, table => {
     table.integer('id').unique();
     table.string('email', 100);
+    table.string('login', 100).unique();
     table.string('name', 100);
     table.string('location', 100);
     table.string('blog', 100);

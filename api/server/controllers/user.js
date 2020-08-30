@@ -5,6 +5,7 @@ const RequestEmailErrors = require('../errors/request-email-error');
 const User = require('../model/User');
 const validInsertData = require('../utils/validInsertData');
 const { sendQuitEmail, sendEmailFromUser } = require('../email/email');
+const removeDuplicateField = require('../utils/removeDuplicatedField');
 
 // @desc   update a user
 // @route  put /api/v1/user
@@ -24,16 +25,7 @@ exports.updateUser = async (req, res, next) => {
   if (isNotValid) {
     return next(new RequestInsertErrors());
   }
-  const removeDuplicateField = (data, user) => {
-    const response = Object.keys(data).reduce((obj, key) => {
-      if (data[key] !== user[key]) {
-        // eslint-disable-next-line no-param-reassign
-        obj[key] = data[key];
-      }
-      return obj;
-    }, {});
-    return response;
-  };
+
   try {
     const user = await User.getProfileUserById(req.user.id);
     const updateData = removeDuplicateField(req.body, user);
