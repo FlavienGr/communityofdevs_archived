@@ -40,7 +40,7 @@ describe('change user email', () => {
 
     expect(response.statusCode).toEqual(400);
     expect(response.body.errors[0].message).toEqual(
-      'emailConfirmation field must have the same value as the email field'
+      'email confirmation field must have the same value as the email field'
     );
   });
   it('FAILED with the wrong password', async () => {

@@ -30,6 +30,7 @@ beforeAll(async () => {
     .field('name', project.name)
     .field('summary', project.summary)
     .attach('description', pdf);
+
   projectId = createdProject.body.data.id;
 });
 describe('update Project wihtout a pdf =======>', () => {

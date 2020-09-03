@@ -34,7 +34,6 @@ exports.getProfile = async (req, res, next) => {
     }
     return res.status(200).json({ success: true, data: user });
   } catch (error) {
-    console.log(error);
     next(new DatabaseConnectionError());
   }
 };
@@ -59,13 +58,13 @@ exports.updateDevs = async (req, res, next) => {
       delete updateUser.username;
     }
     const updateData = removeDuplicateField(updateUser, devs);
+
     if (Object.keys(updateData).length === 0) {
-      return res.status(200).json({ success: true, data: user });
+      return res.status(200).json({ success: true, data: [] });
     }
     if (updateData.login !== undefined) {
-      console.log(undefined, 'updatedData undefined');
-
       const userNameExists = await Devs.findByUsername(updateData.login);
+
       if (userNameExists) {
         return next(
           new RequestAuthErrors(
@@ -74,7 +73,7 @@ exports.updateDevs = async (req, res, next) => {
         );
       }
     }
-    console.log(updatedData, 'updatedData');
+
     const userUpdated = await Devs.updateById(updateData, req.user.id);
     return res.status(200).json({ success: true, data: userUpdated });
   } catch (error) {
