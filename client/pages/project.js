@@ -8,6 +8,7 @@ import Layout from '../components/Layout';
 import ProjectList from '../components/ProjectList';
 import LineMenu from '../components/LineMenu';
 import ProtectedPages from '../components/ProtectedPages';
+import { menuItemsUsers } from '../constants/menuItems';
 
 function Project({ project: { data } }) {
   return (
@@ -15,7 +16,7 @@ function Project({ project: { data } }) {
       <Container fluid className="project-list">
         <div className="project-list-container">
           <Row>
-            <Menu />
+            <Menu items={menuItemsUsers} />
             <LineMenu />
             <Col sm={12} md={10} lg={8} className="mx-auto">
               <ProjectList data={data} />

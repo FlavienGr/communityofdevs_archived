@@ -13,6 +13,7 @@ import RenderSuccessMessage from '../components/RenderSuccessMessage';
 import CommonErrorMessage from '../components/CommonErrorMessage';
 import LineMenu from '../components/LineMenu';
 import ProtectedPages from '../components/ProtectedPages';
+import { menuItemsUsers } from '../constants/menuItems';
 
 function Edit({ user: { data } }) {
   const { register, handleSubmit, errors } = useForm();
@@ -87,7 +88,7 @@ function Edit({ user: { data } }) {
       <Container fluid className="profile">
         <div className="profile-container">
           <Row>
-            <Menu />
+            <Menu items={menuItemsUsers} />
             <LineMenu />
             <Col md={7} sm={12} lg={8}>
               {successMessage && successMessage}

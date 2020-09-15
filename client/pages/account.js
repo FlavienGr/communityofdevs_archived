@@ -14,6 +14,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import CommonErrorMessage from '../components/CommonErrorMessage';
 import LineMenu from '../components/LineMenu';
 import ProtectedPages from '../components/ProtectedPages';
+import { menuItemsUsers } from '../constants/menuItems';
 
 function Account() {
   const { register, handleSubmit, errors } = useForm();
@@ -87,7 +88,7 @@ function Account() {
       <Container fluid className="project-list">
         <div className="project-list-container">
           <Row>
-            <Menu />
+            <Menu items={menuItemsUsers} />
             <LineMenu />
             <Col md={7} sm={12} lg={8}>
               {successMessage && successMessage}

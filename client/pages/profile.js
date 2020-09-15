@@ -7,8 +7,10 @@ import Menu from '../components/Menu';
 import Layout from '../components/Layout';
 import LineMenu from '../components/LineMenu';
 import ProtectedPages from '../components/ProtectedPages';
+import { menuItemsUsers } from '../constants/menuItems';
 
 function Profile({ user: { data } }) {
+  console.log(data, 'data');
   const [email, setEmail] = useState(null);
   const [name, setName] = useState(null);
   const [immatriculation, setImmatriculation] = useState(null);
@@ -31,7 +33,7 @@ function Profile({ user: { data } }) {
       <Container fluid className="profile">
         <div className="profile-container">
           <Row>
-            <Menu />
+            <Menu items={menuItemsUsers} />
             <LineMenu />
             <Col md={7} sm={12}>
               <Col md={12} className="mb-5">
