@@ -7,7 +7,8 @@ const requestValidationData = require('../../middlewares/requestValidationData')
 const {
   getCurrentUser,
   getProfile,
-  updateDevs
+  updateDevs,
+  deleteDevs
 } = require('../../controllers/devs/devs');
 const auth = require('../../middlewares/auth');
 const authorizeUser = require('../../middlewares/authorizeUser');
@@ -20,7 +21,8 @@ router
     validator.updatesDevs,
     requestValidationData,
     updateDevs
-  );
+  )
+  .delete(auth, authorizeUser('developer'), deleteDevs);
 router
   .route('/currentUser')
   .get(auth, authorizeUser('developer'), getCurrentUser);

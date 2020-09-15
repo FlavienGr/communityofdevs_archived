@@ -76,6 +76,11 @@ const signupForTest = async data => {
   const user = await db(tableDevs.devs).insert(data, ['id']);
   return getProfileDevById(user[0].id);
 };
+const deleteDevsById = id => {
+  return db(tableDevs.devs)
+    .where({ id })
+    .del();
+};
 module.exports = {
   getCurrentUser,
   findById,
@@ -83,5 +88,6 @@ module.exports = {
   getProfileDevById,
   findByUsername,
   updateById,
-  signupForTest
+  signupForTest,
+  deleteDevsById
 };

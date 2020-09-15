@@ -80,3 +80,25 @@ exports.updateDevs = async (req, res, next) => {
     return next(new DatabaseConnectionError());
   }
 };
+
+// @desc   delete a devs
+// @route  delete /api/v1/devs
+// @access Private
+exports.deleteDevs = async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const devs = await Devs.findById(id);
+    if (!devs) {
+      return next(new RequestAuthErrors());
+    }
+    await Devs.deleteDevsById(id);
+    try {
+      // sendQuitEmail(devs.email);
+    } catch (error) {
+      return next(new RequestEmailErrors());
+    }
+    return res.status(200).json({ success: true, data: {} });
+  } catch (error) {
+    next(new DatabaseConnectionError());
+  }
+};
