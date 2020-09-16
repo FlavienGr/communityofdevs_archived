@@ -1,4 +1,3 @@
 .profile-dev {
-  background-color: $color-secondary;
-  color: $color-black;
+  @include dev-back;
 }

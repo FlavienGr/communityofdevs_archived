@@ -1,6 +1,7 @@
 @import './parameters/variables';
 @import './base';
 @import './general';
+@import './parameters/params';
 
 /// componenents
 @import './components/header';
@@ -24,6 +25,7 @@
 /// page devs
 @import './pages/dev-home';
 @import './pages/dev-profile';
+@import './pages/dev-search';
 
 /// bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
