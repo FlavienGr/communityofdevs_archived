@@ -43,6 +43,8 @@ const routeUserProject = require('./routes/routeUserProject');
 // / devs router
 const routeDevs = require('./routes/devs/routeDevs');
 const routeAuthDevelopers = require('./routes/devs/routeAuthDevelopers.js');
+const routeSearchProjects = require('./routes/devs/routeSearchProjects.js');
+const routeDevsProjects = require('./routes/devs/routeDevsProjects.js');
 
 // / user routes
 app.use('/api/v1/user/auth', routeAuthUser);
@@ -52,6 +54,8 @@ app.use('/api/v1/user/project', routeUserProject);
 /// devs routes
 app.use('/api/v1/devs', routeDevs);
 app.use('/api/v1/devs/auth', routeAuthDevelopers);
+app.use('/api/v1/devs/search', routeSearchProjects);
+app.use('/api/v1/devs/project', routeDevsProjects);
 
 // / error handler
 app.use(errorHandler);
