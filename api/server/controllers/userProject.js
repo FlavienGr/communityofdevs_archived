@@ -60,7 +60,7 @@ exports.getOneProject = async (req, res, next) => {
     project = await Project.getProjectByUuid(req.user.id, req.params.id);
     if (!project) {
       return next(
-        new RequestProjectErrors("You don't have corresponding project")
+        new RequestProjectErrors("You don't have a corresponding project")
       );
     }
     return res.status(200).json({ success: true, data: project });
