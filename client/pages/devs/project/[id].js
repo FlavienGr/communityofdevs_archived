@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,9 +12,9 @@ import CommonErrorMessage from '../../../components/CommonErrorMessage';
 
 export default function DevsProjectId({ project }) {
   const url = 'https://communityofdevs.s3.eu-west-3.amazonaws.com/';
-  const name = project.data.name || '';
-  const summary = project.data.summary || '';
-  const description = url + project.data.description || '';
+  const name = useState(project.data.name);
+  const summary = useState(project.data.summary);
+  const description = useState(url + project.data.description);
 
   const [disabledButton, setDisabledButton] = useState(false);
   const [errorRequest, setErrorsRequest] = useState(null);
@@ -134,7 +134,8 @@ export default function DevsProjectId({ project }) {
 
 export async function getServerSideProps(context) {
   const server = requestServer(context);
-  let data = {};
+  let data = { name: '', summary: '', description: '' };
+
   try {
     const request = await server(`/api/v1/devs/project/${context.params.id}`);
     data = request.data;
