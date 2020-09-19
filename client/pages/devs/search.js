@@ -6,8 +6,10 @@ import Col from 'react-bootstrap/Col';
 import requestServer from '../../api/request-client';
 import Layout from '../../components/Layout';
 import ProtectedPages from '../../components/ProtectedPages';
+import SearchList from '../../components/SearchList';
 
-function Search(props) {
+function Search({ projects }) {
+  console.log(projects);
   const { register, handleSubmit, errors } = useForm();
   const [disabledButton, setDisabledButton] = useState(false);
 
@@ -17,7 +19,7 @@ function Search(props) {
         <Row className="justify-content-center">
           <Col sm={10} md={8} lg={8} xl={8}>
             <form>
-              <Col sm={12} className="input-group">
+              <Col sm={12} className="input-group pl-0">
                 {errors.search && (
                   <span data-cy="span-search" className="form__errors">
                     {errors.search.message}
@@ -38,7 +40,7 @@ function Search(props) {
                     type="submit"
                     className="btn btn-dark"
                     disabled={disabledButton}>
-                    Rechercher
+                    Search
                   </button>
                 </div>
               </Col>
@@ -46,10 +48,14 @@ function Search(props) {
           </Col>
         </Row>
         <Row className="justify-content-center my-5">
-          <Col sm={10} md={8} lg={8} xl={8}>
-            <span className="form__line">{''}</span>
-            No project found.
-          </Col>
+          {projects.data.length > 0 ? (
+            <SearchList projects={projects.data} />
+          ) : (
+            <Col sm={10} md={8} lg={8} xl={8}>
+              <span className="form__line">{''}</span>
+              No project found.
+            </Col>
+          )}
         </Row>
       </Container>
     </Layout>
@@ -57,17 +63,17 @@ function Search(props) {
 }
 export default ProtectedPages(Search, '/devs');
 
-// export async function getServerSideProps(context) {
-//   const server = requestServer(context);
-//   let data = dataDevs;
-//   try {
-//     const request = await server('/api/v1/devs/projects');
-//     data = request.data;
-//   } catch (error) {
-//     console.log(error.response.data.errors, 'ctx');
-//   }
+export async function getServerSideProps(context) {
+  const server = requestServer(context);
+  let data = [];
+  try {
+    const request = await server('/api/v1/devs/search');
+    data = request.data;
+  } catch (error) {
+    console.log(error.response.data.errors, 'ctx');
+  }
 
-//   return {
-//     props: { projects: data } // will be passed to the page component as props
-//   };
-// }
+  return {
+    props: { projects: data } // will be passed to the page component as props
+  };
+}

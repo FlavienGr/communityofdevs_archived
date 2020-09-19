@@ -1,5 +1,6 @@
 const db = require('../db/index');
 const tableDevs = require('../constants/tableDevs');
+const tableProject = require('../constants/tableProject');
 
 const getCurrentUser = id => {
   return db(tableDevs.devs)
@@ -81,6 +82,25 @@ const deleteDevsById = id => {
     .where({ id })
     .del();
 };
+const searchProjects = () => {
+  return db(tableProject.project).select('name', 'uuid');
+};
+const getProjectByUuid = projectUuid => {
+  return db(`${tableProject.project} AS p`)
+    .select(
+      'p.id',
+      'p.name',
+      'p.summary',
+      'p.description',
+      'p.uuid',
+      's.name AS status'
+    )
+    .where({ 'p.uuid': projectUuid })
+    .innerJoin(`${tableProject.project_status} AS s`, {
+      's.id': 'p.project_status_id'
+    })
+    .first();
+};
 module.exports = {
   getCurrentUser,
   findById,
@@ -89,5 +109,7 @@ module.exports = {
   findByUsername,
   updateById,
   signupForTest,
-  deleteDevsById
+  deleteDevsById,
+  searchProjects,
+  getProjectByUuid
 };

@@ -12,6 +12,7 @@ import removeField from '../../../utils/removeField';
 import removeCopyField from '../../../utils/removeCopyField';
 import RenderSuccessMessage from '../../../components/RenderSuccessMessage';
 import CommonErrorMessage from '../../../components/CommonErrorMessage';
+import { menuItemsUsers } from '../../../constants/menuItems';
 
 export default function EditProject({ project }) {
   const { register, handleSubmit, errors } = useForm();
@@ -110,7 +111,7 @@ export default function EditProject({ project }) {
       <Container fluid className="project-list">
         <div className="project-list-container">
           <Row>
-            <Menu />
+            <Menu items={menuItemsUsers} />
             <div className="flex-row flex-sm-row flex-md-column flex-lg-column mx-auto">
               <span className="line">{''}</span>
             </div>

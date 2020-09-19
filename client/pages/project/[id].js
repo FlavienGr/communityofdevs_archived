@@ -11,6 +11,7 @@ import Layout from '../../components/Layout';
 import RenderSuccessMessage from '../../components/RenderSuccessMessage';
 import customStyles from '../../constants/customStyles';
 import CommonErrorMessage from '../../components/CommonErrorMessage';
+import { menuItemsUsers } from '../../constants/menuItems';
 
 export default function ProjectId({ project }) {
   const url = 'https://communityofdevs.s3.eu-west-3.amazonaws.com/';
@@ -60,7 +61,8 @@ export default function ProjectId({ project }) {
       <Container fluid className="project-list">
         <div className="project-list-container">
           <Row>
-            <Menu />
+            <Menu items={menuItemsUsers} />
+
             <div className="flex-row flex-sm-row flex-md-column flex-lg-column mx-auto">
               <span className="line">{''}</span>
             </div>
