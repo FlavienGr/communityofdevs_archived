@@ -25,6 +25,7 @@ exports.up = async function(knex) {
     table.string('location', 100);
     table.string('blog', 100);
     table.string('html_url', 100);
+    addDefaultColumns(table);
   });
 };
 

@@ -59,7 +59,7 @@ const findByUsername = username => {
 };
 
 const updateById = async (data, id) => {
-  let updateUser = { ...data };
+  const updateUser = { ...data };
 
   for (item in updateUser) {
     if (!updateUser[item]) {
@@ -101,6 +101,43 @@ const getProjectByUuid = projectUuid => {
     })
     .first();
 };
+const takeAction = async (user, project, action) => {
+  const status = await db(tableProject.project_status_relation)
+    .select('id')
+    .where({ name: action })
+    .first();
+  const data = {
+    project_id: project,
+    project_status_relation_id: status.id,
+    devs_id: user
+  };
+
+  return await db(tableProject.project_relation).insert(data, [
+    'project_id',
+    'devs_id'
+  ]);
+};
+const getRelationProjectById = (userId, projectId) => {
+  return db(tableProject.project_relation)
+    .select('project_id', 'devs_id', 'project_status_relation_id')
+    .where({ project_id: projectId, devs_id: userId })
+    .first();
+};
+const getProjectActionById = (projectId, userId) => {
+  return db(`${tableProject.project_relation} AS p`)
+    .select(
+      'p.project_id',
+      'p.devs_id',
+      'p.project_status_relation_id',
+      's.name'
+    )
+    .innerJoin(`${tableProject.project_status_relation} AS s`, {
+      's.id': 'p.project_status_relation_id'
+    })
+    .where({ project_id: projectId, devs_id: userId })
+    .first();
+};
+
 module.exports = {
   getCurrentUser,
   findById,
@@ -111,5 +148,8 @@ module.exports = {
   signupForTest,
   deleteDevsById,
   searchProjects,
-  getProjectByUuid
+  getProjectByUuid,
+  takeAction,
+  getRelationProjectById,
+  getProjectActionById
 };

@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import requestServer from '../../api/request-client';
-import Menu from '../../components/Menu';
+import Menu from '../../components/menu';
 import Layout from '../../components/Layout';
 import RenderSuccessMessage from '../../components/RenderSuccessMessage';
 import customStyles from '../../constants/customStyles';

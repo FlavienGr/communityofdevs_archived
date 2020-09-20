@@ -24,6 +24,22 @@ const getProjectByIds = async (userId, projectId) => {
     })
     .first();
 };
+const getProjectById = async projectId => {
+  return await db(`${tableProject.project} AS p`)
+    .select(
+      'p.id',
+      'p.name',
+      'p.summary',
+      'p.description',
+      'p.uuid',
+      's.name AS status'
+    )
+    .where({ 'p.id': projectId })
+    .innerJoin(`${tableProject.project_status} AS s`, {
+      's.id': 'p.project_status_id'
+    })
+    .first();
+};
 const getProjectByUuid = async (userId, projectUuid) => {
   return await db(`${tableProject.project} AS p`)
     .select(
@@ -94,5 +110,6 @@ module.exports = {
   deleteProject,
   getProjects,
   udpateProjectByIds,
-  getProjectByUuid
+  getProjectByUuid,
+  getProjectById
 };

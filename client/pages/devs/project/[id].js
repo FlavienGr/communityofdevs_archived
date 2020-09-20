@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Router from 'next/router';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -12,25 +14,23 @@ import CommonErrorMessage from '../../../components/CommonErrorMessage';
 
 export default function DevsProjectId({ project }) {
   const url = 'https://communityofdevs.s3.eu-west-3.amazonaws.com/';
-  const name = useState(project.data.name);
-  const summary = useState(project.data.summary);
-  const description = useState(url + project.data.description);
+  const [projectId] = useState(project.data.id);
 
   const [disabledButton, setDisabledButton] = useState(false);
   const [errorRequest, setErrorsRequest] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
   const requestAxios = async action => {
-    const url = `http://localhost:5000/api/v1/devs/project/action/${action}`;
+    const urlAction = `http://localhost:5000/api/v1/devs/project/action/${action}/${projectId}`;
     try {
-      const response = await axios.post(url, {
+      const response = await axios.post(urlAction, null, {
         withCredentials: true
       });
       if (response.data.success) {
         setDisabledButton(false);
         setSuccessMessage(
           <RenderSuccessMessage
-            message="Votre projet a été supprimer avec succès"
+            message="Votre choix a été ajouté avec succès"
             setMessage={setSuccessMessage}
           />
         );
@@ -42,11 +42,11 @@ export default function DevsProjectId({ project }) {
       setErrorsRequest(<CommonErrorMessage />);
     }
   };
-  const handleActionProject = () => {
+  const handleActionProject = action => {
     setErrorsRequest(null);
     setSuccessMessage(null);
     setDisabledButton(true);
-    requestAxios();
+    requestAxios(action);
   };
   return (
     <Layout>
@@ -61,19 +61,21 @@ export default function DevsProjectId({ project }) {
                   <div className="profile__title mb-2 ">
                     <u>Name</u>
                   </div>
-                  <div>{name}</div>
+                  <div>{project.data.name}</div>
                 </Col>
                 <Col md={12} className="mb-5">
                   <div className="profile__title mb-2">
                     <u>{`Résumé`}</u>
                   </div>
-                  <div>{summary}</div>
+                  <div>{project.data.summary}</div>
                 </Col>
                 <Col md={12} className="mb-5">
                   <div className="profile__title mb-4">
                     <u>{`Description`}</u>
                   </div>
-                  <a className="btn btn-outline-dark" href={description}>
+                  <a
+                    className="btn btn-outline-dark"
+                    href={`${url + project.data.description}`}>
                     Voir
                   </a>
                 </Col>
@@ -81,18 +83,18 @@ export default function DevsProjectId({ project }) {
               <Col sm={12} lg={4} className="text-center align-items-start">
                 <Col className="border border-dark p-2 rounded text-left">
                   <Col className="text-center">
-                    <h4>It's here to validate your choice</h4>
+                    <h4>It&apos;s here to validate your choice</h4>
                   </Col>
                   <Row className="h-100 pt-5 m-0 font-weight-bold pb-4">
                     <Col sm={12}>
                       <Row>
                         <Col className="pb-4" sm={6}>
-                          I'm interested:{' '}
+                          I&apos;m interested:{' '}
                         </Col>
                         <Col sm={6}>
                           <button
                             className="button btn-outline-success"
-                            onClick={handleActionProject}
+                            onClick={() => handleActionProject('Interested')}
                             disabled={disabledButton}>
                             <FontAwesomeIcon
                               color="#6DB65B"
@@ -105,12 +107,11 @@ export default function DevsProjectId({ project }) {
                     </Col>
                     <Col sm={12}>
                       <Row>
-                        <Col sm={6}>I'm in!: </Col>
+                        <Col sm={6}>I&apos;m in!: </Col>
                         <Col sm={6}>
                           <button
                             className="button btn-outline-success"
-                            onClick={() => console.log('hello')}
-                            onClick={handleActionProject}
+                            onClick={() => handleActionProject('Validate')}
                             disabled={disabledButton}>
                             <FontAwesomeIcon
                               color="#6DB65B"
@@ -134,7 +135,7 @@ export default function DevsProjectId({ project }) {
 
 export async function getServerSideProps(context) {
   const server = requestServer(context);
-  let data = { name: '', summary: '', description: '' };
+  let data = { name: '', summary: '', description: '', id: '' };
 
   try {
     const request = await server(`/api/v1/devs/project/${context.params.id}`);

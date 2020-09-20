@@ -15,7 +15,11 @@ exports.seed = async function(knex) {
 
   // Inserts seed entries status
     const status = [{name: "Proposition"}, {name: "Development"}, {name: "Finished"}]
+    const status_relation = [{name: "Interested"}, {name: "Validate"}]
+
     await knex(tableProject.project_status)
     .insert(status, '*');
+    await knex(tableProject.project_status_relation)
+    .insert(status_relation, '*');
 
 }
