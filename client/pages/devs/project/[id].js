@@ -4,15 +4,16 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Router from 'next/router';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Layout from '../../../components/Layout';
+import ValidateChoice from '../../../components/ValidateChoice';
+import ShowChoice from '../../../components/ShowChoice';
 import requestServer from '../../../api/request-server';
 import RenderSuccessMessage from '../../../components/RenderSuccessMessage';
 import CommonErrorMessage from '../../../components/CommonErrorMessage';
 
 export default function DevsProjectId({ project }) {
+  console.log(project);
   const url = 'https://communityofdevs.s3.eu-west-3.amazonaws.com/';
   const [projectId] = useState(project.data.id);
 
@@ -48,6 +49,20 @@ export default function DevsProjectId({ project }) {
     setDisabledButton(true);
     requestAxios(action);
   };
+  const renderChoice =
+    project.relation === null ? (
+      <ValidateChoice
+        disabledButton={disabledButton}
+        handleActionProject={handleActionProject}
+      />
+    ) : (
+      <ShowChoice
+        disabledButton={disabledButton}
+        handleActionProject={handleActionProject}
+        choice={project.relation.name}
+        projectId={project.data.uuid}
+      />
+    );
   return (
     <Layout>
       <Container fluid className="project-list">
@@ -80,51 +95,7 @@ export default function DevsProjectId({ project }) {
                   </a>
                 </Col>
               </Col>
-              <Col sm={12} lg={4} className="text-center align-items-start">
-                <Col className="border border-dark p-2 rounded text-left">
-                  <Col className="text-center">
-                    <h4>It&apos;s here to validate your choice</h4>
-                  </Col>
-                  <Row className="h-100 pt-5 m-0 font-weight-bold pb-4">
-                    <Col sm={12}>
-                      <Row>
-                        <Col className="pb-4" sm={6}>
-                          I&apos;m interested:{' '}
-                        </Col>
-                        <Col sm={6}>
-                          <button
-                            className="button btn-outline-success"
-                            onClick={() => handleActionProject('Interested')}
-                            disabled={disabledButton}>
-                            <FontAwesomeIcon
-                              color="#6DB65B"
-                              icon={faCheck}
-                              size="lg"
-                            />
-                          </button>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col sm={12}>
-                      <Row>
-                        <Col sm={6}>I&apos;m in!: </Col>
-                        <Col sm={6}>
-                          <button
-                            className="button btn-outline-success"
-                            onClick={() => handleActionProject('Validate')}
-                            disabled={disabledButton}>
-                            <FontAwesomeIcon
-                              color="#6DB65B"
-                              icon={faCheck}
-                              size="lg"
-                            />
-                          </button>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-              </Col>
+              {renderChoice}
             </Row>
           </Col>
         </Row>
@@ -135,11 +106,22 @@ export default function DevsProjectId({ project }) {
 
 export async function getServerSideProps(context) {
   const server = requestServer(context);
-  let data = { name: '', summary: '', description: '', id: '' };
+  let data = { name: '', summary: '', description: '', id: '', relation: null };
 
   try {
     const request = await server(`/api/v1/devs/project/${context.params.id}`);
     data = request.data;
+    data.data.relation = null;
+    const { id } = data.data;
+    if (id) {
+      const requestRelation = await server(
+        `/api/v1/devs/project/relation/${id}`
+      );
+      if (requestRelation.data.success) {
+        const response = requestRelation.data;
+        data.relation = response.data;
+      }
+    }
   } catch (error) {
     console.log(error, 'ctx');
   }

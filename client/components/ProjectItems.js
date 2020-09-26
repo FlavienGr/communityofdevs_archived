@@ -7,7 +7,7 @@ export default function ProjectItems({ name, uuid }) {
       md={10}
       lg={9}
       xl={8}
-      className="d-flex flex-row flex-wrap justify-content-between project-item mx-auto">
+      className="d-flex flex-row flex-wrap justify-content-between project-item">
       <div className="mb-1 mr-1">{name}</div>
       <a href={`/project/${uuid}`} className="btn btn-dark">
         Consultez

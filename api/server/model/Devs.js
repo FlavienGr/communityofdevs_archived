@@ -15,7 +15,7 @@ const findById = id => {
     .first();
 };
 const signup = async data => {
-  let insertData = {};
+  const insertData = {};
   const requiredData = [
     'name',
     'email',
@@ -25,7 +25,7 @@ const signup = async data => {
     'blog',
     'login'
   ];
-  for (item of requiredData) {
+  for (const item of requiredData) {
     if (data[item]) {
       insertData[item] = data[item];
     }
@@ -61,7 +61,7 @@ const findByUsername = username => {
 const updateById = async (data, id) => {
   const updateUser = { ...data };
 
-  for (item in updateUser) {
+  for (const item in updateUser) {
     if (!updateUser[item]) {
       updateUser[item] = null;
     }
@@ -123,6 +123,20 @@ const getRelationProjectById = (userId, projectId) => {
     .where({ project_id: projectId, devs_id: userId })
     .first();
 };
+const getRelationProjectStatusById = (userId, projectId) => {
+  return db(`${tableProject.project_relation} AS p`)
+    .select(
+      'p.project_id',
+      'p.devs_id',
+      'p.project_status_relation_id',
+      'r.name'
+    )
+    .where({ project_id: projectId, devs_id: userId })
+    .innerJoin(`${tableProject.project_status_relation} AS r`, {
+      'r.id': 'p.project_status_relation_id'
+    })
+    .first();
+};
 const getProjectActionById = (projectId, userId) => {
   return db(`${tableProject.project_relation} AS p`)
     .select(
@@ -136,6 +150,20 @@ const getProjectActionById = (projectId, userId) => {
     })
     .where({ project_id: projectId, devs_id: userId })
     .first();
+};
+const getProjects = userId => {
+  return db(`${tableProject.project_relation} AS p`)
+    .select(
+      'p.project_id',
+      'p.devs_id',
+      'p.project_status_relation_id',
+      'm.name',
+      'm.uuid'
+    )
+    .innerJoin(`${tableProject.project} AS m`, {
+      'm.id': 'p.project_id'
+    })
+    .where({ devs_id: userId });
 };
 
 module.exports = {
@@ -151,5 +179,7 @@ module.exports = {
   getProjectByUuid,
   takeAction,
   getRelationProjectById,
-  getProjectActionById
+  getProjectActionById,
+  getRelationProjectStatusById,
+  getProjects
 };

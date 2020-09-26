@@ -8,7 +8,7 @@ const menuItemsUsers = [
 const menuItemsDevs = [
   { link: '/devs/profile', name: 'Informations' },
   { link: '/devs/edit', name: 'Edit' },
-  { link: '/devs/project', name: 'Projet' },
+  { link: '/devs/profile/project/show', name: 'Projet' },
   { link: '/devs/account', name: 'Compte' }
 ];
 

@@ -4,12 +4,21 @@ const router = express.Router();
 
 const {
   getOneProject,
-  takeAction
+  takeAction,
+  getOneProjectRelation,
+  getProjects
 } = require('../../controllers/devs/devsProject');
 const auth = require('../../middlewares/auth');
 const authorizeUser = require('../../middlewares/authorizeUser');
 
+router.route('/').get(auth, authorizeUser('developer'), getProjects);
+
 router.route('/:id').get(auth, authorizeUser('developer'), getOneProject);
+
+router
+  .route('/relation/:id')
+  .get(auth, authorizeUser('developer'), getOneProjectRelation);
+
 router
   .route('/action/:type/:projectId')
   .post(auth, authorizeUser('developer'), takeAction);
