@@ -6,7 +6,8 @@ const {
   getOneProject,
   takeAction,
   getOneProjectRelation,
-  getProjects
+  getProjects,
+  deleteAction
 } = require('../../controllers/devs/devsProject');
 const auth = require('../../middlewares/auth');
 const authorizeUser = require('../../middlewares/authorizeUser');
@@ -22,5 +23,8 @@ router
 router
   .route('/action/:type/:projectId')
   .post(auth, authorizeUser('developer'), takeAction);
+router
+  .route('/action/:projectId')
+  .delete(auth, authorizeUser('developer'), deleteAction);
 
 module.exports = router;

@@ -98,3 +98,23 @@ exports.getProjects = async (req, res, next) => {
     return next(new DatabaseConnectionError());
   }
 };
+// @desc   delete action project
+// @route  get /api/v1/devs/project/action/:projectId
+// @access Private
+
+exports.deleteAction = async (req, res, next) => {
+  try {
+    const isRelationProjectExists = await Devs.getRelationProjectById(
+      req.user.id,
+      req.params.projectId
+    );
+    if (!isRelationProjectExists) {
+      return next(new RequestProjectErrors('Action not Allowed'));
+    }
+    await Devs.deleteActionRelation(req.user.id, req.params.projectId);
+    return res.status(200).json({ success: true, data: [] });
+  } catch (error) {
+    console.log(error);
+    return next(new DatabaseConnectionError());
+  }
+};

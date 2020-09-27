@@ -165,6 +165,11 @@ const getProjects = userId => {
     })
     .where({ devs_id: userId });
 };
+const deleteActionRelation = (userId, projectId) => {
+  return db(tableProject.project_relation)
+    .where({ devs_id: userId, project_id: projectId })
+    .del();
+};
 
 module.exports = {
   getCurrentUser,
@@ -181,5 +186,6 @@ module.exports = {
   getRelationProjectById,
   getProjectActionById,
   getRelationProjectStatusById,
-  getProjects
+  getProjects,
+  deleteActionRelation
 };

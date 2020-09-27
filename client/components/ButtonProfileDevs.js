@@ -19,7 +19,7 @@ export default function ButtonProfileDevs({ logout }) {
         id="dropdown-menu-align-right">
         <Dropdown.Item href="/devs/profile">Informations</Dropdown.Item>
         <Dropdown.Item href="/devs/edit">Edit</Dropdown.Item>
-        <Dropdown.Item href="/devs/project">Projet</Dropdown.Item>
+        <Dropdown.Item href="/devs/profile/project/show">Projet</Dropdown.Item>
         <Dropdown.Item href="/devs/account">Compte</Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item href="#" onClick={logout}>

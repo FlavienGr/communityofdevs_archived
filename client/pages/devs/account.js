@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
-import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,7 +9,6 @@ import Menu from '../../components/Menu';
 import Layout from '../../components/Layout';
 import customStyles from '../../constants/customStyles';
 import RenderSuccessMessage from '../../components/RenderSuccessMessage';
-import ErrorMessage from '../../components/ErrorMessage';
 import CommonErrorMessage from '../../components/CommonErrorMessage';
 import LineMenu from '../../components/LineMenu';
 import ProtectedPages from '../../components/ProtectedPages';
@@ -70,8 +68,9 @@ function Account() {
                     <ul>
                       <li className="mb-2">
                         Supprimer votre profil ainsi que le processus
-                        d'identification. Cela n'inclut pas l'authenfication par
-                        un tier. Vous devrez le supprimer vous même.
+                        d&apos;identification. Cela n&apos;inclut pas
+                        l&apos;authenfication par un tier. Vous devrez le
+                        supprimer vous même.
                         <ul>
                           <li>
                             <a href="https://github.com/settings/applications">
