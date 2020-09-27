@@ -11,9 +11,9 @@ import ShowChoice from '../../../components/ShowChoice';
 import requestServer from '../../../api/request-server';
 import RenderSuccessMessage from '../../../components/RenderSuccessMessage';
 import CommonErrorMessage from '../../../components/CommonErrorMessage';
+import ProtectedPages from '../../../components/ProtectedPages';
 
-export default function DevsProjectId({ project }) {
-  console.log(project);
+function DevsProjectId({ project }) {
   const url = 'https://communityofdevs.s3.eu-west-3.amazonaws.com/';
   const [projectId] = useState(project.data.id);
 
@@ -35,7 +35,7 @@ export default function DevsProjectId({ project }) {
             setMessage={setSuccessMessage}
           />
         );
-        setTimeout(() => Router.push('/devs/project'), 1000);
+        setTimeout(() => Router.push('/devs/profile/project/show'), 1000);
       }
     } catch (error) {
       setDisabledButton(false);
@@ -49,20 +49,19 @@ export default function DevsProjectId({ project }) {
     setDisabledButton(true);
     requestAxios(action);
   };
-  const renderChoice =
-    project.relation === null ? (
-      <ValidateChoice
-        disabledButton={disabledButton}
-        handleActionProject={handleActionProject}
-      />
-    ) : (
-      <ShowChoice
-        disabledButton={disabledButton}
-        handleActionProject={handleActionProject}
-        choice={project.relation.name}
-        projectId={project.data.uuid}
-      />
-    );
+  const renderChoice = project.relation.name ? (
+    <ShowChoice
+      disabledButton={disabledButton}
+      handleActionProject={handleActionProject}
+      choice={project.relation.name}
+      projectId={project.data.uuid}
+    />
+  ) : (
+    <ValidateChoice
+      disabledButton={disabledButton}
+      handleActionProject={handleActionProject}
+    />
+  );
   return (
     <Layout>
       <Container fluid className="project-list">
@@ -103,23 +102,34 @@ export default function DevsProjectId({ project }) {
     </Layout>
   );
 }
+export default ProtectedPages(DevsProjectId, '/devs');
 
 export async function getServerSideProps(context) {
   const server = requestServer(context);
-  let data = { name: '', summary: '', description: '', id: '', relation: null };
+  const relation = {
+    project_id: '',
+    project_relation_status_id: '',
+    name: null,
+    devs_id: ''
+  };
 
+  let data = { name: '', summary: '', description: '', id: '', uuid: '' };
   try {
     const request = await server(`/api/v1/devs/project/${context.params.id}`);
+
     data = request.data;
-    data.data.relation = null;
-    const { id } = data.data;
-    if (id) {
-      const requestRelation = await server(
-        `/api/v1/devs/project/relation/${id}`
-      );
-      if (requestRelation.data.success) {
-        const response = requestRelation.data;
-        data.relation = response.data;
+    data.relation = relation;
+    if (data.data.id) {
+      const { id } = data.data;
+      try {
+        const { data: response } = await server(
+          `/api/v1/devs/project/relation/${id}`
+        );
+        if (response.data.project_id) {
+          data.relation = response.data;
+        }
+      } catch (error) {
+        console.log(error.response.data);
       }
     }
   } catch (error) {

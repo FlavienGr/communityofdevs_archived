@@ -53,12 +53,10 @@ export default function ShowChoice({
         <Row className="h-100 pt-5 m-0 font-weight-bold pb-4">
           {renderChoice}
           <Col sm={6} className="mt-4">
-            <Button variant="outline-dark">
-              <a
-                style={{ color: 'inherit' }}
-                href={`/devs/profile/project/${projectId}`}>
-                Modify
-              </a>
+            <Button
+              variant="outline-dark"
+              href={`/devs/profile/project/${projectId}`}>
+              Modify
             </Button>
           </Col>
         </Row>

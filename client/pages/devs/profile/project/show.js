@@ -9,7 +9,7 @@ import LineMenu from '../../../../components/LineMenu';
 import ProtectedPages from '../../../../components/ProtectedPages';
 import { menuItemsDevs } from '../../../../constants/menuItems';
 import { dataDevs } from '../../../../constants/data';
-import ProjectList from '../../../../components/ProjectList';
+import ProjectListDevs from '../../../../components/ProjectListDevs';
 
 function ShowDevProject({ user: { data } }) {
   console.log(data);
@@ -20,7 +20,7 @@ function ShowDevProject({ user: { data } }) {
           <Menu items={menuItemsDevs} />
           <LineMenu />
           <Col sm={12} md={10} lg={8} className="mx-auto">
-            <ProjectList data={data} />
+            <ProjectListDevs data={data} />
           </Col>
         </Row>
       </Container>
