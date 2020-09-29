@@ -41,12 +41,11 @@ exports.getOneProjectRelation = async (req, res, next) => {
     }
     return res.status(200).json({ success: true, data: projectRelation });
   } catch (error) {
-    console.log(error);
     return next(new DatabaseConnectionError());
   }
 };
 // @desc   take Action project
-// @route  get /api/v1/devs/project/action/:type
+// @route  post /api/v1/devs/project/action/:type/:projectId
 // @access Private
 
 exports.takeAction = async (req, res, next) => {
@@ -114,7 +113,44 @@ exports.deleteAction = async (req, res, next) => {
     await Devs.deleteActionRelation(req.user.id, req.params.projectId);
     return res.status(200).json({ success: true, data: [] });
   } catch (error) {
-    console.log(error);
+    return next(new DatabaseConnectionError());
+  }
+};
+
+// @desc   update Action project
+// @route  put /api/v1/devs/project/action/:type/:projectId
+// @access Private
+
+exports.updateAction = async (req, res, next) => {
+  try {
+    const project = await Project.getProjectById(req.params.projectId);
+    if (!project) {
+      return next(new RequestProjectErrors('No corresponding project'));
+    }
+    const isRelationProjectExists = await Devs.getRelationProjectById(
+      req.user.id,
+      req.params.projectId
+    );
+    if (isRelationProjectExists) {
+      const isTheSameAction = await Devs.getProjectActionById(
+        isRelationProjectExists.project_id,
+        isRelationProjectExists.devs_id
+      );
+
+      if (isTheSameAction) {
+        if (isTheSameAction.name === req.params.type) {
+          return next(
+            new RequestProjectErrors('This action has already been choosen')
+          );
+        }
+      }
+    } else {
+      return next(new RequestProjectErrors('Action not Allowed'));
+    }
+
+    await Devs.updateAction(req.user.id, project.id, req.params.type);
+    return res.status(200).json({ success: true, data: [] });
+  } catch (error) {
     return next(new DatabaseConnectionError());
   }
 };

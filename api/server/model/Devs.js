@@ -111,8 +111,19 @@ const takeAction = async (user, project, action) => {
     project_status_relation_id: status.id,
     devs_id: user
   };
+};
+const updateAction = async (user, project, action) => {
+  const status = await db(tableProject.project_status_relation)
+    .select('id')
+    .where({ name: action })
+    .first();
+  const data = {
+    project_id: project,
+    project_status_relation_id: status.id,
+    devs_id: user
+  };
 
-  return await db(tableProject.project_relation).insert(data, [
+  return await db(tableProject.project_relation).update(data, [
     'project_id',
     'devs_id'
   ]);
@@ -187,5 +198,6 @@ module.exports = {
   getProjectActionById,
   getRelationProjectStatusById,
   getProjects,
-  deleteActionRelation
+  deleteActionRelation,
+  updateAction
 };

@@ -1,11 +1,29 @@
+import React, { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-export default function ChangeChoice({ name, choice, openModal }) {
-  name = name === 'Validate' ? "I'm In!" : name;
+export default function ChangeChoice({
+  name,
+  openModal,
+  handleChangeChoice,
+  disabled
+}) {
+  const [changedName, setChangedName] = useState();
+  const [reverseName, setReverseName] = useState();
+  const [normalName, setNormalName] = useState();
+
+  useEffect(() => {
+    // Update the name
+    const newName = name === 'Validate' ? 'Interested' : "I'm In!";
+    setChangedName(newName);
+    const displayName = name === 'Validate' ? "I'm In!" : 'Interested';
+    setNormalName(displayName);
+    const newValue = name === 'Validate' ? 'Interested' : 'Validate';
+    setReverseName(newValue);
+  });
   return (
     <Row>
       <Col sm={12} lg={12} className="mt-5">
@@ -19,14 +37,18 @@ export default function ChangeChoice({ name, choice, openModal }) {
             size="lg"
             className="mr-3"
           />
-          {name}
+          {normalName}
         </Col>
         <Col className="mt-2">
-          {`Please, choose an action on this project `}
-          {choice}
-          <Button variant="outline-dark ml-3">Select</Button>
+          {reverseName}
+          <Button
+            onClick={() => handleChangeChoice(reverseName)}
+            disabled={disabled}
+            variant="outline-dark ml-3">
+            Select
+          </Button>
         </Col>
-        <Col className="pt-4">
+        <Col className="pt-4 mt-4">
           <Button variant="outline-danger" onClick={openModal}>
             Delete your choice
           </Button>

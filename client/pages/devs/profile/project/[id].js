@@ -22,8 +22,6 @@ import ChangeChoice from '../../../../components/ChangeChoice';
 import MakeChoice from '../../../../components/MakeChoice';
 
 function DevsProjectShowId({ project }) {
-  console.log(project);
-
   const [modalIsOpen, setIsOpen] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
   const [projectId] = useState(project.data.id);
@@ -62,7 +60,6 @@ function DevsProjectShowId({ project }) {
         );
       }
     } catch (error) {
-      console.log(error.response);
       setDisabledButton(false);
       setSuccessMessage(null);
       setErrorsRequest(<CommonErrorMessage />);
@@ -91,6 +88,29 @@ function DevsProjectShowId({ project }) {
       setErrorsRequest(<CommonErrorMessage />);
     }
   };
+  const requestChangeAction = async action => {
+    const urlAction = `http://localhost:5000/api/v1/devs/project/action/${action}/${projectId}/`;
+
+    try {
+      const response = await axios.put(urlAction, null, {
+        withCredentials: true
+      });
+      if (response.data.success) {
+        setDisabledButton(false);
+        setSuccessMessage(
+          <RenderSuccessMessage
+            message="It has been changed"
+            setMessage={setSuccessMessage}
+          />
+        );
+        setTimeout(() => Router.push(`/devs/profile/project/show`), 1000);
+      }
+    } catch (error) {
+      setDisabledButton(false);
+      setSuccessMessage(null);
+      setErrorsRequest(<CommonErrorMessage />);
+    }
+  };
   const handleActionProject = action => {
     setErrorsRequest(null);
     setSuccessMessage(null);
@@ -104,12 +124,18 @@ function DevsProjectShowId({ project }) {
     setDisabledButton(true);
     requestAxiosDeleteAction();
   };
+  const handleChangeChoice = action => {
+    setErrorsRequest(null);
+    setSuccessMessage(null);
+    setDisabledButton(true);
+    requestChangeAction(action);
+  };
 
   const renderChoiceComponent = project.relation.name ? (
     <ChangeChoice
       name={project.relation.name}
       openModal={openModal}
-      choice={choice}
+      handleChangeChoice={handleChangeChoice}
     />
   ) : (
     <MakeChoice handleActionProject={handleActionProject} />
@@ -172,39 +198,6 @@ function DevsProjectShowId({ project }) {
             {renderChoiceComponent}
           </Col>
         </Row>
-        {/* <Row className="pb-5">
-          <Col sm={12} className="pl-5 pt-5 text-left">
-            {errorRequest && errorRequest}
-            {successMessage && successMessage}
-            <Row>
-              <Col sm={12} lg={6}>
-                <Col md={12} className="mb-5">
-                  <div className="profile__title mb-2 ">
-                    <u>Name</u>
-                  </div>
-                  <div>{project.data.name}</div>
-                </Col>
-                <Col md={12} className="mb-5">
-                  <div className="profile__title mb-2">
-                    <u>{`Résumé`}</u>
-                  </div>
-                  <div>{project.data.summary}</div>
-                </Col>
-                <Col md={12} className="mb-5">
-                  <div className="profile__title mb-4">
-                    <u>{`Description`}</u>
-                  </div>
-                  <a
-                    className="btn btn-outline-dark"
-                    href={`${url + project.data.description}`}>
-                    Voir
-                  </a>
-                </Col>
-              </Col>
-              {renderChoice}
-            </Row>
-          </Col>
-        </Row> */}
       </Container>
     </Layout>
   );
