@@ -55,6 +55,7 @@ app.use('/api/v1/user/project', routeUserProject);
 app.use('/api/v1/devs', routeDevs);
 app.use('/api/v1/devs/auth', routeAuthDevelopers);
 app.use('/api/v1/devs/search', routeSearchProjects);
+app.use('/api/v1/devs/search/devs', routeSearchProjects);
 app.use('/api/v1/devs/project', routeDevsProjects);
 
 // / error handler

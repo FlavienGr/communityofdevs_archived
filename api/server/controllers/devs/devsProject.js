@@ -73,10 +73,12 @@ exports.takeAction = async (req, res, next) => {
       }
       return next(new RequestProjectErrors('Action not Allowed'));
     }
-
+    console.log('take action');
+    console.log(req.user.id, project.id, req.params.type);
     await Devs.takeAction(req.user.id, project.id, req.params.type);
     return res.status(200).json({ success: true, data: [] });
   } catch (error) {
+    console.log(error);
     return next(new DatabaseConnectionError());
   }
 };
@@ -151,6 +153,32 @@ exports.updateAction = async (req, res, next) => {
     await Devs.updateAction(req.user.id, project.id, req.params.type);
     return res.status(200).json({ success: true, data: [] });
   } catch (error) {
+    return next(new DatabaseConnectionError());
+  }
+};
+// @desc   get all devs
+// @route  get /api/v1/devs/project/developers/:action/:projectId
+// @access Private
+
+exports.gellAllDevs = async (req, res, next) => {
+  try {
+    const project = await Project.getProjectById(req.params.projectId);
+    if (!project) {
+      return next(new RequestProjectErrors('No corresponding project'));
+    }
+    const isRelationProjectExists = await Devs.getRelationProjectById(
+      req.user.id,
+      req.params.projectId
+    );
+    if (!isRelationProjectExists) {
+      return next(new RequestProjectErrors('Action not Allowed'));
+    }
+
+    const devs = await Devs.getAllDevs(project.id);
+
+    return res.status(200).json({ success: true, data: devs });
+  } catch (error) {
+    console.log(error);
     return next(new DatabaseConnectionError());
   }
 };

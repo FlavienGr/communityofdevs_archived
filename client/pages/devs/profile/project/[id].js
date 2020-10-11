@@ -21,7 +21,9 @@ import LineMenu from '../../../../components/LineMenu';
 import ChangeChoice from '../../../../components/ChangeChoice';
 import MakeChoice from '../../../../components/MakeChoice';
 
-function DevsProjectShowId({ project }) {
+import DevelopersList from '../../../../components/DevelopersList';
+
+function DevsProjectShowId({ project, currentUser }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
   const [projectId] = useState(project.data.id);
@@ -196,6 +198,13 @@ function DevsProjectShowId({ project }) {
               </Col>
             </Row>
             {renderChoiceComponent}
+            <DevelopersList
+              projectId={projectId}
+              currentUser={currentUser}
+              setErrorsRequest={setErrorsRequest}
+              setDisabledButton={setDisabledButton}
+              disabledButton={disabledButton}
+            />
           </Col>
         </Row>
       </Container>

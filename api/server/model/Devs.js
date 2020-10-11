@@ -111,6 +111,10 @@ const takeAction = async (user, project, action) => {
     project_status_relation_id: status.id,
     devs_id: user
   };
+  return await db(tableProject.project_relation).insert(data, [
+    'project_id',
+    'devs_id'
+  ]);
 };
 const updateAction = async (user, project, action) => {
   const status = await db(tableProject.project_status_relation)
@@ -181,6 +185,25 @@ const deleteActionRelation = (userId, projectId) => {
     .where({ devs_id: userId, project_id: projectId })
     .del();
 };
+const getAllDevs = async projectId => {
+  const devsID = await db(`${tableProject.project_relation} AS p`)
+    .select('p.devs_id', 'd.name', 's.name AS status')
+    .where({ project_id: projectId })
+    .innerJoin(`${tableDevs.devs} AS d`, {
+      'd.id': 'p.devs_id'
+    })
+    .innerJoin(`${tableProject.project_status_relation} AS s`, {
+      's.id': 'p.project_status_relation_id'
+    });
+  return devsID;
+};
+const getOneDev = id => {
+  const devs = db(tableDevs.devs)
+    .select('name', 'location', 'email')
+    .where({ id })
+    .first();
+  return devs;
+};
 
 module.exports = {
   getCurrentUser,
@@ -199,5 +222,7 @@ module.exports = {
   getRelationProjectStatusById,
   getProjects,
   deleteActionRelation,
-  updateAction
+  updateAction,
+  getAllDevs,
+  getOneDev
 };

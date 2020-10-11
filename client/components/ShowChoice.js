@@ -19,12 +19,12 @@ export default function ShowChoice({
             I&apos;m interested:
           </Col>
           <Col sm={6}>
-            <button
-              style={{ border: 'none', backgroundColor: 'inherit' }}
-              onClick={() => handleActionProject('Interested')}
-              disabled={disabledButton}>
-              <FontAwesomeIcon color="#6DB65B" icon={faCheckCircle} size="3x" />
-            </button>
+            <FontAwesomeIcon
+              color="#6DB65B"
+              icon={faCheckCircle}
+              size="lg"
+              className="mr-3"
+            />
           </Col>
         </Row>
       </Col>
@@ -33,12 +33,12 @@ export default function ShowChoice({
         <Row>
           <Col sm={6}>I&apos;m in!: </Col>
           <Col sm={6}>
-            <button
-              className="button btn-outline-success"
-              onClick={() => handleActionProject('Validate')}
-              disabled={disabledButton}>
-              <FontAwesomeIcon color="#6DB65B" icon={faCheckCircle} size="lg" />
-            </button>
+            <FontAwesomeIcon
+              color="#6DB65B"
+              icon={faCheckCircle}
+              size="lg"
+              className="mr-3"
+            />
           </Col>
         </Row>
       </Col>

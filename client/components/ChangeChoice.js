@@ -17,11 +17,11 @@ export default function ChangeChoice({
 
   useEffect(() => {
     // Update the name
-    const newName = name === 'Validate' ? 'Interested' : "I'm In!";
+    const newName = name === 'validate' ? 'interested' : "I'm In!";
     setChangedName(newName);
-    const displayName = name === 'Validate' ? "I'm In!" : 'Interested';
+    const displayName = name === 'validate' ? "I'm In!" : 'Interested';
     setNormalName(displayName);
-    const newValue = name === 'Validate' ? 'Interested' : 'Validate';
+    const newValue = name === 'validate' ? 'interested' : 'validate';
     setReverseName(newValue);
   });
   return (

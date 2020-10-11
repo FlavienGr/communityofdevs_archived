@@ -23,7 +23,7 @@ export default function ValidateChoice({
               <Col sm={6}>
                 <button
                   className="button btn-outline-success"
-                  onClick={() => handleActionProject('Interested')}
+                  onClick={() => handleActionProject('interested')}
                   disabled={disabledButton}>
                   <FontAwesomeIcon color="#6DB65B" icon={faCheck} size="lg" />
                 </button>
@@ -36,7 +36,7 @@ export default function ValidateChoice({
               <Col sm={6}>
                 <button
                   className="button btn-outline-success"
-                  onClick={() => handleActionProject('Validate')}
+                  onClick={() => handleActionProject('validate')}
                   disabled={disabledButton}>
                   <FontAwesomeIcon color="#6DB65B" icon={faCheck} size="lg" />
                 </button>
